@@ -43,5 +43,4 @@ Skin‑Sage AI is an intelligent, open‑source SaaS platform that helps users r
 
 Project is live at:
 
-**[[https://vercel.com/liorohan10s-projects/v0-cosmetic-saa-s-application](https://v0-cosmetic-saa-s-application.vercel.app)]**
-**[https://vercel.com/liorohan10s-projects/v0-cosmetic-saa-s-application](https://vercel.com/liorohan10s-projects/v0-cosmetic-saa-s-application)**
+**[https://vercel.com/liorohan10s-projects/v0-cosmetic-saa-s-application](https://v0-cosmetic-saa-s-application.vercel.app)**
