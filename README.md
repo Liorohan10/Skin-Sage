@@ -12,19 +12,6 @@ Any changes you make to your deployed app will be automatically pushed to this r
 
 ## Deployment
 
-Your project is live at:
+Project is live at:
 
 **[https://vercel.com/liorohan10s-projects/v0-cosmetic-saa-s-application](https://vercel.com/liorohan10s-projects/v0-cosmetic-saa-s-application)**
-
-## Build your app
-
-Continue building your app on:
-
-**[https://v0.dev/chat/projects/fs3CAJNmuxd](https://v0.dev/chat/projects/fs3CAJNmuxd)**
-
-## How It Works
-
-1. Create and modify your project using [v0.dev](https://v0.dev)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
