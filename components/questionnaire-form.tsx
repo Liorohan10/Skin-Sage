@@ -20,21 +20,7 @@ import { resizeImage } from "@/lib/image-utils"
 
 // Dynamically determine backend URL based on current protocol
 const getBackendUrl = () => {
-  if (typeof window !== 'undefined') {
-    const protocol = window.location.protocol
-    const hostname = window.location.hostname
-    
-    // Use same protocol as frontend
-    if (protocol === 'https:') {
-      // For HTTPS, you might need to configure your backend for HTTPS too
-      // For now, we'll try the same host with different port
-      return `https://${hostname}:8000`
-    } else {
-      // For HTTP, use localhost
-      return `http://localhost:8000`
-    }
-  }
-  // Fallback for server-side rendering
+  // Always use HTTP for local development backend
   return "http://localhost:8000"
 }
 
