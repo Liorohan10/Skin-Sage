@@ -18,9 +18,13 @@ import { Alert, AlertDescription } from "@/components/ui/alert"
 import { useResultsStore } from "@/lib/results-store"
 import { resizeImage } from "@/lib/image-utils"
 
-// Dynamically determine backend URL based on current protocol
+// Get backend URL from environment variable, fallback to localhost for development
 const getBackendUrl = () => {
-  // Always use HTTP for local development backend
+  const url = process.env.NEXT_PUBLIC_BACKEND_URL
+  if (url) {
+    return url.replace(/\/$/, "") // Remove trailing slash if present
+  }
+  // Fallback for local development if the env var is not set
   return "http://localhost:8000"
 }
 
