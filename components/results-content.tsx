@@ -40,6 +40,8 @@ export function ResultsContent({ resultId, tab }: ResultsContentProps) {
     const result = getResult(resultId)
 
     if (result) {
+      console.log("Found result in store:", result) // Debug log
+      console.log("Recommended products:", result.recommendedProducts) // Debug log
       setData(result as EnhancedResultsData)
     } else {
       setError("Results not found. Please try starting a new consultation.")

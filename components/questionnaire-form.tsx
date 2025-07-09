@@ -18,6 +18,9 @@ import { Alert, AlertDescription } from "@/components/ui/alert"
 import { useResultsStore } from "@/lib/results-store"
 import { resizeImage } from "@/lib/image-utils"
 
+// Set your backend URL here for local development
+const BACKEND_URL = "http://127.0.0.1:8000"
+
 export type FormData = {
   skinType: string
   preferredIngredients: string[]
@@ -103,80 +106,106 @@ export function QuestionnaireForm() {
     return true
   }
 
-  // Update the handleSubmit function to use the API
+  // Update the handleSubmit function to use the FastAPI backend
   const handleSubmit = async () => {
-    // Clear any previous errors
     setError(null)
-
-    // Validate form
-    if (!validateForm()) {
-      return
-    }
-
+    if (!validateForm()) return
     try {
       setIsSubmitting(true)
       setProgress(10)
-
-      // Create form data for API request
-      const apiFormData = new FormData()
-      apiFormData.append("skinType", formData.skinType)
-      apiFormData.append("preferredIngredients", JSON.stringify(formData.preferredIngredients))
-      apiFormData.append("avoidIngredients", JSON.stringify(formData.avoidIngredients))
-      apiFormData.append("ageRange", formData.ageRange)
-      apiFormData.append("budget", formData.budget)
-      apiFormData.append("skinConcerns", JSON.stringify(formData.skinConcerns))
-
-      setProgress(30)
-
-      // Add face image if available
+      let skinDetectionResults = null
+      // If face image is present, call backend for acne detection
       if (formData.faceImage) {
-        try {
-          // Resize the image to ensure it's not too large for the API
-          const resizedImage = await resizeImage(formData.faceImage, 800, 800)
-          apiFormData.append("faceImage", resizedImage)
-        } catch (imageError) {
-          console.error("Error processing image:", imageError)
-          // Continue without the image if there's an error
-          apiFormData.append("faceImage", formData.faceImage)
-        }
-      }
-
-      setProgress(50)
-
-      // Send request to API with timeout handling
-      const controller = new AbortController()
-      const timeoutId = setTimeout(() => controller.abort(), 60000) // 60 second timeout
-
-      try {
-        const response = await fetch("/api/analyze", {
+        const imageForm = new FormData()
+        imageForm.append("file", formData.faceImage)
+        const detectionRes = await fetch(`${BACKEND_URL}/api/detect-skin-issues`, {
           method: "POST",
-          body: apiFormData,
-          signal: controller.signal,
+          body: imageForm,
         })
-
-        clearTimeout(timeoutId)
-        setProgress(80)
-
-        if (!response.ok) {
-          const errorData = await response.json()
-          throw new Error(errorData.error || "Failed to analyze skin data")
+        if (detectionRes.ok) {
+          const detectionJson = await detectionRes.json()
+          skinDetectionResults = detectionJson.detections
         }
-
-        const result = await response.json()
-        setProgress(90)
-
-        // Add the result to the store
-        addResult(result)
-        setProgress(100)
-
-        // Navigate to results page
-        router.push(`/results/${result.id}`)
-      } catch (fetchError) {
-        if (fetchError.name === "AbortError") {
-          throw new Error("Request timed out. Please try again.")
-        }
-        throw fetchError
       }
+      setProgress(40)
+
+      // Prepare recommendation data as a JSON object
+      let priceMin = 0, priceMax = 10000
+      // Map budget categories to actual price ranges
+      switch(formData.budget) {
+        case "budget":
+          priceMin = 0;
+          priceMax = 500; // ₹500 max for budget
+          break;
+        case "mid-tier":
+          priceMin = 500;
+          priceMax = 2000; // ₹500-₹2000 for mid-tier
+          break;
+        case "premium":
+          priceMin = 2000;
+          priceMax = 10000; // ₹2000+ for premium
+          break;
+        case "mixed":
+          priceMin = 0;
+          priceMax = 10000; // Full range for mixed
+          break;
+        default:
+          // If budget contains a dash (old format), try parsing it
+          if (formData.budget.includes("-")) {
+            const [min, max] = formData.budget.split("-").map(Number)
+            priceMin = min
+            priceMax = max
+          }
+      }
+
+      const recommendationPayload = {
+        age_group: formData.ageRange,
+        skin_concerns: formData.skinConcerns,
+        skin_type: formData.skinType,
+        price_range: [priceMin, priceMax],
+        ingredients: formData.preferredIngredients,
+        avoid_ingredients: formData.avoidIngredients,
+      }
+
+      setProgress(60)
+      // Call backend recommender with JSON payload
+      const recRes = await fetch(`${BACKEND_URL}/api/recommend-products`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(recommendationPayload),
+      })
+      setProgress(80)
+      if (!recRes.ok) {
+        const errorData = await recRes.json()
+        throw new Error(errorData.detail || "Failed to get recommendations")
+      }
+      const recJson = await recRes.json()
+      console.log("Backend response:", recJson) // Debug log
+      setProgress(90)
+      // Compose result object for the store
+      const result = {
+        id: Date.now().toString(),
+        recommendedProducts: recJson.recommendations || [],
+        skinDetectionResults,
+        userProfile: {
+          skinType: formData.skinType,
+          preferredIngredients: formData.preferredIngredients,
+          avoidIngredients: formData.avoidIngredients,
+          ageRange: formData.ageRange,
+          budget: formData.budget,
+          concerns: formData.skinConcerns,
+        },
+        skinConditionAnalysis: "Based on your skin profile and uploaded image analysis", // Placeholder
+        morningRoutine: recJson.routine?.morning?.join("\n") || "No routine available",
+        nightRoutine: recJson.routine?.evening?.join("\n") || "No routine available",
+        aiResponse: "", // Placeholder
+      }
+      console.log("Storing result:", result) // Debug log
+      addResult(result)
+      setProgress(100)
+      router.push(`/results/${result.id}`)
     } catch (error) {
       console.error("Error submitting questionnaire:", error)
       setError(error instanceof Error ? error.message : "An unexpected error occurred. Please try again.")

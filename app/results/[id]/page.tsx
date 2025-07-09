@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, use } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
@@ -8,7 +8,8 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ArrowLeft, Download, Share2, Loader2 } from "lucide-react"
 import { ResultsContent } from "@/components/results-content"
 
-export default function ResultsPage({ params }: { params: { id: string } }) {
+export default function ResultsPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = use(params)
   const [activeTab, setActiveTab] = useState<"recommendations" | "analysis" | "routine">("recommendations")
   const [isDownloading, setIsDownloading] = useState(false)
 
@@ -17,7 +18,7 @@ export default function ResultsPage({ params }: { params: { id: string } }) {
       setIsDownloading(true)
 
       // Fetch the PDF from our API endpoint
-      const response = await fetch(`/api/pdf/${params.id}`)
+      const response = await fetch(`/api/pdf/${id}`)
 
       if (!response.ok) {
         throw new Error("Failed to generate PDF")
@@ -30,7 +31,7 @@ export default function ResultsPage({ params }: { params: { id: string } }) {
       const url = window.URL.createObjectURL(pdfBlob)
       const link = document.createElement("a")
       link.href = url
-      link.setAttribute("download", `skinsage-recommendations-${params.id}.pdf`)
+      link.setAttribute("download", `skinsage-recommendations-${id}.pdf`)
       document.body.appendChild(link)
       link.click()
       link.remove()
@@ -47,7 +48,7 @@ export default function ResultsPage({ params }: { params: { id: string } }) {
 
   const handleShareResults = () => {
     // Create a shareable URL
-    const shareUrl = `${window.location.origin}/results/${params.id}`
+    const shareUrl = `${window.location.origin}/results/${id}`
 
     // Check if Web Share API is available
     if (navigator.share) {
@@ -122,7 +123,7 @@ export default function ResultsPage({ params }: { params: { id: string } }) {
               <TabsTrigger value="routine">Skincare Routine</TabsTrigger>
             </TabsList>
 
-            <ResultsContent resultId={params.id} tab={activeTab} />
+            <ResultsContent resultId={id} tab={activeTab} />
           </Tabs>
 
           <Card className="mt-8 p-6 bg-pink-50 border-pink-200">
