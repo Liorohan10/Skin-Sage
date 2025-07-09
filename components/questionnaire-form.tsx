@@ -18,8 +18,27 @@ import { Alert, AlertDescription } from "@/components/ui/alert"
 import { useResultsStore } from "@/lib/results-store"
 import { resizeImage } from "@/lib/image-utils"
 
-// Set your backend URL here for local development
-const BACKEND_URL = "http://127.0.0.1:8000"
+// Dynamically determine backend URL based on current protocol
+const getBackendUrl = () => {
+  if (typeof window !== 'undefined') {
+    const protocol = window.location.protocol
+    const hostname = window.location.hostname
+    
+    // Use same protocol as frontend
+    if (protocol === 'https:') {
+      // For HTTPS, you might need to configure your backend for HTTPS too
+      // For now, we'll try the same host with different port
+      return `https://${hostname}:8000`
+    } else {
+      // For HTTP, use localhost
+      return `http://localhost:8000`
+    }
+  }
+  // Fallback for server-side rendering
+  return "http://localhost:8000"
+}
+
+const BACKEND_URL = getBackendUrl()
 
 export type FormData = {
   skinType: string
