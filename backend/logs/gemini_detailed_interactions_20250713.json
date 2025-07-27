@@ -1,0 +1,562 @@
+[
+  {
+    "timestamp": "2025-07-13T13:44:11.799936",
+    "interaction_type": "product_recommendations_prompt",
+    "prompt": "\n            You are an expert skincare consultant with access to a comprehensive product database. Based on the user profile and product database, recommend the most suitable skincare products.\n\n            \n            User Profile:\n            - Skin Type: oily\n            - Age Range: 25-34\n            - Skin Concerns: acne, dark spots\n            - Preferred Ingredients: niacinamide, vitamin c\n            - Ingredients to Avoid: fragrance\n            - Budget Range: [500, 2000]\n            \n            \n                \n                Logic-Based Recommendations (for reference):\n                - Garnier Vitamin C  Booster Face Serum For Skin Brightening and Anti-Dark Spots with 30X Vitamin C 2 Niacinamide and BHA  Brighter Skin in Just 3 days  Suitable for Oily  Dry Combination  Sensitive Skin  For Men and Women  50ml (Garnier)\n- Olay Total Effects Day Cream with Vitamin B5 Niacinamide Green Tea SPF 15 Fights 7 signs of ageing for glowing hydrated and younger looking skin with U...",
+    "response": null,
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "user_profile": {
+        "skinType": "oily",
+        "ageRange": "25-34",
+        "concerns": [
+          "acne",
+          "dark spots"
+        ],
+        "preferredIngredients": [
+          "niacinamide",
+          "vitamin c"
+        ],
+        "avoidIngredients": [
+          "fragrance"
+        ],
+        "budget": [
+          500,
+          2000
+        ]
+      },
+      "product_database_size": 326,
+      "logic_recommendations_count": 20
+    }
+  },
+  {
+    "timestamp": "2025-07-13T13:44:28.762272",
+    "interaction_type": "product_recommendations_response",
+    "prompt": "Response received",
+    "response": "```json\n[\n  {\n    \"product_name\": \"The Derma Co 2 Kojic Acid Face Serum I With 1 Alpha Arbutin & Niacinamide  Reduces Dark Spots Pigmentation & Blemishes  For All Skin types  30 ml\",\n    \"brand\": \"The Derma Co\",\n    \"reason\": \"This serum contains kojic acid and niacinamide, both excellent for targeting dark spots and pigmentation, aligning with the user's primary skin concerns. It helps brighten the skin and even out skin tone. The 30ml size is a good value.\",\n    \"category\": \"serum\",\n    \"priority\": \"high\",\n    \"price_value\": \"budget\"\n  },\n  {\n    \"product_name\": \"Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1\",\n    \"brand\": \"Minimalist\",\n    \"reason\": \"Formulated with niacinamide and zinc, this serum is ideal for oily skin prone to acne. It controls oil production, reduces blemishes, and clarifies the skin, directly addressing the user's key concerns.\",\n    \"category\": \"serum\",\n    \"priority\": \"high\",\n    \"price_value\": \"budget\"\n  },\n  {\n    \"product_name\": \"Deconstruct 10 Vitamin C Serum with 0.5 Ferulic Acid  Brightens fades dark spots & evens skin tone  Water-based non-irritating & beginner-friendly  For all skin types30ml\",\n    \"brand\": \"Deconstruct\",\n    \"reason\": \"This Vitamin C serum not only brightens but also fades dark spots and evens skin tone. The addition of ferulic acid boosts the effectiveness of Vitamin C.  It's a great choice for improving overall skin radiance.\",\n    \"category\": \"serum\",\n    \"priority\": \"high\",\n    \"price_value\": \"mid-range\"\n  },\n  {\n    \"product_name\": \"Mamaearth Rice Face Wash With Rice Water & Niacinamide for Glass Skin  For Hydrated & Even Skin Tone  Glowing & Brightened Skin  Korean Skin Care Product  For All Skin Types  For Men & Women  100 ml\",\n    \"brand\": \"Mamaearth\",\n    \"reason\": \"This face wash combines the benefits of rice water and niacinamide. It helps to hydrate, brighten, and even out the skin tone while gently cleans...",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "response_length": 9395
+    }
+  },
+  {
+    "timestamp": "2025-07-13T13:44:28.772287",
+    "interaction_type": "product_recommendations_parsed",
+    "prompt": "JSON parsing successful",
+    "response": "Parsed 17 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "recommendations_count": 17
+    }
+  },
+  {
+    "timestamp": "2025-07-13T13:44:28.781168",
+    "interaction_type": "product_recommendations_formatted",
+    "prompt": "Recommendations formatted successfully",
+    "response": "Formatted 17 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "formatted_count": 17,
+      "sample_recommendations": [
+        "The Derma Co 2 Kojic Acid Face Serum I With 1 Alpha Arbutin & Niacinamide  Reduces Dark Spots Pigmentation & Blemishes  For All Skin types  30 ml",
+        "Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1",
+        "Deconstruct 10 Vitamin C Serum with 0.5 Ferulic Acid  Brightens fades dark spots & evens skin tone  Water-based non-irritating & beginner-friendly  For all skin types30ml"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-07-13T13:44:28.863813",
+    "interaction_type": "product_recommendations_prompt",
+    "prompt": "\n            You are an expert skincare consultant with access to a comprehensive product database. Based on the user profile and product database, recommend the most suitable skincare products.\n\n            \n            User Profile:\n            - Skin Type: oily\n            - Age Range: 25-34\n            - Skin Concerns: acne, dark spots\n            - Preferred Ingredients: niacinamide, vitamin c\n            - Ingredients to Avoid: fragrance\n            - Budget Range: [500, 2000]\n            \n            \n                \n                Logic-Based Recommendations (for reference):\n                - Garnier Vitamin C  Booster Face Serum For Skin Brightening and Anti-Dark Spots with 30X Vitamin C 2 Niacinamide and BHA  Brighter Skin in Just 3 days  Suitable for Oily  Dry Combination  Sensitive Skin  For Men and Women  50ml (Garnier)\n- Olay Total Effects Day Cream with Vitamin B5 Niacinamide Green Tea SPF 15 Fights 7 signs of ageing for glowing hydrated and younger looking skin with U...",
+    "response": null,
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "user_profile": {
+        "skinType": "oily",
+        "ageRange": "25-34",
+        "concerns": [
+          "acne",
+          "dark spots"
+        ],
+        "preferredIngredients": [
+          "niacinamide",
+          "vitamin c"
+        ],
+        "avoidIngredients": [
+          "fragrance"
+        ],
+        "budget": [
+          500,
+          2000
+        ]
+      },
+      "product_database_size": 326,
+      "logic_recommendations_count": 40
+    }
+  },
+  {
+    "timestamp": "2025-07-13T13:44:41.389262",
+    "interaction_type": "product_recommendations_response",
+    "prompt": "Response received",
+    "response": "```json\n[\n  {\n    \"product_name\": \"Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1 by Minimalist\",\n    \"brand\": \"Minimalist\",\n    \"reason\": \"This serum contains a high concentration of Niacinamide and Zinc, both of which are excellent for controlling oil production, reducing acne, and minimizing pores.  It directly targets the user's primary concerns and is suitable for oily skin.\",\n    \"category\": \"serum\",\n    \"priority\": \"high\",\n    \"price_value\": \"mid-range\"\n  },\n  {\n    \"product_name\": \"Garnier Vitamin C  Booster Face Serum For Skin Brightening and Anti-Dark Spots with 30X Vitamin C 2 Niacinamide and BHA  Brighter Skin in Just 3 days  Suitable for Oily  Dry Combination  Sensitive Skin  For Men and Women  50ml by Garnier\",\n    \"brand\": \"Garnier\",\n    \"reason\": \"This serum combines Vitamin C for brightening dark spots with Niacinamide for oil control and BHA for exfoliation. It is a great option for tackling both acne and hyperpigmentation.\",\n    \"category\": \"serum\",\n    \"priority\": \"high\",\n    \"price_value\": \"budget\"\n  },\n  {\n    \"product_name\": \"Neutrogena Ultrasheer Sunscreen SPF 50 PA  Broad Spectrum UVAUVB  Blue Light Protect  No White Cast  Water Resistant Ultra Light & Non Sticky  Oily Dry & Sensitive Skin  For Women & Men  80g by Neutrogena\",\n    \"brand\": \"Neutrogena\",\n    \"reason\": \"This sunscreen is specifically designed for oily and acne-prone skin, offering broad-spectrum protection without feeling heavy or greasy. Sunscreen is crucial for preventing dark spots from worsening.\",\n    \"category\": \"sunscreen\",\n    \"priority\": \"high\",\n    \"price_value\": \"mid-range\"\n  },\n  {\n    \"product_name\": \"CeraVe Foaming Cleanser For Normal To Oily Skin 88ml - Dermatologist-Developed Facewash  Non-Comedogenic And Fragrance-Free Cleansers For Acne-Prone Skin by CeraVe\",\n    \"brand\": \"CeraVe\",\n    \"reason\": \"A gentle yet effective cleanser is essential. This foaming cleanser ...",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "response_length": 7911
+    }
+  },
+  {
+    "timestamp": "2025-07-13T13:44:41.398279",
+    "interaction_type": "product_recommendations_parsed",
+    "prompt": "JSON parsing successful",
+    "response": "Parsed 15 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "recommendations_count": 15
+    }
+  },
+  {
+    "timestamp": "2025-07-13T13:44:41.408618",
+    "interaction_type": "product_recommendations_formatted",
+    "prompt": "Recommendations formatted successfully",
+    "response": "Formatted 15 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "formatted_count": 15,
+      "sample_recommendations": [
+        "Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1",
+        "Garnier Vitamin C  Booster Face Serum For Skin Brightening and Anti-Dark Spots with 30X Vitamin C 2 Niacinamide and BHA  Brighter Skin in Just 3 days  Suitable for Oily  Dry Combination  Sensitive Skin  For Men and Women  50ml",
+        "Neutrogena Ultrasheer Sunscreen SPF 50 PA  Broad Spectrum UVAUVB  Blue Light Protect  No White Cast  Water Resistant Ultra Light & Non Sticky  Oily Dry & Sensitive Skin  For Women & Men  80g"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-07-13T13:49:32.579803",
+    "interaction_type": "product_recommendations_prompt",
+    "prompt": "\n            You are an expert skincare consultant with access to a comprehensive product database. Based on the user profile and product database, recommend the most suitable skincare products.\n\n            \n            User Profile:\n            - Skin Type: oily\n            - Age Range: 25-34\n            - Skin Concerns: acne, dark spots\n            - Preferred Ingredients: niacinamide, vitamin c\n            - Ingredients to Avoid: fragrance\n            - Budget Range: [500, 2000]\n            \n            \n                \n                Logic-Based Recommendations (for reference):\n                - Garnier Vitamin C  Booster Face Serum For Skin Brightening and Anti-Dark Spots with 30X Vitamin C 2 Niacinamide and BHA  Brighter Skin in Just 3 days  Suitable for Oily  Dry Combination  Sensitive Skin  For Men and Women  50ml (Garnier)\n- Olay Total Effects Day Cream with Vitamin B5 Niacinamide Green Tea SPF 15 Fights 7 signs of ageing for glowing hydrated and younger looking skin with U...",
+    "response": null,
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "user_profile": {
+        "skinType": "oily",
+        "ageRange": "25-34",
+        "concerns": [
+          "acne",
+          "dark spots"
+        ],
+        "preferredIngredients": [
+          "niacinamide",
+          "vitamin c"
+        ],
+        "avoidIngredients": [
+          "fragrance"
+        ],
+        "budget": [
+          500,
+          2000
+        ]
+      },
+      "product_database_size": 326,
+      "logic_recommendations_count": 20
+    }
+  },
+  {
+    "timestamp": "2025-07-13T13:49:48.371067",
+    "interaction_type": "product_recommendations_response",
+    "prompt": "Response received",
+    "response": "```json\n[\n  {\n    \"product_name\": \"Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1 by Minimalist\",\n    \"brand\": \"Minimalist\",\n    \"reason\": \"This serum contains a high concentration of niacinamide, ideal for oily skin and targeting acne and blemishes. The addition of zinc further helps control oil production and reduce inflammation.\",\n    \"category\": \"Serum\",\n    \"priority\": \"high\",\n    \"price_value\": \"budget\"\n  },\n  {\n    \"product_name\": \"Garnier Vitamin C  Booster Face Serum For Skin Brightening and Anti-Dark Spots with 30X Vitamin C 2 Niacinamide and BHA  Brighter Skin in Just 3 days  Suitable for Oily  Dry Combination  Sensitive Skin  For Men and Women  50ml by Garnier\",\n    \"brand\": \"Garnier\",\n    \"reason\": \"This serum combines Vitamin C, Niacinamide, and BHA, making it a powerful solution for brightening skin, reducing dark spots, and unclogging pores. Its suitable for oily skin types and addresses multiple concerns effectively.\",\n    \"category\": \"Serum\",\n    \"priority\": \"high\",\n    \"price_value\": \"budget\"\n  },\n  {\n    \"product_name\": \"The Derma Co Face Wash with 2 Salicylic Acid and 2 Niacinamide  Sali-Cinamide Anti-Acne Face Wash - 80ml by The Derma Co\",\n    \"brand\": \"The Derma Co\",\n    \"reason\": \"This face wash contains both salicylic acid and niacinamide, making it excellent for oily, acne-prone skin. Salicylic acid helps exfoliate and unclog pores, while niacinamide reduces inflammation and sebum production.\",\n    \"category\": \"Cleanser\",\n    \"priority\": \"high\",\n    \"price_value\": \"budget\"\n  },\n  {\n    \"product_name\": \"Neutrogena Ultrasheer Sunscreen SPF 50 PA  Broad Spectrum UVAUVB  Blue Light Protect  No White Cast  Water Resistant Ultra Light & Non Sticky  Oily Dry & Sensitive Skin  For Women & Men  80g by Neutrogena\",\n    \"brand\": \"Neutrogena\",\n    \"reason\": \"A crucial step in any skincare routine, this sunscreen is specifically formulated for oily and acne-...",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "response_length": 8158
+    }
+  },
+  {
+    "timestamp": "2025-07-13T13:49:48.381296",
+    "interaction_type": "product_recommendations_parsed",
+    "prompt": "JSON parsing successful",
+    "response": "Parsed 16 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "recommendations_count": 16
+    }
+  },
+  {
+    "timestamp": "2025-07-13T13:49:48.391302",
+    "interaction_type": "product_recommendations_formatted",
+    "prompt": "Recommendations formatted successfully",
+    "response": "Formatted 16 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "formatted_count": 16,
+      "sample_recommendations": [
+        "Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1",
+        "Garnier Vitamin C  Booster Face Serum For Skin Brightening and Anti-Dark Spots with 30X Vitamin C 2 Niacinamide and BHA  Brighter Skin in Just 3 days  Suitable for Oily  Dry Combination  Sensitive Skin  For Men and Women  50ml",
+        "The Derma Co Face Wash with 2 Salicylic Acid and 2 Niacinamide  Sali-Cinamide Anti-Acne Face Wash - 80ml"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-07-13T13:49:48.475728",
+    "interaction_type": "product_recommendations_prompt",
+    "prompt": "\n            You are an expert skincare consultant with access to a comprehensive product database. Based on the user profile and product database, recommend the most suitable skincare products.\n\n            \n            User Profile:\n            - Skin Type: oily\n            - Age Range: 25-34\n            - Skin Concerns: acne, dark spots\n            - Preferred Ingredients: niacinamide, vitamin c\n            - Ingredients to Avoid: fragrance\n            - Budget Range: [500, 2000]\n            \n            \n                \n                Logic-Based Recommendations (for reference):\n                - Garnier Vitamin C  Booster Face Serum For Skin Brightening and Anti-Dark Spots with 30X Vitamin C 2 Niacinamide and BHA  Brighter Skin in Just 3 days  Suitable for Oily  Dry Combination  Sensitive Skin  For Men and Women  50ml (Garnier)\n- Olay Total Effects Day Cream with Vitamin B5 Niacinamide Green Tea SPF 15 Fights 7 signs of ageing for glowing hydrated and younger looking skin with U...",
+    "response": null,
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "user_profile": {
+        "skinType": "oily",
+        "ageRange": "25-34",
+        "concerns": [
+          "acne",
+          "dark spots"
+        ],
+        "preferredIngredients": [
+          "niacinamide",
+          "vitamin c"
+        ],
+        "avoidIngredients": [
+          "fragrance"
+        ],
+        "budget": [
+          500,
+          2000
+        ]
+      },
+      "product_database_size": 326,
+      "logic_recommendations_count": 40
+    }
+  },
+  {
+    "timestamp": "2025-07-13T13:50:00.436770",
+    "interaction_type": "product_recommendations_response",
+    "prompt": "Response received",
+    "response": "```json\n[\n  {\n    \"product_name\": \"Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1 by Minimalist\",\n    \"brand\": \"Minimalist\",\n    \"reason\": \"This serum contains a high concentration of niacinamide which is excellent for controlling oil, reducing acne, and minimizing pores. Zinc helps further with acne and blemishes, making it a good fit for oily, acne-prone skin.\",\n    \"category\": \"serum\",\n    \"priority\": \"high\",\n    \"price_value\": \"budget\"\n  },\n  {\n    \"product_name\": \"The Derma Co 2 Kojic Acid Face Serum I With 1 Alpha Arbutin & Niacinamide  Reduces Dark Spots Pigmentation & Blemishes  For All Skin types  30 ml by The Derma Co\",\n    \"brand\": \"The Derma Co\",\n    \"reason\": \"This serum targets dark spots and hyperpigmentation which the user has as a skin concern. Kojic acid and alpha arbutin are effective ingredients for brightening and fading dark spots, complemented by niacinamide.\",\n    \"category\": \"serum\",\n    \"priority\": \"high\",\n    \"price_value\": \"budget\"\n  },\n  {\n    \"product_name\": \"Garnier Vitamin C  Booster Face Serum For Skin Brightening and Anti-Dark Spots with 30X Vitamin C 2 Niacinamide and BHA  Brighter Skin in Just 3 days  Suitable for Oily  Dry Combination  Sensitive Skin  For Men and Women  50ml by Garnier\",\n    \"brand\": \"Garnier\",\n    \"reason\": \"Combines vitamin C and niacinamide, two preferred ingredients. The added BHA helps exfoliate and further control acne, which is ideal for oily skin and targeting dark spots.\",\n    \"category\": \"serum\",\n    \"priority\": \"high\",\n    \"price_value\": \"budget\"\n  },\n  {\n    \"product_name\": \"Minimalist Anti-Acne Salicylic Acid 2 Face Wash For Oily & Acne Prone Skin  With LHA for Pore Cleansing Oil Control & Sebum Regulation  Sulfate-Free Formula with Zinc for Gentle Exfoliation  Cleanser for Women & Men  100 ml by Minimalist\",\n    \"brand\": \"Minimalist\",\n    \"reason\": \"Salicylic acid is a BHA that effectively exfoliates and...",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "response_length": 7575
+    }
+  },
+  {
+    "timestamp": "2025-07-13T13:50:00.447057",
+    "interaction_type": "product_recommendations_parsed",
+    "prompt": "JSON parsing successful",
+    "response": "Parsed 15 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "recommendations_count": 15
+    }
+  },
+  {
+    "timestamp": "2025-07-13T13:50:00.454590",
+    "interaction_type": "product_recommendations_formatted",
+    "prompt": "Recommendations formatted successfully",
+    "response": "Formatted 15 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "formatted_count": 15,
+      "sample_recommendations": [
+        "Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1",
+        "The Derma Co 2 Kojic Acid Face Serum I With 1 Alpha Arbutin & Niacinamide  Reduces Dark Spots Pigmentation & Blemishes  For All Skin types  30 ml",
+        "Garnier Vitamin C  Booster Face Serum For Skin Brightening and Anti-Dark Spots with 30X Vitamin C 2 Niacinamide and BHA  Brighter Skin in Just 3 days  Suitable for Oily  Dry Combination  Sensitive Skin  For Men and Women  50ml"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-07-13T13:59:10.542849",
+    "interaction_type": "product_recommendations_prompt",
+    "prompt": "\n            You are an expert skincare consultant with access to a comprehensive product database. Based on the user profile and product database, recommend the most suitable skincare products.\n\n            \n            User Profile:\n            - Skin Type: oily\n            - Age Range: 25-34\n            - Skin Concerns: acne\n            - Preferred Ingredients: niacinamide, hyaluronic-acid, vitamin-c, retinol\n            - Ingredients to Avoid: fragrance, parabens\n            - Budget Range: (500, 1500)\n            \n            \n                \n                Logic-Based Recommendations (for reference):\n                - Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1 (Minimalist)\n- Asaya Korean Pigmentation Serum  Hyperpigmentation & Dark Spot Remover  Tranexamic Acid Niacinamide & Arbutin  Reduces Melasma Acne Marks & Discoloration  Brightens & Evens Skin Tone  Berry Extracts for Anti...",
+    "response": null,
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "user_profile": {
+        "skinType": "oily",
+        "ageRange": "25-34",
+        "concerns": [
+          "acne"
+        ],
+        "preferredIngredients": [
+          "niacinamide",
+          "hyaluronic-acid",
+          "vitamin-c",
+          "retinol"
+        ],
+        "avoidIngredients": [
+          "fragrance",
+          "parabens"
+        ],
+        "budget": [
+          500,
+          1500
+        ]
+      },
+      "product_database_size": 326,
+      "logic_recommendations_count": 30
+    }
+  },
+  {
+    "timestamp": "2025-07-13T13:59:24.753270",
+    "interaction_type": "product_recommendations_response",
+    "prompt": "Response received",
+    "response": "```json\n[\n  {\n    \"product_name\": \"Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1 by Minimalist\",\n    \"brand\": \"Minimalist\",\n    \"reason\": \"This serum contains niacinamide and zinc, both excellent for oily, acne-prone skin. Niacinamide helps control oil production and reduce inflammation, while zinc aids in acne treatment and wound healing.\",\n    \"category\": \"serum\",\n    \"priority\": \"high\",\n    \"price_value\": \"budget\"\n  },\n  {\n    \"product_name\": \"Garnier Vitamin C  Booster Face Serum For Skin Brightening and Anti-Dark Spots with 30X Vitamin C 2 Niacinamide and BHA  Brighter Skin in Just 3 days  Suitable for Oily  Dry Combination  Sensitive Skin  For Men and Women  50ml by Garnier\",\n    \"brand\": \"Garnier\",\n    \"reason\": \"This serum combines Vitamin C, Niacinamide, and BHA, addressing both acne and brightening concerns. BHA helps exfoliate and unclog pores, while Vitamin C provides antioxidant protection and reduces hyperpigmentation.\",\n    \"category\": \"serum\",\n    \"priority\": \"high\",\n    \"price_value\": \"budget\"\n  },\n  {\n    \"product_name\": \"Neutrogena Ultrasheer Sunscreen SPF 50 PA  Broad Spectrum UVAUVB  Blue Light Protect  No White Cast  Water Resistant Ultra Light & Non Sticky  Oily Dry & Sensitive Skin  For Women & Men  80g by Neutrogena\",\n    \"brand\": \"Neutrogena\",\n    \"reason\": \"Sunscreen is crucial, and this option is specifically formulated for oily and acne-prone skin. It's lightweight, non-comedogenic, and offers broad-spectrum protection without leaving a white cast.\",\n    \"category\": \"sunscreen\",\n    \"priority\": \"high\",\n    \"price_value\": \"mid-range\"\n  },\n  {\n    \"product_name\": \"Minimalist Anti-Acne Salicylic Acid 2 Face Wash For Oily & Acne Prone Skin  With LHA for Pore Cleansing Oil Control & Sebum Regulation  Sulfate-Free Formula with Zinc for Gentle Exfoliation  Cleanser for Women & Men  100 ml by Minimalist\",\n    \"brand\": \"Minimalist\",\n    \"reason\": \"A ...",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "response_length": 7422
+    }
+  },
+  {
+    "timestamp": "2025-07-13T13:59:24.755310",
+    "interaction_type": "product_recommendations_parsed",
+    "prompt": "JSON parsing successful",
+    "response": "Parsed 15 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "recommendations_count": 15
+    }
+  },
+  {
+    "timestamp": "2025-07-13T13:59:24.771183",
+    "interaction_type": "product_recommendations_formatted",
+    "prompt": "Recommendations formatted successfully",
+    "response": "Formatted 15 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "formatted_count": 15,
+      "sample_recommendations": [
+        "Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1",
+        "Garnier Vitamin C  Booster Face Serum For Skin Brightening and Anti-Dark Spots with 30X Vitamin C 2 Niacinamide and BHA  Brighter Skin in Just 3 days  Suitable for Oily  Dry Combination  Sensitive Skin  For Men and Women  50ml",
+        "Neutrogena Ultrasheer Sunscreen SPF 50 PA  Broad Spectrum UVAUVB  Blue Light Protect  No White Cast  Water Resistant Ultra Light & Non Sticky  Oily Dry & Sensitive Skin  For Women & Men  80g"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-07-13T13:59:24.862876",
+    "interaction_type": "product_recommendations_prompt",
+    "prompt": "\n            You are an expert skincare consultant with access to a comprehensive product database. Based on the user profile and product database, recommend the most suitable skincare products.\n\n            \n            User Profile:\n            - Skin Type: oily\n            - Age Range: 25-34\n            - Skin Concerns: acne\n            - Preferred Ingredients: niacinamide, hyaluronic-acid, vitamin-c, retinol\n            - Ingredients to Avoid: fragrance, parabens\n            - Budget Range: (500, 1500)\n            \n            \n                \n                Logic-Based Recommendations (for reference):\n                - Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1 (Minimalist)\n- Asaya Korean Pigmentation Serum  Hyperpigmentation & Dark Spot Remover  Tranexamic Acid Niacinamide & Arbutin  Reduces Melasma Acne Marks & Discoloration  Brightens & Evens Skin Tone  Berry Extracts for Anti...",
+    "response": null,
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "user_profile": {
+        "skinType": "oily",
+        "ageRange": "25-34",
+        "concerns": [
+          "acne"
+        ],
+        "preferredIngredients": [
+          "niacinamide",
+          "hyaluronic-acid",
+          "vitamin-c",
+          "retinol"
+        ],
+        "avoidIngredients": [
+          "fragrance",
+          "parabens"
+        ],
+        "budget": [
+          500,
+          1500
+        ]
+      },
+      "product_database_size": 326,
+      "logic_recommendations_count": 40
+    }
+  },
+  {
+    "timestamp": "2025-07-13T13:59:37.215792",
+    "interaction_type": "product_recommendations_response",
+    "prompt": "Response received",
+    "response": "```json\n[\n  {\n    \"product_name\": \"Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1 by Minimalist\",\n    \"brand\": \"Minimalist\",\n    \"reason\": \"This serum contains a high concentration of niacinamide, ideal for controlling oil production and reducing acne. The added zinc further helps with acne and inflammation.\",\n    \"category\": \"serum\",\n    \"priority\": \"high\",\n    \"price_value\": \"budget\"\n  },\n  {\n    \"product_name\": \"The Derma Co Face Wash with 2 Salicylic Acid and 2 Niacinamide  Sali-Cinamide Anti-Acne Face Wash - 80ml by The Derma Co\",\n    \"brand\": \"The Derma Co\",\n    \"reason\": \"This face wash combines salicylic acid and niacinamide to target acne and control oil production effectively. It's a good starting point for managing oily and acne-prone skin.\",\n    \"category\": \"cleanser\",\n    \"priority\": \"high\",\n    \"price_value\": \"budget\"\n  },\n  {\n    \"product_name\": \"Neutrogena Ultrasheer Sunscreen SPF 50 PA  Broad Spectrum UVAUVB  Blue Light Protect  No White Cast  Water Resistant Ultra Light & Non Sticky  Oily Dry & Sensitive Skin  For Women & Men  80g by Neutrogena\",\n    \"brand\": \"Neutrogena\",\n    \"reason\": \"This sunscreen is formulated for oily and acne-prone skin, providing broad-spectrum protection without clogging pores. Its lightweight and non-sticky formula makes it comfortable for daily use.\",\n    \"category\": \"sunscreen\",\n    \"priority\": \"high\",\n    \"price_value\": \"mid-range\"\n  },\n  {\n    \"product_name\": \"Ponds Super Light Gel Oil Free Moisturiser With Hyaluronic Acid  Vitamin E 200 ML by Ponds\",\n    \"brand\": \"Ponds\",\n    \"reason\": \"A lightweight, oil-free moisturizer is essential for oily skin. This product contains hyaluronic acid for hydration without adding extra oiliness.\",\n    \"category\": \"moisturizer\",\n    \"priority\": \"high\",\n    \"price_value\": \"budget\"\n  },\n  {\n    \"product_name\": \"Hyphen 0.05 Retinal Reset Serum  30 More Effective than Retinol Serum  Anti Ag...",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "response_length": 7822
+    }
+  },
+  {
+    "timestamp": "2025-07-13T13:59:37.219149",
+    "interaction_type": "product_recommendations_parsed",
+    "prompt": "JSON parsing successful",
+    "response": "Parsed 16 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "recommendations_count": 16
+    }
+  },
+  {
+    "timestamp": "2025-07-13T13:59:37.228156",
+    "interaction_type": "product_recommendations_formatted",
+    "prompt": "Recommendations formatted successfully",
+    "response": "Formatted 16 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "formatted_count": 16,
+      "sample_recommendations": [
+        "Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1",
+        "The Derma Co Face Wash with 2 Salicylic Acid and 2 Niacinamide  Sali-Cinamide Anti-Acne Face Wash - 80ml",
+        "Neutrogena Ultrasheer Sunscreen SPF 50 PA  Broad Spectrum UVAUVB  Blue Light Protect  No White Cast  Water Resistant Ultra Light & Non Sticky  Oily Dry & Sensitive Skin  For Women & Men  80g"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-07-13T15:41:27.574632",
+    "interaction_type": "product_recommendations_prompt",
+    "prompt": "\n            You are an expert skincare consultant with access to a comprehensive product database. Based on the user profile and product database, recommend the most suitable skincare products.\n\n            \n            User Profile:\n            - Skin Type: combination\n            - Age Range: 18-24\n            - Skin Concerns: acne\n            - Preferred Ingredients: hyaluronic-acid, retinol, peptides, ahas\n            - Ingredients to Avoid: fragrance, alcohol\n            - Budget Range: (500, 1500)\n            \n            \n                \n                Logic-Based Recommendations (for reference):\n                - ORIMII No Retinol Face Serum with 1 BakuchiolAnti Ageing Bakuchi Oil Serum to Reduce Fine LinesWrinkles&Pigmentation Boosts CollagenNatural Alternate to RetinolPregnancy&Nursing Safe 30ml (ORIMII)\n- Hyphen 0.05 Retinal Reset Serum  30 More Effective than Retinol Serum  Anti Ageing Reduces Fine Lines & Wrinkles Night Face Serum For Beginners  Serum for Women  Boosts ...",
+    "response": null,
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "user_profile": {
+        "skinType": "combination",
+        "ageRange": "18-24",
+        "concerns": [
+          "acne"
+        ],
+        "preferredIngredients": [
+          "hyaluronic-acid",
+          "retinol",
+          "peptides",
+          "ahas"
+        ],
+        "avoidIngredients": [
+          "fragrance",
+          "alcohol"
+        ],
+        "budget": [
+          500,
+          1500
+        ]
+      },
+      "product_database_size": 326,
+      "logic_recommendations_count": 30
+    }
+  },
+  {
+    "timestamp": "2025-07-13T15:41:41.258909",
+    "interaction_type": "product_recommendations_response",
+    "prompt": "Response received",
+    "response": "```json\n[\n  {\n    \"product_name\": \"Cetaphil Oily Skin Cleanser  Daily Face Wash for Oily Acne prone Skin  Gentle Foaming 125ml\",\n    \"brand\": \"Cetaphil\",\n    \"reason\": \"A gentle, foaming cleanser specifically formulated for oily and acne-prone skin. This aligns perfectly with the user's combination skin and acne concerns while avoiding harsh ingredients like alcohol and fragrance.\",\n    \"category\": \"cleanser\",\n    \"priority\": \"high\",\n    \"price_value\": \"budget\"\n  },\n  {\n    \"product_name\": \"Minimalist Anti-Acne Salicylic Acid 2 Face Wash For Oily & Acne Prone Skin  With LHA for Pore Cleansing Oil Control & Sebum Regulation  Sulfate-Free Formula with Zinc for Gentle Exfoliation  Cleanser for Women & Men  100 ml\",\n    \"brand\": \"Minimalist\",\n    \"reason\": \"This cleanser contains salicylic acid, which is excellent for treating acne and controlling oil production. The addition of LHA provides gentle exfoliation and keeps pores clear.\",\n    \"category\": \"cleanser\",\n    \"priority\": \"high\",\n    \"price_value\": \"budget\"\n  },\n  {\n    \"product_name\": \"Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1\",\n    \"brand\": \"Minimalist\",\n    \"reason\": \"Niacinamide is great for controlling oil, reducing inflammation, and minimizing pores, making this serum ideal for addressing acne and combination skin. Zinc further helps with acne and oil control.\",\n    \"category\": \"serum\",\n    \"priority\": \"high\",\n    \"price_value\": \"budget\"\n  },\n  {\n    \"product_name\": \"The Derma Co 2 Kojic Acid Face Serum I With 1 Alpha Arbutin & Niacinamide  Reduces Dark Spots Pigmentation & Blemishes  For All Skin types  30 ml\",\n    \"brand\": \"The Derma Co\",\n    \"reason\": \"This serum addresses the user's post-acne marks and hyperpigmentation concerns with kojic acid, alpha arbutin, and niacinamide which will brighten and even out skin tone. It's a good option for targeting lingering acne-related discoloration.\",\n    \"category...",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "response_length": 7701
+    }
+  },
+  {
+    "timestamp": "2025-07-13T15:41:41.276411",
+    "interaction_type": "product_recommendations_parsed",
+    "prompt": "JSON parsing successful",
+    "response": "Parsed 15 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "recommendations_count": 15
+    }
+  },
+  {
+    "timestamp": "2025-07-13T15:41:41.291519",
+    "interaction_type": "product_recommendations_formatted",
+    "prompt": "Recommendations formatted successfully",
+    "response": "Formatted 15 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "formatted_count": 15,
+      "sample_recommendations": [
+        "Cetaphil Oily Skin Cleanser  Daily Face Wash for Oily Acne prone Skin  Gentle Foaming 125ml",
+        "Minimalist Anti-Acne Salicylic Acid 2 Face Wash For Oily & Acne Prone Skin  With LHA for Pore Cleansing Oil Control & Sebum Regulation  Sulfate-Free Formula with Zinc for Gentle Exfoliation  Cleanser for Women & Men  100 ml",
+        "Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-07-13T15:41:41.415190",
+    "interaction_type": "product_recommendations_prompt",
+    "prompt": "\n            You are an expert skincare consultant with access to a comprehensive product database. Based on the user profile and product database, recommend the most suitable skincare products.\n\n            \n            User Profile:\n            - Skin Type: combination\n            - Age Range: 18-24\n            - Skin Concerns: acne\n            - Preferred Ingredients: hyaluronic-acid, retinol, peptides, ahas\n            - Ingredients to Avoid: fragrance, alcohol\n            - Budget Range: (500, 1500)\n            \n            \n                \n                Logic-Based Recommendations (for reference):\n                - ORIMII No Retinol Face Serum with 1 BakuchiolAnti Ageing Bakuchi Oil Serum to Reduce Fine LinesWrinkles&Pigmentation Boosts CollagenNatural Alternate to RetinolPregnancy&Nursing Safe 30ml (ORIMII)\n- Hyphen 0.05 Retinal Reset Serum  30 More Effective than Retinol Serum  Anti Ageing Reduces Fine Lines & Wrinkles Night Face Serum For Beginners  Serum for Women  Boosts ...",
+    "response": null,
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "user_profile": {
+        "skinType": "combination",
+        "ageRange": "18-24",
+        "concerns": [
+          "acne"
+        ],
+        "preferredIngredients": [
+          "hyaluronic-acid",
+          "retinol",
+          "peptides",
+          "ahas"
+        ],
+        "avoidIngredients": [
+          "fragrance",
+          "alcohol"
+        ],
+        "budget": [
+          500,
+          1500
+        ]
+      },
+      "product_database_size": 326,
+      "logic_recommendations_count": 40
+    }
+  },
+  {
+    "timestamp": "2025-07-13T15:41:54.615105",
+    "interaction_type": "product_recommendations_response",
+    "prompt": "Response received",
+    "response": "```json\n[\n  {\n    \"product_name\": \"Cetaphil Oily Skin Cleanser  Daily Face Wash for Oily Acne prone Skin  Gentle Foaming 125ml by Cetaphil\",\n    \"brand\": \"Cetaphil\",\n    \"reason\": \"This cleanser is specifically designed for oily and acne-prone skin, making it a great choice for combination skin with acne concerns. It cleanses gently without stripping the skin, and it is free of fragrance and alcohol which the user wants to avoid.\",\n    \"category\": \"cleanser\",\n    \"priority\": \"high\",\n    \"price_value\": \"budget\"\n  },\n  {\n    \"product_name\": \"Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1 by Minimalist\",\n    \"brand\": \"Minimalist\",\n    \"reason\": \"This serum contains Niacinamide and Zinc, which are excellent for controlling oil production, reducing acne, and minimizing pores. It is suitable for all skin types, including combination skin, and is fragrance-free and alcohol-free aligning with user preferences.\",\n    \"category\": \"serum\",\n    \"priority\": \"high\",\n    \"price_value\": \"budget\"\n  },\n  {\n    \"product_name\": \"Neutrogena Hydro Boost Hyaluronic Acid Face Moisturizer 50ml  24 hours long lasting Hydration  Oil free non sticky light water gel fast absorbing Daily use  All Skin Types  For Men & Women 50g by Neutrogena\",\n    \"brand\": \"Neutrogena\",\n    \"reason\": \"The Hydro Boost moisturizer is oil-free and contains hyaluronic acid, providing hydration without clogging pores. It is lightweight and suitable for combination skin, addressing the need for moisture without exacerbating oiliness.\",\n    \"category\": \"moisturizer\",\n    \"priority\": \"high\",\n    \"price_value\": \"budget\"\n  },\n  {\n    \"product_name\": \"The Derma Co 2 Kojic Acid Face Serum I With 1 Alpha Arbutin & Niacinamide  Reduces Dark Spots Pigmentation & Blemishes  For All Skin types  30 ml by The Derma Co\",\n    \"brand\": \"The Derma Co\",\n    \"reason\": \"This serum is designed to reduce dark spots and blemishes, which is an id...",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "response_length": 8423
+    }
+  },
+  {
+    "timestamp": "2025-07-13T15:41:54.625519",
+    "interaction_type": "product_recommendations_parsed",
+    "prompt": "JSON parsing successful",
+    "response": "Parsed 16 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "recommendations_count": 16
+    }
+  },
+  {
+    "timestamp": "2025-07-13T15:41:54.639519",
+    "interaction_type": "product_recommendations_formatted",
+    "prompt": "Recommendations formatted successfully",
+    "response": "Formatted 16 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "formatted_count": 16,
+      "sample_recommendations": [
+        "Cetaphil Oily Skin Cleanser  Daily Face Wash for Oily Acne prone Skin  Gentle Foaming 125ml",
+        "Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1",
+        "Neutrogena Hydro Boost Hyaluronic Acid Face Moisturizer 50ml  24 hours long lasting Hydration  Oil free non sticky light water gel fast absorbing Daily use  All Skin Types  For Men & Women 50g"
+      ]
+    }
+  }
+]

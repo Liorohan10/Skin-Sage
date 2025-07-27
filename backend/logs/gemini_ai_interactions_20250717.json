@@ -1,0 +1,1164 @@
+[
+  {
+    "timestamp": "2025-07-17T19:35:54.177089",
+    "interaction_type": "product_recommendations_request",
+    "user_profile": {
+      "skinType": "oily",
+      "ageRange": "25-34",
+      "concerns": [
+        "acne",
+        "sensitivity"
+      ],
+      "preferredIngredients": [
+        "niacinamide",
+        "hyaluronic-acid"
+      ],
+      "avoidIngredients": [
+        "fragrance",
+        "alcohol"
+      ],
+      "budget": [
+        500,
+        1500
+      ]
+    },
+    "query": "Requesting AI product recommendations",
+    "response": null,
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "logic_recommendations_count": 30,
+      "product_database_size": 326,
+      "preferences": {
+        "age_group": "25-34",
+        "skin_concerns": [
+          "acne",
+          "sensitivity"
+        ],
+        "skin_type": "oily",
+        "price_range": [
+          500,
+          1500
+        ],
+        "ingredients": [
+          "niacinamide",
+          "hyaluronic-acid"
+        ],
+        "avoid_ingredients": [
+          "fragrance",
+          "alcohol"
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2025-07-17T19:37:03.666036",
+    "interaction_type": "product_recommendations_success",
+    "user_profile": {
+      "skinType": "oily",
+      "ageRange": "25-34",
+      "concerns": [
+        "acne",
+        "sensitivity"
+      ],
+      "preferredIngredients": [
+        "niacinamide",
+        "hyaluronic-acid"
+      ],
+      "avoidIngredients": [
+        "fragrance",
+        "alcohol"
+      ],
+      "budget": [
+        500,
+        1500
+      ]
+    },
+    "query": "AI product recommendations completed",
+    "response": {
+      "recommendations_count": 17,
+      "recommendations": [
+        {
+          "name": "Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1",
+          "reasoning": "This serum is a perfect match, featuring 10% niacinamide to control oil and address acne, a primary concern. The addition of zinc helps soothe sensitivity and inflammation, and the brand is known for its fragrance-free formulations."
+        },
+        {
+          "name": "Minimalist Dehydrated Skin Moisturizer with 10 Vitamin B5 for Oily & Acne-Prone Skin  Oil-Free Hydration & Lightweight Gel Formula for Damaged Barrier Repair  Fast-Absorbing & Non-Sticky Lightweight Winter Cream For Women & Men  Fragrance-Free  50 grams",
+          "reasoning": "Specifically designed for oily, acne-prone skin, this oil-free gel moisturizer provides lightweight hydration with hyaluronic acid. It is explicitly fragrance-free, making it ideal for your sensitive skin needs while helping to repair the skin barrier."
+        },
+        {
+          "name": "WishCare 5 Niacinamide Oil Balance Fluid Sunscreen SPF 50 PA with 8 Hrs SPF Protection- Lightweight Matte Sunscreen SPF 50 for Oily Skin & No White Cast 50g",
+          "reasoning": "A sunscreen formulated for oily skin that contains your preferred ingredient, niacinamide. It offers high SPF protection with a matte finish to help control shine throughout the day, without leaving a white cast."
+        },
+        {
+          "name": "Sebogel Salicylic Acid & Nicotinamide Gel for Pimples and Oily Skin 30gm",
+          "reasoning": "This is an excellent targeted treatment for your acne concerns. It combines salicylic acid to clear pores with nicotinamide (niacinamide) to reduce inflammation and redness, making it effective yet suitable for sensitive skin."
+        },
+        {
+          "name": "Dot & Key Niacinamide  CICACentellaOil Free Moisturizer for Acne Prone SkinOil Free & LightweightFades Dark Spots & BlemishesSoothes RednessAcne CreamFor Oily Acne Prone & Sensitive Skin50gm",
+          "reasoning": "This oil-free moisturizer contains both niacinamide and soothing cica (centella), making it ideal for your acne-prone and sensitive skin. It helps to calm redness and irritation while providing lightweight hydration."
+        }
+      ]
+    },
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "total_recommendations": 17
+    }
+  },
+  {
+    "timestamp": "2025-07-17T19:37:03.729495",
+    "interaction_type": "product_recommendations_request",
+    "user_profile": {
+      "skinType": "oily",
+      "ageRange": "25-34",
+      "concerns": [
+        "acne",
+        "sensitivity"
+      ],
+      "preferredIngredients": [
+        "niacinamide",
+        "hyaluronic-acid"
+      ],
+      "avoidIngredients": [
+        "fragrance",
+        "alcohol"
+      ],
+      "budget": [
+        500,
+        1500
+      ]
+    },
+    "query": "Requesting AI product recommendations",
+    "response": null,
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "logic_recommendations_count": 40,
+      "product_database_size": 326,
+      "preferences": {
+        "age_group": "25-34",
+        "skin_concerns": [
+          "acne",
+          "sensitivity"
+        ],
+        "skin_type": "oily",
+        "price_range": [
+          500,
+          1500
+        ],
+        "ingredients": [
+          "niacinamide",
+          "hyaluronic-acid"
+        ],
+        "avoid_ingredients": [
+          "fragrance",
+          "alcohol"
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2025-07-17T19:38:04.469748",
+    "interaction_type": "product_recommendations_success",
+    "user_profile": {
+      "skinType": "oily",
+      "ageRange": "25-34",
+      "concerns": [
+        "acne",
+        "sensitivity"
+      ],
+      "preferredIngredients": [
+        "niacinamide",
+        "hyaluronic-acid"
+      ],
+      "avoidIngredients": [
+        "fragrance",
+        "alcohol"
+      ],
+      "budget": [
+        500,
+        1500
+      ]
+    },
+    "query": "AI product recommendations completed",
+    "response": {
+      "recommendations_count": 14,
+      "recommendations": [
+        {
+          "name": "Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1",
+          "reasoning": "This serum is a perfect match for your profile. It features your preferred ingredient, Niacinamide (at a potent 10% concentration) combined with Zinc, which is excellent for controlling oil production and managing acne. Minimalist products are also formulated without fragrance or alcohol, making it ideal for your sensitive skin."
+        },
+        {
+          "name": "Cetaphil Paraben Sulphate-Free Gentle Skin Hydrating Face Wash Cleanser with Niacinamide Vitamin B5 for Dry to Normal Sensitive Skin - 125 ml",
+          "reasoning": "An extremely gentle, non-stripping cleanser perfect for sensitive skin. It contains Niacinamide and is free from common irritants, ensuring it cleanses effectively without causing flare-ups or dryness, which is crucial when managing both acne and sensitivity."
+        },
+        {
+          "name": "Minimalist Dehydrated Skin Moisturizer with 10 Vitamin B5 for Oily & Acne-Prone Skin  Oil-Free Hydration & Lightweight Gel Formula for Damaged Barrier Repair  Fast-Absorbing & Non-Sticky Lightweight Winter Cream For Women & Men  Fragrance-Free  50 grams",
+          "reasoning": "This oil-free gel moisturizer is specifically designed for oily and acne-prone skin. It provides lightweight hydration with your preferred ingredient, Hyaluronic Acid, and helps repair the skin barrier with Vitamin B5, which is essential for reducing sensitivity."
+        },
+        {
+          "name": "WishCare 5 Niacinamide Oil Balance Fluid Sunscreen SPF 50 PA with 8 Hrs SPF Protection- Lightweight Matte Sunscreen SPF 50 for Oily Skin & No White Cast 50g",
+          "reasoning": "This sunscreen is tailor-made for oily skin, offering high SPF 50 protection with a matte finish to prevent shine. It contains Niacinamide to help with oil control throughout the day, fitting your ingredient preference perfectly while protecting your skin."
+        },
+        {
+          "name": "Sebogel Salicylic Acid & Nicotinamide Gel for Pimples and Oily Skin 30gm",
+          "reasoning": "This is an effective and affordable spot treatment for active acne breakouts. It combines Salicylic Acid to clear pores with Nicotinamide (Niacinamide), which calms inflammation and redness, addressing your acne concern directly without irritating the rest of your face."
+        }
+      ]
+    },
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "total_recommendations": 14
+    }
+  },
+  {
+    "timestamp": "2025-07-17T19:38:04.487073",
+    "interaction_type": "routine_generation_request",
+    "user_profile": {
+      "skinType": "oily",
+      "ageRange": "25-34",
+      "concerns": [
+        "acne",
+        "sensitivity"
+      ],
+      "preferredIngredients": [
+        "niacinamide",
+        "hyaluronic-acid"
+      ],
+      "avoidIngredients": [
+        "fragrance",
+        "alcohol"
+      ],
+      "budget": [
+        500,
+        1500
+      ]
+    },
+    "query": "Requesting enhanced AI routine generation",
+    "response": null,
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "acne_detected": false,
+      "recommendations_count": 20,
+      "has_image_insights": false,
+      "image_analysis_quality": "none",
+      "available_products": [
+        "Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1",
+        "Bioderma Atoderm Parent Cream",
+        "Cetaphil Paraben Sulphate-Free Gentle Skin Hydrating Face Wash Cleanser with Niacinamide Vitamin B5 for Dry to Normal Sensitive Skin - 125 ml",
+        "Minimalist Dehydrated Skin Moisturizer with 10 Vitamin B5 for Oily & Acne-Prone Skin  Oil-Free Hydration & Lightweight Gel Formula for Damaged Barrier Repair  Fast-Absorbing & Non-Sticky Lightweight Winter Cream For Women & Men  Fragrance-Free  50 grams",
+        "WishCare 5 Niacinamide Oil Balance Fluid Sunscreen SPF 50 PA with 8 Hrs SPF Protection- Lightweight Matte Sunscreen SPF 50 for Oily Skin & No White Cast 50g",
+        "Sebogel Salicylic Acid & Nicotinamide Gel for Pimples and Oily Skin 30gm",
+        "Asaya Korean Pigmentation Serum  Hyperpigmentation & Dark Spot Remover  Tranexamic Acid Niacinamide & Arbutin  Reduces Melasma Acne Marks & Discoloration  Brightens & Evens Skin Tone  Berry Extracts for Antioxidant Protection  Lightweight & Fast Absorbing  Oily Dry Skin  Men & Women  30ml",
+        "CeraVe Foaming Cleanser For Normal To Oily Skin 88ml - Dermatologist-Developed Facewash  Non-Comedogenic And Fragrance-Free Cleansers For Acne-Prone Skin",
+        "Plum 3 Niacinamide & Rice Water Face Toner  Alcohol-Free Toner for Oily Acne Prone Dry Combination Skin  Pore Tightening & Glowing Skin Fades Blemishes Brightens & Smoothens  Women & Men  150ml",
+        "Dot & Key Niacinamide  CICACentellaOil Free Moisturizer for Acne Prone SkinOil Free & LightweightFades Dark Spots & BlemishesSoothes RednessAcne CreamFor Oily Acne Prone & Sensitive Skin50gm"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-07-17T19:39:56.403290",
+    "interaction_type": "routine_generation_success",
+    "user_profile": {
+      "skinType": "oily",
+      "ageRange": "25-34",
+      "concerns": [
+        "acne",
+        "sensitivity"
+      ],
+      "preferredIngredients": [
+        "niacinamide",
+        "hyaluronic-acid"
+      ],
+      "avoidIngredients": [
+        "fragrance",
+        "alcohol"
+      ],
+      "budget": [
+        500,
+        1500
+      ]
+    },
+    "query": "Enhanced AI routine generation completed",
+    "response": {
+      "morning_steps": 4,
+      "evening_steps": 4,
+      "weekly_steps": 2,
+      "routine_type": "profile_based",
+      "product_integration_success": 8,
+      "routine_preview": {
+        "morning": [
+          "Cleanser",
+          "Serum",
+          "Moisturizer"
+        ],
+        "evening": [
+          "Cleanser",
+          "Treatment",
+          "Serum"
+        ]
+      }
+    },
+    "error": null,
+    "error_traceback": null,
+    "metadata": {}
+  },
+  {
+    "timestamp": "2025-07-17T19:39:56.414444",
+    "interaction_type": "skin_analysis_request",
+    "user_profile": {
+      "skinType": "oily",
+      "ageRange": "25-34",
+      "concerns": [
+        "acne",
+        "sensitivity"
+      ],
+      "preferredIngredients": [
+        "niacinamide",
+        "hyaluronic-acid"
+      ],
+      "avoidIngredients": [
+        "fragrance",
+        "alcohol"
+      ],
+      "budget": [
+        500,
+        1500
+      ]
+    },
+    "query": "Requesting enhanced AI skin analysis",
+    "response": null,
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "has_acne_detections": false,
+      "acne_detections_count": 0,
+      "has_image_insights": false,
+      "image_analysis_quality": "none"
+    }
+  },
+  {
+    "timestamp": "2025-07-17T19:40:33.184116",
+    "interaction_type": "skin_analysis_success",
+    "user_profile": {
+      "skinType": "oily",
+      "ageRange": "25-34",
+      "concerns": [
+        "acne",
+        "sensitivity"
+      ],
+      "preferredIngredients": [
+        "niacinamide",
+        "hyaluronic-acid"
+      ],
+      "avoidIngredients": [
+        "fragrance",
+        "alcohol"
+      ],
+      "budget": [
+        500,
+        1500
+      ]
+    },
+    "query": "Enhanced AI skin analysis completed",
+    "response": {
+      "analysis_length": 6717,
+      "analysis_preview": "Of course. Here is a detailed professional skin analysis, structured as a consultation note for the patient.\n\n\n\n DERMATOLOGY CONSULTATION NOTE\n\nPATIENT ID: [Redacted]\nDATE OF CONSULTATION: October 26,...",
+      "analysis_type": "profile_based"
+    },
+    "error": null,
+    "error_traceback": null,
+    "metadata": {}
+  },
+  {
+    "timestamp": "2025-07-17T20:09:07.651749",
+    "interaction_type": "product_recommendations_request",
+    "user_profile": {
+      "skinType": "combination",
+      "ageRange": "25-34",
+      "concerns": [
+        "acne"
+      ],
+      "preferredIngredients": [
+        "niacinamide",
+        "retinol",
+        "ahas"
+      ],
+      "avoidIngredients": [
+        "fragrance",
+        "alcohol",
+        "parabens",
+        "sulfates"
+      ],
+      "budget": [
+        500,
+        1500
+      ]
+    },
+    "query": "Requesting AI product recommendations",
+    "response": null,
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "logic_recommendations_count": 30,
+      "product_database_size": 326,
+      "preferences": {
+        "age_group": "25-34",
+        "skin_concerns": [
+          "acne"
+        ],
+        "skin_type": "combination",
+        "price_range": [
+          500,
+          1500
+        ],
+        "ingredients": [
+          "niacinamide",
+          "retinol",
+          "ahas"
+        ],
+        "avoid_ingredients": [
+          "fragrance",
+          "alcohol",
+          "parabens",
+          "sulfates"
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2025-07-17T20:10:16.735052",
+    "interaction_type": "product_recommendations_success",
+    "user_profile": {
+      "skinType": "combination",
+      "ageRange": "25-34",
+      "concerns": [
+        "acne"
+      ],
+      "preferredIngredients": [
+        "niacinamide",
+        "retinol",
+        "ahas"
+      ],
+      "avoidIngredients": [
+        "fragrance",
+        "alcohol",
+        "parabens",
+        "sulfates"
+      ],
+      "budget": [
+        500,
+        1500
+      ]
+    },
+    "query": "AI product recommendations completed",
+    "response": {
+      "recommendations_count": 15,
+      "recommendations": [
+        {
+          "name": "Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1",
+          "reasoning": "This serum is a perfect match for your profile, containing 10% niacinamide to control oil production and zinc to soothe inflammation, directly addressing your acne concerns. It is fragrance-free and fits well within your budget."
+        },
+        {
+          "name": "Pilgrim 25 AHA  2 BHA  5 PHA Peeling Solution 30ml For Face & Body 10-Minute Facial At HomeGentle Exfoliating Serum for Tan Removal For Glowing Skin Even Skin Tone Pore Cleansing Men Women",
+          "reasoning": "To fulfill your preference for AHAs, this weekly peeling solution offers a potent blend of Glycolic (AHA) and Salicylic (BHA) acids. It will effectively exfoliate, unclog pores, and improve skin texture, which is beneficial for acne-prone skin."
+        },
+        {
+          "name": "Minimalist Anti-Acne Salicylic Acid 2 Face Wash For Oily & Acne Prone Skin  With LHA for Pore Cleansing Oil Control & Sebum Regulation  Sulfate-Free Formula with Zinc for Gentle Exfoliation  Cleanser for Women & Men  100 ml",
+          "reasoning": "A targeted cleanser with 2% Salicylic Acid is essential for managing acne. This sulfate-free formula cleanses deep within the pores to reduce breakouts and control oil without stripping the skin, making it ideal for your combination skin type."
+        },
+        {
+          "name": "RE EQUIL Ultra Matte Dry Touch Sunscreen  SPF 50 PA  Water & Sweat Resistant  No White Cast Non-Greasy & Non-Comedogenic  For All Skin Types  50G",
+          "reasoning": "Sunscreen is crucial, especially when using AHAs and targeting acne. This formula provides high SPF 50 protection with a matte finish, which is excellent for controlling shine on combination skin. It's non-comedogenic, ensuring it won't clog pores."
+        },
+        {
+          "name": "Sebogel Salicylic Acid & Nicotinamide Gel for Pimples and Oily Skin 30gm",
+          "reasoning": "This is an effective and affordable spot treatment for active acne breakouts. It combines Salicylic Acid to exfoliate and Nicotinamide (Niacinamide) to reduce inflammation and redness, helping to clear pimples quickly."
+        }
+      ]
+    },
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "total_recommendations": 15
+    }
+  },
+  {
+    "timestamp": "2025-07-17T20:10:16.795654",
+    "interaction_type": "product_recommendations_request",
+    "user_profile": {
+      "skinType": "combination",
+      "ageRange": "25-34",
+      "concerns": [
+        "acne"
+      ],
+      "preferredIngredients": [
+        "niacinamide",
+        "retinol",
+        "ahas"
+      ],
+      "avoidIngredients": [
+        "fragrance",
+        "alcohol",
+        "parabens",
+        "sulfates"
+      ],
+      "budget": [
+        500,
+        1500
+      ]
+    },
+    "query": "Requesting AI product recommendations",
+    "response": null,
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "logic_recommendations_count": 40,
+      "product_database_size": 326,
+      "preferences": {
+        "age_group": "25-34",
+        "skin_concerns": [
+          "acne"
+        ],
+        "skin_type": "combination",
+        "price_range": [
+          500,
+          1500
+        ],
+        "ingredients": [
+          "niacinamide",
+          "retinol",
+          "ahas"
+        ],
+        "avoid_ingredients": [
+          "fragrance",
+          "alcohol",
+          "parabens",
+          "sulfates"
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2025-07-17T20:11:22.825347",
+    "interaction_type": "product_recommendations_success",
+    "user_profile": {
+      "skinType": "combination",
+      "ageRange": "25-34",
+      "concerns": [
+        "acne"
+      ],
+      "preferredIngredients": [
+        "niacinamide",
+        "retinol",
+        "ahas"
+      ],
+      "avoidIngredients": [
+        "fragrance",
+        "alcohol",
+        "parabens",
+        "sulfates"
+      ],
+      "budget": [
+        500,
+        1500
+      ]
+    },
+    "query": "AI product recommendations completed",
+    "response": {
+      "recommendations_count": 15,
+      "recommendations": [
+        {
+          "name": "Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1",
+          "reasoning": "This serum is a perfect match for your needs. It contains a high concentration of your preferred ingredient, Niacinamide, which is excellent for controlling oil and managing acne. The addition of zinc helps soothe inflammation and regulate sebum production, making it ideal for combination, acne-prone skin."
+        },
+        {
+          "name": "Pilgrim 25 AHA  2 BHA  5 PHA Peeling Solution 30ml For Face & Body 10-Minute Facial At HomeGentle Exfoliating Serum for Tan Removal For Glowing Skin Even Skin Tone Pore Cleansing Men Women",
+          "reasoning": "Directly addresses your preference for AHAs with a powerful blend of glycolic and lactic acids, plus BHA (salicylic acid) to deeply cleanse pores and fight acne. This weekly treatment is a fantastic alternative to retinol for improving skin texture, fading marks, and promoting cell turnover."
+        },
+        {
+          "name": "Minimalist Anti-Acne Salicylic Acid 2 Face Wash For Oily & Acne Prone Skin  With LHA for Pore Cleansing Oil Control & Sebum Regulation  Sulfate-Free Formula with Zinc for Gentle Exfoliation  Cleanser for Women & Men  100 ml",
+          "reasoning": "A targeted cleanser is crucial for acne. This one contains 2% Salicylic Acid (BHA), which penetrates oil to clear out pores and prevent future breakouts. Its sulfate-free formula ensures it cleanses effectively without stripping the drier areas of your combination skin."
+        },
+        {
+          "name": "RE EQUIL Ultra Matte Dry Touch Sunscreen  SPF 50 PA  Water & Sweat Resistant  No White Cast Non-Greasy & Non-Comedogenic  For All Skin Types  50G",
+          "reasoning": "An excellent sunscreen for combination skin due to its matte, non-greasy finish. It provides high-level broad-spectrum protection, which is essential when using exfoliating acids like AHAs. Its non-comedogenic formula won't clog pores or contribute to acne."
+        },
+        {
+          "name": "Minimalist Dehydrated Skin Moisturizer with 10 Vitamin B5 for Oily & Acne-Prone Skin  Oil-Free Hydration & Lightweight Gel Formula for Damaged Barrier Repair  Fast-Absorbing & Non-Sticky Lightweight Winter Cream For Women & Men  Fragrance-Free  50 grams",
+          "reasoning": "This oil-free gel moisturizer is specifically designed for oily and acne-prone skin. It provides essential hydration with Vitamin B5 and Hyaluronic Acid without feeling heavy or greasy, perfectly balancing the needs of your combination skin type."
+        }
+      ]
+    },
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "total_recommendations": 15
+    }
+  },
+  {
+    "timestamp": "2025-07-17T20:11:22.842066",
+    "interaction_type": "routine_generation_request",
+    "user_profile": {
+      "skinType": "combination",
+      "ageRange": "25-34",
+      "concerns": [
+        "acne"
+      ],
+      "preferredIngredients": [
+        "niacinamide",
+        "retinol",
+        "ahas"
+      ],
+      "avoidIngredients": [
+        "fragrance",
+        "alcohol",
+        "parabens",
+        "sulfates"
+      ],
+      "budget": [
+        500,
+        1500
+      ]
+    },
+    "query": "Requesting enhanced AI routine generation",
+    "response": null,
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "acne_detected": false,
+      "recommendations_count": 20,
+      "has_image_insights": false,
+      "image_analysis_quality": "none",
+      "available_products": [
+        "Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1",
+        "Pilgrim 25 AHA  2 BHA  5 PHA Peeling Solution 30ml For Face & Body 10-Minute Facial At HomeGentle Exfoliating Serum for Tan Removal For Glowing Skin Even Skin Tone Pore Cleansing Men Women",
+        "Olay Total Effects Day Cream with Vitamin B5 Niacinamide Green Tea SPF 15 Fights 7 signs of ageing for glowing hydrated and younger looking skin with UV protection Suitable for Normal Dry Oily & Combination skin 50 gm",
+        "Minimalist Anti-Acne Salicylic Acid 2 Face Wash For Oily & Acne Prone Skin  With LHA for Pore Cleansing Oil Control & Sebum Regulation  Sulfate-Free Formula with Zinc for Gentle Exfoliation  Cleanser for Women & Men  100 ml",
+        "RE EQUIL Ultra Matte Dry Touch Sunscreen  SPF 50 PA  Water & Sweat Resistant  No White Cast Non-Greasy & Non-Comedogenic  For All Skin Types  50G",
+        "Minimalist Dehydrated Skin Moisturizer with 10 Vitamin B5 for Oily & Acne-Prone Skin  Oil-Free Hydration & Lightweight Gel Formula for Damaged Barrier Repair  Fast-Absorbing & Non-Sticky Lightweight Winter Cream For Women & Men  Fragrance-Free  50 grams",
+        "Urban Yog Acne Pimple Patch for Face 72 dots  Waterproof Patches for Active Acne  Absorbs Pimple Overnight and Reduces Excess Oil  Facial Patches with 100 Hydrocolloid",
+        "CeraVe Foaming Cleanser For Normal To Oily Skin 88ml - Dermatologist-Developed Facewash  Non-Comedogenic And Fragrance-Free Cleansers For Acne-Prone Skin",
+        "Plum 3 Niacinamide & Rice Water Face Toner  Alcohol-Free Toner for Oily Acne Prone Dry Combination Skin  Pore Tightening & Glowing Skin Fades Blemishes Brightens & Smoothens  Women & Men  150ml",
+        "Episoft Ac Lightweight Moisturizer With Microencapsulated Sunscreen  Acne Safe  All Skin Types  Paraben & Fragrance Free  Suitable For Men & Women  75Gm 30 SPF"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-07-17T20:12:25.805897",
+    "interaction_type": "routine_generation_success",
+    "user_profile": {
+      "skinType": "combination",
+      "ageRange": "25-34",
+      "concerns": [
+        "acne"
+      ],
+      "preferredIngredients": [
+        "niacinamide",
+        "retinol",
+        "ahas"
+      ],
+      "avoidIngredients": [
+        "fragrance",
+        "alcohol",
+        "parabens",
+        "sulfates"
+      ],
+      "budget": [
+        500,
+        1500
+      ]
+    },
+    "query": "Enhanced AI routine generation completed",
+    "response": {
+      "morning_steps": 4,
+      "evening_steps": 4,
+      "weekly_steps": 2,
+      "routine_type": "profile_based",
+      "product_integration_success": 8,
+      "routine_preview": {
+        "morning": [
+          "Cleanser",
+          "Serum",
+          "Moisturizer"
+        ],
+        "evening": [
+          "Cleanser",
+          "Treatment",
+          "Serum"
+        ]
+      }
+    },
+    "error": null,
+    "error_traceback": null,
+    "metadata": {}
+  },
+  {
+    "timestamp": "2025-07-17T20:12:25.821590",
+    "interaction_type": "skin_analysis_request",
+    "user_profile": {
+      "skinType": "combination",
+      "ageRange": "25-34",
+      "concerns": [
+        "acne"
+      ],
+      "preferredIngredients": [
+        "niacinamide",
+        "retinol",
+        "ahas"
+      ],
+      "avoidIngredients": [
+        "fragrance",
+        "alcohol",
+        "parabens",
+        "sulfates"
+      ],
+      "budget": [
+        500,
+        1500
+      ]
+    },
+    "query": "Requesting enhanced AI skin analysis",
+    "response": null,
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "has_acne_detections": false,
+      "acne_detections_count": 0,
+      "has_image_insights": false,
+      "image_analysis_quality": "none"
+    }
+  },
+  {
+    "timestamp": "2025-07-17T20:13:11.922929",
+    "interaction_type": "skin_analysis_success",
+    "user_profile": {
+      "skinType": "combination",
+      "ageRange": "25-34",
+      "concerns": [
+        "acne"
+      ],
+      "preferredIngredients": [
+        "niacinamide",
+        "retinol",
+        "ahas"
+      ],
+      "avoidIngredients": [
+        "fragrance",
+        "alcohol",
+        "parabens",
+        "sulfates"
+      ],
+      "budget": [
+        500,
+        1500
+      ]
+    },
+    "query": "Enhanced AI skin analysis completed",
+    "response": {
+      "analysis_length": 7627,
+      "analysis_preview": "Of course. Here is a detailed professional skin analysis, structured as a comprehensive consultation note based on the provided patient data.\n\n\n\n Dermatological Consultation Note\n\nPATIENT ID: [Redacte...",
+      "analysis_type": "profile_based"
+    },
+    "error": null,
+    "error_traceback": null,
+    "metadata": {}
+  },
+  {
+    "timestamp": "2025-07-17T20:18:18.631631",
+    "interaction_type": "product_recommendations_request",
+    "user_profile": {
+      "skinType": "combination",
+      "ageRange": "25-34",
+      "concerns": [
+        "acne"
+      ],
+      "preferredIngredients": [
+        "niacinamide",
+        "hyaluronic-acid",
+        "retinol",
+        "ahas"
+      ],
+      "avoidIngredients": [
+        "fragrance",
+        "alcohol",
+        "parabens"
+      ],
+      "budget": [
+        500,
+        1500
+      ]
+    },
+    "query": "Requesting AI product recommendations",
+    "response": null,
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "logic_recommendations_count": 30,
+      "product_database_size": 326,
+      "preferences": {
+        "age_group": "25-34",
+        "skin_concerns": [
+          "acne"
+        ],
+        "skin_type": "combination",
+        "price_range": [
+          500,
+          1500
+        ],
+        "ingredients": [
+          "niacinamide",
+          "hyaluronic-acid",
+          "retinol",
+          "ahas"
+        ],
+        "avoid_ingredients": [
+          "fragrance",
+          "alcohol",
+          "parabens"
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2025-07-17T20:19:23.786744",
+    "interaction_type": "product_recommendations_success",
+    "user_profile": {
+      "skinType": "combination",
+      "ageRange": "25-34",
+      "concerns": [
+        "acne"
+      ],
+      "preferredIngredients": [
+        "niacinamide",
+        "hyaluronic-acid",
+        "retinol",
+        "ahas"
+      ],
+      "avoidIngredients": [
+        "fragrance",
+        "alcohol",
+        "parabens"
+      ],
+      "budget": [
+        500,
+        1500
+      ]
+    },
+    "query": "AI product recommendations completed",
+    "response": {
+      "recommendations_count": 17,
+      "recommendations": [
+        {
+          "name": "Minimalist Anti-Acne Salicylic Acid 2 Face Wash For Oily & Acne Prone Skin  With LHA for Pore Cleansing Oil Control & Sebum Regulation  Sulfate-Free Formula with Zinc for Gentle Exfoliation  Cleanser for Women & Men  100 ml",
+          "reasoning": "This cleanser is specifically formulated for combination and acne-prone skin. It contains 2% Salicylic Acid (a BHA) which effectively exfoliates inside the pores to fight acne, combined with LHA for gentle surface exfoliation, making it ideal for the user's primary concern."
+        },
+        {
+          "name": "CeraVe Foaming Cleanser For Normal To Oily Skin 88ml - Dermatologist-Developed Facewash  Non-Comedogenic And Fragrance-Free Cleansers For Acne-Prone Skin",
+          "reasoning": "An excellent gentle cleanser that won't strip the skin. It contains ceramides, hyaluronic acid, and niacinamide to cleanse effectively while supporting the skin barrier, which is crucial when using acne treatments. It's fragrance-free and suitable for combination skin."
+        },
+        {
+          "name": "Plum 3 Niacinamide & Rice Water Face Toner  Alcohol-Free Toner for Oily Acne Prone Dry Combination Skin  Pore Tightening & Glowing Skin Fades Blemishes Brightens & Smoothens  Women & Men  150ml",
+          "reasoning": "This is an alcohol-free toner that directly incorporates one of the user's preferred ingredients, Niacinamide. It helps to tighten pores, fade blemishes, and control oil without drying out the skin, making it a perfect second step after cleansing for combination, acne-prone skin."
+        },
+        {
+          "name": "Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1",
+          "reasoning": "This serum is a powerhouse for the user's concerns. The 10% Niacinamide concentration is clinically effective for reducing acne, blemishes, and regulating sebum production. The addition of Zinc provides anti-inflammatory benefits, directly targeting the acne concern."
+        },
+        {
+          "name": "Pilgrim 25 AHA  2 BHA  5 PHA Peeling Solution 30ml For Face & Body 10-Minute Facial At HomeGentle Exfoliating Serum for Tan Removal For Glowing Skin Even Skin Tone Pore Cleansing Men Women",
+          "reasoning": "This weekly treatment peel directly addresses the preference for AHAs and the need for acne control (BHA). It provides strong exfoliation to improve skin texture, clear clogged pores, and fade post-acne marks. It also contains Hyaluronic Acid for hydration."
+        }
+      ]
+    },
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "total_recommendations": 17
+    }
+  },
+  {
+    "timestamp": "2025-07-17T20:19:23.851498",
+    "interaction_type": "product_recommendations_request",
+    "user_profile": {
+      "skinType": "combination",
+      "ageRange": "25-34",
+      "concerns": [
+        "acne"
+      ],
+      "preferredIngredients": [
+        "niacinamide",
+        "hyaluronic-acid",
+        "retinol",
+        "ahas"
+      ],
+      "avoidIngredients": [
+        "fragrance",
+        "alcohol",
+        "parabens"
+      ],
+      "budget": [
+        500,
+        1500
+      ]
+    },
+    "query": "Requesting AI product recommendations",
+    "response": null,
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "logic_recommendations_count": 40,
+      "product_database_size": 326,
+      "preferences": {
+        "age_group": "25-34",
+        "skin_concerns": [
+          "acne"
+        ],
+        "skin_type": "combination",
+        "price_range": [
+          500,
+          1500
+        ],
+        "ingredients": [
+          "niacinamide",
+          "hyaluronic-acid",
+          "retinol",
+          "ahas"
+        ],
+        "avoid_ingredients": [
+          "fragrance",
+          "alcohol",
+          "parabens"
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2025-07-17T20:20:23.425314",
+    "interaction_type": "product_recommendations_success",
+    "user_profile": {
+      "skinType": "combination",
+      "ageRange": "25-34",
+      "concerns": [
+        "acne"
+      ],
+      "preferredIngredients": [
+        "niacinamide",
+        "hyaluronic-acid",
+        "retinol",
+        "ahas"
+      ],
+      "avoidIngredients": [
+        "fragrance",
+        "alcohol",
+        "parabens"
+      ],
+      "budget": [
+        500,
+        1500
+      ]
+    },
+    "query": "AI product recommendations completed",
+    "response": {
+      "recommendations_count": 6,
+      "recommendations": [
+        {
+          "name": "CeraVe Foaming Cleanser For Normal To Oily Skin 88ml - Dermatologist-Developed Facewash  Non-Comedogenic And Fragrance-Free Cleansers For Acne-Prone Skin",
+          "reasoning": "A great gentle option for daily cleansing. It contains ceramides and hyaluronic acid to protect your skin's barrier and niacinamide to calm inflammation, making it perfect for combination skin that needs balance."
+        },
+        {
+          "name": "Neutrogena Hydro Boost Hyaluronic Acid Face Moisturizer 50ml  24 hours long lasting Hydration  Oil free non sticky light water gel fast absorbing Daily use  All Skin Types  For Men & Women 50g",
+          "reasoning": "A classic oil-free water-gel moisturizer that provides intense hydration thanks to hyaluronic acid. It absorbs quickly and will hydrate the drier parts of your combination skin while feeling weightless on the oilier parts."
+        },
+        {
+          "name": "RE EQUIL Ceramide & Hyaluronic Acid Moisturiser  Moisturizer For Face  Barrier Repair Cream  Long Lasting Hydration  Suitable For Normal To Dry Skin  100G",
+          "reasoning": "This is an excellent choice for a night cream, especially when using active ingredients like AHAs. It focuses on repairing the skin barrier with ceramides and hyaluronic acid, preventing irritation and keeping your skin healthy and resilient."
+        },
+        {
+          "name": "Episoft Ac Lightweight Moisturizer With Microencapsulated Sunscreen  Acne Safe  All Skin Types  Paraben & Fragrance Free  Suitable For Men & Women  75Gm 30 SPF",
+          "reasoning": "This is a great 2-in-1 product for days when you need light moisture and incidental sun protection. It is specifically formulated to be non-comedogenic and safe for acne-prone skin, plus it is fragrance and paraben-free."
+        },
+        {
+          "name": "Sebogel Salicylic Acid & Nicotinamide Gel for Pimples and Oily Skin 30gm",
+          "reasoning": "An effective and affordable spot treatment for active pimples. It combines Salicylic Acid to exfoliate and Nicotinamide (Niacinamide) to reduce inflammation, helping to clear up breakouts faster without irritating the surrounding skin."
+        }
+      ]
+    },
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "total_recommendations": 6
+    }
+  },
+  {
+    "timestamp": "2025-07-17T20:20:23.439744",
+    "interaction_type": "routine_generation_request",
+    "user_profile": {
+      "skinType": "combination",
+      "ageRange": "25-34",
+      "concerns": [
+        "acne"
+      ],
+      "preferredIngredients": [
+        "niacinamide",
+        "hyaluronic-acid",
+        "retinol",
+        "ahas"
+      ],
+      "avoidIngredients": [
+        "fragrance",
+        "alcohol",
+        "parabens"
+      ],
+      "budget": [
+        500,
+        1500
+      ]
+    },
+    "query": "Requesting enhanced AI routine generation",
+    "response": null,
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "acne_detected": false,
+      "recommendations_count": 20,
+      "has_image_insights": false,
+      "image_analysis_quality": "none",
+      "available_products": [
+        "Neutrogena Hydro Boost Hyaluronic Acid Face Moisturizer 50ml  24 hours long lasting Hydration  Oil free non sticky light water gel fast absorbing Daily use  All Skin Types  For Men & Women 50g",
+        "Olay Total Effects Day Cream with Vitamin B5 Niacinamide Green Tea SPF 15 Fights 7 signs of ageing for glowing hydrated and younger looking skin with UV protection Suitable for Normal Dry Oily & Combination skin 50 gm",
+        "CeraVe Foaming Cleanser For Normal To Oily Skin 88ml - Dermatologist-Developed Facewash  Non-Comedogenic And Fragrance-Free Cleansers For Acne-Prone Skin",
+        "Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1",
+        "RE EQUIL Ceramide & Hyaluronic Acid Moisturiser  Moisturizer For Face  Barrier Repair Cream  Long Lasting Hydration  Suitable For Normal To Dry Skin  100G",
+        "Episoft Ac Lightweight Moisturizer With Microencapsulated Sunscreen  Acne Safe  All Skin Types  Paraben & Fragrance Free  Suitable For Men & Women  75Gm 30 SPF",
+        "Sebogel Salicylic Acid & Nicotinamide Gel for Pimples and Oily Skin 30gm",
+        "Asaya Korean Pigmentation Serum  Hyperpigmentation & Dark Spot Remover  Tranexamic Acid Niacinamide & Arbutin  Reduces Melasma Acne Marks & Discoloration  Brightens & Evens Skin Tone  Berry Extracts for Antioxidant Protection  Lightweight & Fast Absorbing  Oily Dry Skin  Men & Women  30ml",
+        "OVIOL Collagen Face Mask Pack of 4 Overnight Pack of 4 Deep Collagen Night Mask Korean Glass Skin Hydrogel Mask for Deep Hydration Anti-Aging & Pore Minimizing   Hyaluronic Acid Niacinamide Vitamin E 34g4 pack",
+        "ORIMII No Retinol Face Serum with 1 BakuchiolAnti Ageing Bakuchi Oil Serum to Reduce Fine LinesWrinkles&Pigmentation Boosts CollagenNatural Alternate to RetinolPregnancy&Nursing Safe 30ml"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-07-17T20:21:11.223343",
+    "interaction_type": "routine_generation_success",
+    "user_profile": {
+      "skinType": "combination",
+      "ageRange": "25-34",
+      "concerns": [
+        "acne"
+      ],
+      "preferredIngredients": [
+        "niacinamide",
+        "hyaluronic-acid",
+        "retinol",
+        "ahas"
+      ],
+      "avoidIngredients": [
+        "fragrance",
+        "alcohol",
+        "parabens"
+      ],
+      "budget": [
+        500,
+        1500
+      ]
+    },
+    "query": "Enhanced AI routine generation completed",
+    "response": {
+      "morning_steps": 4,
+      "evening_steps": 4,
+      "weekly_steps": 2,
+      "routine_type": "profile_based",
+      "product_integration_success": 7,
+      "routine_preview": {
+        "morning": [
+          "Cleanser",
+          "Serum",
+          "Moisturizer"
+        ],
+        "evening": [
+          "Cleanser",
+          "Treatment",
+          "Serum"
+        ]
+      }
+    },
+    "error": null,
+    "error_traceback": null,
+    "metadata": {}
+  },
+  {
+    "timestamp": "2025-07-17T20:21:11.237577",
+    "interaction_type": "skin_analysis_request",
+    "user_profile": {
+      "skinType": "combination",
+      "ageRange": "25-34",
+      "concerns": [
+        "acne"
+      ],
+      "preferredIngredients": [
+        "niacinamide",
+        "hyaluronic-acid",
+        "retinol",
+        "ahas"
+      ],
+      "avoidIngredients": [
+        "fragrance",
+        "alcohol",
+        "parabens"
+      ],
+      "budget": [
+        500,
+        1500
+      ]
+    },
+    "query": "Requesting enhanced AI skin analysis",
+    "response": null,
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "has_acne_detections": false,
+      "acne_detections_count": 0,
+      "has_image_insights": false,
+      "image_analysis_quality": "none"
+    }
+  },
+  {
+    "timestamp": "2025-07-17T20:21:57.013021",
+    "interaction_type": "skin_analysis_success",
+    "user_profile": {
+      "skinType": "combination",
+      "ageRange": "25-34",
+      "concerns": [
+        "acne"
+      ],
+      "preferredIngredients": [
+        "niacinamide",
+        "hyaluronic-acid",
+        "retinol",
+        "ahas"
+      ],
+      "avoidIngredients": [
+        "fragrance",
+        "alcohol",
+        "parabens"
+      ],
+      "budget": [
+        500,
+        1500
+      ]
+    },
+    "query": "Enhanced AI skin analysis completed",
+    "response": {
+      "analysis_length": 7636,
+      "analysis_preview": "Here is the detailed professional skin analysis, presented as a consultation note.\n\n\n\n Dermatology Consultation Note\n\nPATIENT ID: [Redacted]\nDATE: October 26, 2023\nSUBJECT: Comprehensive Skin Analysis...",
+      "analysis_type": "profile_based"
+    },
+    "error": null,
+    "error_traceback": null,
+    "metadata": {}
+  }
+]

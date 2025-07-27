@@ -16,12 +16,25 @@ export interface Product {
   matchReasons?: string[]
 }
 
+export interface RoutineStep {
+  step: string
+  product?: Product
+  instruction: string
+}
+
+export interface SkincareRoutine {
+  morning: RoutineStep[]
+  evening: RoutineStep[]
+  weekly: RoutineStep[]
+}
+
 export interface ResultsData {
   id: string
   skinConditionAnalysis: string
   recommendedProducts: Product[]
-  morningRoutine: string
-  nightRoutine: string
+  morningRoutine?: string  // Backwards compatibility
+  nightRoutine?: string    // Backwards compatibility
+  routine?: SkincareRoutine  // New Supabase format
   skinCareAdvice?: string
   aiResponse: string
   userProfile?: {

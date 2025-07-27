@@ -1,0 +1,280 @@
+[
+  {
+    "timestamp": "2025-07-28T01:00:49.551268",
+    "interaction_type": "product_recommendations_prompt",
+    "prompt": "\n            You are an expert skincare consultant with access to a comprehensive product database. Based on the user profile and product database, recommend the most suitable skincare products.\n\n            \n            User Profile:\n            - Skin Type: combination\n            - Age Range: 18-24\n            - Skin Concerns: acne\n            - Preferred Ingredients: niacinamide, hyaluronic-acid, retinol\n            - Ingredients to Avoid: fragrance, alcohol\n            - Budget Range: (0, 5000)\n            \n            \n                \n                Logic-Based Recommendations (for reference):\n                - AARCHITA Herbal Night Cream With Avocado Provitamin B5 For Overnight Hydration Skin Rejuvenation Sulphate-Free 30 Ml (AARCHITA)\n- Turmeric Kojic Acid and Turmeric Cleansing Pads for Face Dark Spots Kojic and Turmeric Cleansing Pads Suitable for All Skin Types - 50 pcs . CONTAINER - 1.. (KITWELL)\n- Novology SPF 50 PA Ultralight Gel Sunscreen with Niacinamide Fights Acne a...",
+    "response": null,
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "user_profile": {
+        "skinType": "combination",
+        "ageRange": "18-24",
+        "concerns": [
+          "acne"
+        ],
+        "preferredIngredients": [
+          "niacinamide",
+          "hyaluronic-acid",
+          "retinol"
+        ],
+        "avoidIngredients": [
+          "fragrance",
+          "alcohol"
+        ],
+        "budget": [
+          0,
+          5000
+        ]
+      },
+      "product_database_size": 326,
+      "logic_recommendations_count": 30
+    }
+  },
+  {
+    "timestamp": "2025-07-28T01:01:44.059230",
+    "interaction_type": "product_recommendations_response",
+    "prompt": "Response received",
+    "response": "```json\n[\n    {\n        \"product_name\": \"The Derma Co Face Wash with 2 Salicylic Acid and 2 Niacinamide  Sali-Cinamide Anti-Acne Face Wash - 80ml\",\n        \"brand\": \"The Derma Co\",\n        \"reason\": \"This cleanser is specifically designed for acne-prone skin, containing 2% Salicylic Acid to exfoliate pores and 2% Niacinamide to reduce inflammation and oiliness. It directly addresses your primary concern of acne while including a preferred ingredient.\",\n        \"category\": \"cleanser\",\n        \"priority\": \"high\",\n        \"price_value\": \"budget\"\n    },\n    {\n        \"product_name\": \"Minimalist Anti-Acne Salicylic Acid 2 Face Wash For Oily & Acne Prone Skin  With LHA for Pore Cleansing Oil Control & Sebum Regulation  Sulfate-Free Formula with Zinc for Gentle Exfoliation  Cleanser for Women & Men  100 ml\",\n        \"brand\": \"Minimalist\",\n        \"reason\": \"An excellent choice for combination skin, this sulfate-free wash uses Salicylic Acid to manage acne and control sebum. Its gentle formulation makes it suitable for daily use without stripping the skin's moisture barrier.\",\n        \"category\": \"cleanser\",\n        \"priority\": \"high\",\n        \"price_value\": \"budget\"\n    },\n    {\n        \"product_name\": \"Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1\",\n        \"brand\": \"Minimalist\",\n        \"reason\": \"This serum is a perfect match for your profile. It features a high concentration of your preferred ingredient, Niacinamide, along with Zinc to effectively control oil production, minimize pores, and treat acne blemishes. It is also fragrance and alcohol-free.\",\n        \"category\": \"serum\",\n        \"priority\": \"high\",\n        \"price_value\": \"mid-range\"\n    },\n    {\n        \"product_name\": \"Dermistry Aging Repair Retinol Collagen SPF 30 Skin Firming Lifting Moisturizer Day Face Cream Reduces Ageing Wrinkles Fine Lines Improves Elasticity Tightening Suits Dry Oily Skin Men Women 50 ML...",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "response_length": 10006
+    }
+  },
+  {
+    "timestamp": "2025-07-28T01:01:44.067666",
+    "interaction_type": "product_recommendations_parsed",
+    "prompt": "JSON parsing successful",
+    "response": "Parsed 17 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "recommendations_count": 17
+    }
+  },
+  {
+    "timestamp": "2025-07-28T01:01:44.078146",
+    "interaction_type": "product_recommendations_formatted",
+    "prompt": "Recommendations formatted successfully",
+    "response": "Formatted 17 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "formatted_count": 17,
+      "sample_recommendations": [
+        "The Derma Co Face Wash with 2 Salicylic Acid and 2 Niacinamide  Sali-Cinamide Anti-Acne Face Wash - 80ml",
+        "Minimalist Anti-Acne Salicylic Acid 2 Face Wash For Oily & Acne Prone Skin  With LHA for Pore Cleansing Oil Control & Sebum Regulation  Sulfate-Free Formula with Zinc for Gentle Exfoliation  Cleanser for Women & Men  100 ml",
+        "Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-07-28T01:01:44.153596",
+    "interaction_type": "product_recommendations_prompt",
+    "prompt": "\n            You are an expert skincare consultant with access to a comprehensive product database. Based on the user profile and product database, recommend the most suitable skincare products.\n\n            \n            User Profile:\n            - Skin Type: combination\n            - Age Range: 18-24\n            - Skin Concerns: acne\n            - Preferred Ingredients: niacinamide, hyaluronic-acid, retinol\n            - Ingredients to Avoid: fragrance, alcohol\n            - Budget Range: (0, 5000)\n            \n            \n                \n                Logic-Based Recommendations (for reference):\n                - AARCHITA Herbal Night Cream With Avocado Provitamin B5 For Overnight Hydration Skin Rejuvenation Sulphate-Free 30 Ml (AARCHITA)\n- Turmeric Kojic Acid and Turmeric Cleansing Pads for Face Dark Spots Kojic and Turmeric Cleansing Pads Suitable for All Skin Types - 50 pcs . CONTAINER - 1.. (KITWELL)\n- Novology SPF 50 PA Ultralight Gel Sunscreen with Niacinamide Fights Acne a...",
+    "response": null,
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "user_profile": {
+        "skinType": "combination",
+        "ageRange": "18-24",
+        "concerns": [
+          "acne"
+        ],
+        "preferredIngredients": [
+          "niacinamide",
+          "hyaluronic-acid",
+          "retinol"
+        ],
+        "avoidIngredients": [
+          "fragrance",
+          "alcohol"
+        ],
+        "budget": [
+          0,
+          5000
+        ]
+      },
+      "product_database_size": 326,
+      "logic_recommendations_count": 40
+    }
+  },
+  {
+    "timestamp": "2025-07-28T01:02:48.973251",
+    "interaction_type": "product_recommendations_response",
+    "prompt": "Response received",
+    "response": "```json\n[\n    {\n        \"product_name\": \"Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1\",\n        \"brand\": \"Minimalist\",\n        \"reason\": \"This serum is a perfect match, featuring a high concentration of the user's preferred ingredient, Niacinamide, combined with Zinc to effectively control oil and target acne. Its fragrance-free formula is ideal for clarifying skin, reducing blemishes, and minimizing pores.\",\n        \"category\": \"serum\",\n        \"priority\": \"high\",\n        \"price_value\": \"mid-range\"\n    },\n    {\n        \"product_name\": \"The Derma Co Face Wash with 2 Salicylic Acid and 2 Niacinamide  Sali-Cinamide Anti-Acne Face Wash - 80ml\",\n        \"brand\": \"The Derma Co\",\n        \"reason\": \"This cleanser directly addresses the user's primary concern of acne with a potent combination of Salicylic Acid to exfoliate and clear pores, and Niacinamide to reduce inflammation and marks. It's an excellent first step in an anti-acne routine.\",\n        \"category\": \"cleanser\",\n        \"priority\": \"high\",\n        \"price_value\": \"budget\"\n    },\n    {\n        \"product_name\": \"The Derma Co 1 Hyaluronic Sunscreen Aqua Gel SPF 50 PA I For Oily Dry Acne-prone Skin  Ultra Lightweight Texture I Non-Greasy I No White Cast  Broad Spectrum Protection & Blue Light Protection  For Men & Women  30 g\",\n        \"brand\": \"The Derma Co\",\n        \"reason\": \"A perfect sunscreen for combination, acne-prone skin. It offers high SPF 50 protection in a lightweight, non-greasy aqua gel format that won't clog pores, and it includes Hyaluronic Acid for oil-free hydration.\",\n        \"category\": \"sunscreen\",\n        \"priority\": \"high\",\n        \"price_value\": \"budget\"\n    },\n    {\n        \"product_name\": \"Dermistry Aging Repair Retinol Collagen SPF 30 Skin Firming Lifting Moisturizer Day Face Cream Reduces Ageing Wrinkles Fine Lines Improves Elasticity Tightening Suits Dry Oily Skin Men Women 50 ML\",\n        ...",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "response_length": 9357
+    }
+  },
+  {
+    "timestamp": "2025-07-28T01:02:48.986035",
+    "interaction_type": "product_recommendations_parsed",
+    "prompt": "JSON parsing successful",
+    "response": "Parsed 16 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "recommendations_count": 16
+    }
+  },
+  {
+    "timestamp": "2025-07-28T01:02:48.995835",
+    "interaction_type": "product_recommendations_formatted",
+    "prompt": "Recommendations formatted successfully",
+    "response": "Formatted 16 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "formatted_count": 16,
+      "sample_recommendations": [
+        "Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1",
+        "The Derma Co Face Wash with 2 Salicylic Acid and 2 Niacinamide  Sali-Cinamide Anti-Acne Face Wash - 80ml",
+        "The Derma Co 1 Hyaluronic Sunscreen Aqua Gel SPF 50 PA I For Oily Dry Acne-prone Skin  Ultra Lightweight Texture I Non-Greasy I No White Cast  Broad Spectrum Protection & Blue Light Protection  For Men & Women  30 g"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-07-28T01:19:10.850539",
+    "interaction_type": "product_recommendations_prompt",
+    "prompt": "\n            You are an expert skincare consultant with access to a comprehensive product database. Based on the user profile and product database, recommend the most suitable skincare products.\n\n            \n            User Profile:\n            - Skin Type: combination\n            - Age Range: 25-34\n            - Skin Concerns: acne\n            - Preferred Ingredients: niacinamide, hyaluronic-acid\n            - Ingredients to Avoid: fragrance, alcohol\n            - Budget Range: (0, 5000)\n            \n            \n                \n                Logic-Based Recommendations (for reference):\n                - Novology SPF 50 PA Ultralight Gel Sunscreen with Niacinamide Fights Acne and Sebum Non-Greasy Quick Absorbing Invisible Finish  Designed for Oily Skin 50 g (Novology)\n- Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1 (Minimalist)\n- Orgatre Acne Clear Face Wash with Tea Tree 2 Salicylic...",
+    "response": null,
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "user_profile": {
+        "skinType": "combination",
+        "ageRange": "25-34",
+        "concerns": [
+          "acne"
+        ],
+        "preferredIngredients": [
+          "niacinamide",
+          "hyaluronic-acid"
+        ],
+        "avoidIngredients": [
+          "fragrance",
+          "alcohol"
+        ],
+        "budget": [
+          0,
+          5000
+        ]
+      },
+      "product_database_size": 326,
+      "logic_recommendations_count": 30
+    }
+  },
+  {
+    "timestamp": "2025-07-28T01:20:04.996961",
+    "interaction_type": "product_recommendations_response",
+    "prompt": "Response received",
+    "response": "```json\n[\n    {\n        \"product_name\": \"Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1\",\n        \"brand\": \"Minimalist\",\n        \"reason\": \"This serum is a perfect match, featuring a high concentration of Niacinamide, your preferred ingredient for managing acne and oil production. The addition of zinc helps clarify skin and reduce blemishes, directly addressing your primary concern.\",\n        \"category\": \"serum\",\n        \"priority\": \"high\",\n        \"price_value\": \"mid-range\"\n    },\n    {\n        \"product_name\": \"The Derma Co Face Wash with 2 Salicylic Acid and 2 Niacinamide  Sali-Cinamide Anti-Acne Face Wash - 80ml\",\n        \"brand\": \"The Derma Co\",\n        \"reason\": \"An ideal cleanser that combines Salicylic Acid to exfoliate and clear pores with Niacinamide to control oil and reduce inflammation. This powerhouse combination is specifically formulated to fight active acne without being overly harsh on combination skin.\",\n        \"category\": \"cleanser\",\n        \"priority\": \"high\",\n        \"price_value\": \"budget\"\n    },\n    {\n        \"product_name\": \"Minimalist Dehydrated Skin Moisturizer with 10 Vitamin B5 for Oily & Acne-Prone Skin  Oil-Free Hydration & Lightweight Gel Formula for Damaged Barrier Repair  Fast-Absorbing & Non-Sticky Lightweight Winter Cream For Women & Men  Fragrance-Free  50 grams\",\n        \"brand\": \"Minimalist\",\n        \"reason\": \"This oil-free gel moisturizer is designed for acne-prone skin and contains Hyaluronic Acid for lightweight hydration, a key preference. It helps repair the skin barrier without clogging pores, which is essential for balancing combination skin.\",\n        \"category\": \"moisturizer\",\n        \"priority\": \"high\",\n        \"price_value\": \"mid-range\"\n    },\n    {\n        \"product_name\": \"The Derma Co 1 Hyaluronic Sunscreen Aqua Gel SPF 50 PA I For Oily Dry Acne-prone Skin  Ultra Lightweight Texture I Non-Greasy I No White Cast  Broad ...",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "response_length": 8690
+    }
+  },
+  {
+    "timestamp": "2025-07-28T01:20:05.012150",
+    "interaction_type": "product_recommendations_parsed",
+    "prompt": "JSON parsing successful",
+    "response": "Parsed 15 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "recommendations_count": 15
+    }
+  },
+  {
+    "timestamp": "2025-07-28T01:20:05.027472",
+    "interaction_type": "product_recommendations_formatted",
+    "prompt": "Recommendations formatted successfully",
+    "response": "Formatted 15 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "formatted_count": 15,
+      "sample_recommendations": [
+        "Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1",
+        "The Derma Co Face Wash with 2 Salicylic Acid and 2 Niacinamide  Sali-Cinamide Anti-Acne Face Wash - 80ml",
+        "Minimalist Dehydrated Skin Moisturizer with 10 Vitamin B5 for Oily & Acne-Prone Skin  Oil-Free Hydration & Lightweight Gel Formula for Damaged Barrier Repair  Fast-Absorbing & Non-Sticky Lightweight Winter Cream For Women & Men  Fragrance-Free  50 grams"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-07-28T01:20:05.115934",
+    "interaction_type": "product_recommendations_prompt",
+    "prompt": "\n            You are an expert skincare consultant with access to a comprehensive product database. Based on the user profile and product database, recommend the most suitable skincare products.\n\n            \n            User Profile:\n            - Skin Type: combination\n            - Age Range: 25-34\n            - Skin Concerns: acne\n            - Preferred Ingredients: niacinamide, hyaluronic-acid\n            - Ingredients to Avoid: fragrance, alcohol\n            - Budget Range: (0, 5000)\n            \n            \n                \n                Logic-Based Recommendations (for reference):\n                - Novology SPF 50 PA Ultralight Gel Sunscreen with Niacinamide Fights Acne and Sebum Non-Greasy Quick Absorbing Invisible Finish  Designed for Oily Skin 50 g (Novology)\n- Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1 (Minimalist)\n- Orgatre Acne Clear Face Wash with Tea Tree 2 Salicylic...",
+    "response": null,
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "user_profile": {
+        "skinType": "combination",
+        "ageRange": "25-34",
+        "concerns": [
+          "acne"
+        ],
+        "preferredIngredients": [
+          "niacinamide",
+          "hyaluronic-acid"
+        ],
+        "avoidIngredients": [
+          "fragrance",
+          "alcohol"
+        ],
+        "budget": [
+          0,
+          5000
+        ]
+      },
+      "product_database_size": 326,
+      "logic_recommendations_count": 40
+    }
+  },
+  {
+    "timestamp": "2025-07-28T01:20:52.922699",
+    "interaction_type": "product_recommendations_response",
+    "prompt": "Response received",
+    "response": "```json\n[\n    {\n        \"product_name\": \"Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1\",\n        \"brand\": \"Minimalist\",\n        \"reason\": \"This serum is a perfect match for your profile. It contains 10% niacinamide to control oil and fight acne, and zinc to soothe inflammation, directly addressing your main concerns and preferred ingredients.\",\n        \"category\": \"serum\",\n        \"priority\": \"high\",\n        \"price_value\": \"mid-range\"\n    },\n    {\n        \"product_name\": \"The Derma Co Face Wash with 2 Salicylic Acid and 2 Niacinamide  Sali-Cinamide Anti-Acne Face Wash - 80ml\",\n        \"brand\": \"The Derma Co\",\n        \"reason\": \"This cleanser is formulated with salicylic acid to exfoliate and clear pores, and niacinamide to reduce acne marks and control sebum. It's a powerful combination to manage active acne for combination skin.\",\n        \"category\": \"cleanser\",\n        \"priority\": \"high\",\n        \"price_value\": \"budget\"\n    },\n    {\n        \"product_name\": \"Urban Yog Acne Pimple Patch for Face 72 dots  Waterproof Patches for Active Acne  Absorbs Pimple Overnight and Reduces Excess Oil  Facial Patches with 100 Hydrocolloid\",\n        \"brand\": \"Urban yog\",\n        \"reason\": \"Hydrocolloid patches are essential for managing acne. They absorb fluid from active pimples, protect them from bacteria, and speed up healing without irritating the surrounding skin.\",\n        \"category\": \"treatment\",\n        \"priority\": \"high\",\n        \"price_value\": \"budget\"\n    },\n    {\n        \"product_name\": \"Minimalist Dehydrated Skin Moisturizer with 10 Vitamin B5 for Oily & Acne-Prone Skin  Oil-Free Hydration & Lightweight Gel Formula for Damaged Barrier Repair  Fast-Absorbing & Non-Sticky Lightweight Winter Cream For Women & Men  Fragrance-Free  50 grams\",\n        \"brand\": \"Minimalist\",\n        \"reason\": \"An ideal moisturizer for your skin type. It's oil-free and lightweight, containing hyal...",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "response_length": 8215
+    }
+  },
+  {
+    "timestamp": "2025-07-28T01:20:52.932919",
+    "interaction_type": "product_recommendations_parsed",
+    "prompt": "JSON parsing successful",
+    "response": "Parsed 15 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "recommendations_count": 15
+    }
+  },
+  {
+    "timestamp": "2025-07-28T01:20:52.944267",
+    "interaction_type": "product_recommendations_formatted",
+    "prompt": "Recommendations formatted successfully",
+    "response": "Formatted 15 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "formatted_count": 15,
+      "sample_recommendations": [
+        "Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1",
+        "The Derma Co Face Wash with 2 Salicylic Acid and 2 Niacinamide  Sali-Cinamide Anti-Acne Face Wash - 80ml",
+        "Urban Yog Acne Pimple Patch for Face 72 dots  Waterproof Patches for Active Acne  Absorbs Pimple Overnight and Reduces Excess Oil  Facial Patches with 100 Hydrocolloid"
+      ]
+    }
+  }
+]

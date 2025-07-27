@@ -106,106 +106,55 @@ export function QuestionnaireForm() {
     return true
   }
 
-  // Update the handleSubmit function to use the FastAPI backend
+  // Update to use the Next.js API route with Gemini AI integration
   const handleSubmit = async () => {
     setError(null)
     if (!validateForm()) return
+    
     try {
       setIsSubmitting(true)
-      setProgress(10)
-      let skinDetectionResults = null
-      // If face image is present, call backend for acne detection
+      setProgress(20)
+
+      // Create FormData for the Next.js API route
+      const submitData = new FormData()
+      submitData.append("skinType", formData.skinType)
+      submitData.append("preferredIngredients", JSON.stringify(formData.preferredIngredients))
+      submitData.append("avoidIngredients", JSON.stringify(formData.avoidIngredients))
+      submitData.append("ageRange", formData.ageRange)
+      submitData.append("budget", formData.budget)
+      submitData.append("skinConcerns", JSON.stringify(formData.skinConcerns))
+      
+      // Add face image if provided for Gemini vision analysis
       if (formData.faceImage) {
-        const imageForm = new FormData()
-        imageForm.append("file", formData.faceImage)
-        const detectionRes = await fetch(`${BACKEND_URL}/api/detect-skin-issues`, {
-          method: "POST",
-          body: imageForm,
-        })
-        if (detectionRes.ok) {
-          const detectionJson = await detectionRes.json()
-          skinDetectionResults = detectionJson.detections
-        }
-      }
-      setProgress(40)
-
-      // Prepare recommendation data as a JSON object
-      let priceMin = 0, priceMax = 10000
-      // Map budget categories to actual price ranges
-      switch(formData.budget) {
-        case "budget":
-          priceMin = 0;
-          priceMax = 500; // ₹500 max for budget
-          break;
-        case "mid-tier":
-          priceMin = 500;
-          priceMax = 2000; // ₹500-₹2000 for mid-tier
-          break;
-        case "premium":
-          priceMin = 2000;
-          priceMax = 10000; // ₹2000+ for premium
-          break;
-        case "mixed":
-          priceMin = 0;
-          priceMax = 10000; // Full range for mixed
-          break;
-        default:
-          // If budget contains a dash (old format), try parsing it
-          if (formData.budget.includes("-")) {
-            const [min, max] = formData.budget.split("-").map(Number)
-            priceMin = min
-            priceMax = max
-          }
+        submitData.append("faceImage", formData.faceImage)
       }
 
-      const recommendationPayload = {
-        age_group: formData.ageRange,
-        skin_concerns: formData.skinConcerns,
-        skin_type: formData.skinType,
-        price_range: [priceMin, priceMax],
-        ingredients: formData.preferredIngredients,
-        avoid_ingredients: formData.avoidIngredients,
-      }
+      setProgress(50)
 
-      setProgress(60)
-      // Call backend recommender with JSON payload
-      const recRes = await fetch(`${BACKEND_URL}/api/recommend-products`, {
+      // Call the Next.js API route with Gemini AI integration
+      const response = await fetch("/api/analyze", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(recommendationPayload),
+        body: submitData,
       })
+
       setProgress(80)
-      if (!recRes.ok) {
-        const errorData = await recRes.json()
-        throw new Error(errorData.detail || "Failed to get recommendations")
+
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.error || "Failed to get AI analysis")
       }
-      const recJson = await recRes.json()
-      console.log("Backend response:", recJson) // Debug log
+
+      const result = await response.json()
+      console.log("Gemini AI analysis result:", result) // Debug log
+
       setProgress(90)
-      // Compose result object for the store
-      const result = {
-        id: Date.now().toString(),
-        recommendedProducts: recJson.recommendations || [],
-        skinDetectionResults,
-        userProfile: {
-          skinType: formData.skinType,
-          preferredIngredients: formData.preferredIngredients,
-          avoidIngredients: formData.avoidIngredients,
-          ageRange: formData.ageRange,
-          budget: formData.budget,
-          concerns: formData.skinConcerns,
-        },
-        skinConditionAnalysis: "Based on your skin profile and uploaded image analysis", // Placeholder
-        morningRoutine: recJson.routine?.morning?.join("\n") || "No routine available",
-        nightRoutine: recJson.routine?.evening?.join("\n") || "No routine available",
-        aiResponse: "", // Placeholder
-      }
-      console.log("Storing result:", result) // Debug log
+
+      // Store the result (it's already in the correct format from the API)
       addResult(result)
+      
       setProgress(100)
       router.push(`/results/${result.id}`)
+      
     } catch (error) {
       console.error("Error submitting questionnaire:", error)
       setError(error instanceof Error ? error.message : "An unexpected error occurred. Please try again.")

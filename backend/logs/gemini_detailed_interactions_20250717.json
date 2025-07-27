@@ -1,0 +1,430 @@
+[
+  {
+    "timestamp": "2025-07-17T19:35:54.178693",
+    "interaction_type": "product_recommendations_prompt",
+    "prompt": "\n            You are an expert skincare consultant with access to a comprehensive product database. Based on the user profile and product database, recommend the most suitable skincare products.\n\n            \n            User Profile:\n            - Skin Type: oily\n            - Age Range: 25-34\n            - Skin Concerns: acne, sensitivity\n            - Preferred Ingredients: niacinamide, hyaluronic-acid\n            - Ingredients to Avoid: fragrance, alcohol\n            - Budget Range: (500, 1500)\n            \n            \n                \n                Logic-Based Recommendations (for reference):\n                - Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1 (Minimalist)\n- Asaya Korean Pigmentation Serum  Hyperpigmentation & Dark Spot Remover  Tranexamic Acid Niacinamide & Arbutin  Reduces Melasma Acne Marks & Discoloration  Brightens & Evens Skin Tone  Berry Extracts for Antioxidant ...",
+    "response": null,
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "user_profile": {
+        "skinType": "oily",
+        "ageRange": "25-34",
+        "concerns": [
+          "acne",
+          "sensitivity"
+        ],
+        "preferredIngredients": [
+          "niacinamide",
+          "hyaluronic-acid"
+        ],
+        "avoidIngredients": [
+          "fragrance",
+          "alcohol"
+        ],
+        "budget": [
+          500,
+          1500
+        ]
+      },
+      "product_database_size": 326,
+      "logic_recommendations_count": 30
+    }
+  },
+  {
+    "timestamp": "2025-07-17T19:37:03.635511",
+    "interaction_type": "product_recommendations_response",
+    "prompt": "Response received",
+    "response": "```json\n[\n    {\n        \"product_name\": \"Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1\",\n        \"brand\": \"Minimalist\",\n        \"reason\": \"This serum is a perfect match, featuring 10% niacinamide to control oil and address acne, a primary concern. The addition of zinc helps soothe sensitivity and inflammation, and the brand is known for its fragrance-free formulations.\",\n        \"category\": \"serum\",\n        \"priority\": \"high\",\n        \"price_value\": \"mid-range\"\n    },\n    {\n        \"product_name\": \"Minimalist Dehydrated Skin Moisturizer with 10 Vitamin B5 for Oily & Acne-Prone Skin  Oil-Free Hydration & Lightweight Gel Formula for Damaged Barrier Repair  Fast-Absorbing & Non-Sticky Lightweight Winter Cream For Women & Men  Fragrance-Free  50 grams\",\n        \"brand\": \"Minimalist\",\n        \"reason\": \"Specifically designed for oily, acne-prone skin, this oil-free gel moisturizer provides lightweight hydration with hyaluronic acid. It is explicitly fragrance-free, making it ideal for your sensitive skin needs while helping to repair the skin barrier.\",\n        \"category\": \"moisturizer\",\n        \"priority\": \"high\",\n        \"price_value\": \"budget\"\n    },\n    {\n        \"product_name\": \"WishCare 5 Niacinamide Oil Balance Fluid Sunscreen SPF 50 PA with 8 Hrs SPF Protection- Lightweight Matte Sunscreen SPF 50 for Oily Skin & No White Cast 50g\",\n        \"brand\": \"WishCare\",\n        \"reason\": \"A sunscreen formulated for oily skin that contains your preferred ingredient, niacinamide. It offers high SPF protection with a matte finish to help control shine throughout the day, without leaving a white cast.\",\n        \"category\": \"sunscreen\",\n        \"priority\": \"high\",\n        \"price_value\": \"mid-range\"\n    },\n    {\n        \"product_name\": \"Sebogel Salicylic Acid & Nicotinamide Gel for Pimples and Oily Skin 30gm\",\n        \"brand\": \"SEBOGEL\",\n        \"reason\": \"This is an excellent targe...",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "response_length": 9721
+    }
+  },
+  {
+    "timestamp": "2025-07-17T19:37:03.644328",
+    "interaction_type": "product_recommendations_parsed",
+    "prompt": "JSON parsing successful",
+    "response": "Parsed 17 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "recommendations_count": 17
+    }
+  },
+  {
+    "timestamp": "2025-07-17T19:37:03.655056",
+    "interaction_type": "product_recommendations_formatted",
+    "prompt": "Recommendations formatted successfully",
+    "response": "Formatted 17 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "formatted_count": 17,
+      "sample_recommendations": [
+        "Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1",
+        "Minimalist Dehydrated Skin Moisturizer with 10 Vitamin B5 for Oily & Acne-Prone Skin  Oil-Free Hydration & Lightweight Gel Formula for Damaged Barrier Repair  Fast-Absorbing & Non-Sticky Lightweight Winter Cream For Women & Men  Fragrance-Free  50 grams",
+        "WishCare 5 Niacinamide Oil Balance Fluid Sunscreen SPF 50 PA with 8 Hrs SPF Protection- Lightweight Matte Sunscreen SPF 50 for Oily Skin & No White Cast 50g"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-07-17T19:37:03.742035",
+    "interaction_type": "product_recommendations_prompt",
+    "prompt": "\n            You are an expert skincare consultant with access to a comprehensive product database. Based on the user profile and product database, recommend the most suitable skincare products.\n\n            \n            User Profile:\n            - Skin Type: oily\n            - Age Range: 25-34\n            - Skin Concerns: acne, sensitivity\n            - Preferred Ingredients: niacinamide, hyaluronic-acid\n            - Ingredients to Avoid: fragrance, alcohol\n            - Budget Range: (500, 1500)\n            \n            \n                \n                Logic-Based Recommendations (for reference):\n                - Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1 (Minimalist)\n- Asaya Korean Pigmentation Serum  Hyperpigmentation & Dark Spot Remover  Tranexamic Acid Niacinamide & Arbutin  Reduces Melasma Acne Marks & Discoloration  Brightens & Evens Skin Tone  Berry Extracts for Antioxidant ...",
+    "response": null,
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "user_profile": {
+        "skinType": "oily",
+        "ageRange": "25-34",
+        "concerns": [
+          "acne",
+          "sensitivity"
+        ],
+        "preferredIngredients": [
+          "niacinamide",
+          "hyaluronic-acid"
+        ],
+        "avoidIngredients": [
+          "fragrance",
+          "alcohol"
+        ],
+        "budget": [
+          500,
+          1500
+        ]
+      },
+      "product_database_size": 326,
+      "logic_recommendations_count": 40
+    }
+  },
+  {
+    "timestamp": "2025-07-17T19:38:04.436227",
+    "interaction_type": "product_recommendations_response",
+    "prompt": "Response received",
+    "response": "```json\n[\n    {\n        \"product_name\": \"Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1\",\n        \"brand\": \"Minimalist\",\n        \"reason\": \"This serum is a perfect match for your profile. It features your preferred ingredient, Niacinamide (at a potent 10% concentration) combined with Zinc, which is excellent for controlling oil production and managing acne. Minimalist products are also formulated without fragrance or alcohol, making it ideal for your sensitive skin.\",\n        \"category\": \"serum\",\n        \"priority\": \"high\",\n        \"price_value\": \"mid-range\"\n    },\n    {\n        \"product_name\": \"Cetaphil Paraben Sulphate-Free Gentle Skin Hydrating Face Wash Cleanser with Niacinamide Vitamin B5 for Dry to Normal Sensitive Skin - 125 ml\",\n        \"brand\": \"Cetaphil\",\n        \"reason\": \"An extremely gentle, non-stripping cleanser perfect for sensitive skin. It contains Niacinamide and is free from common irritants, ensuring it cleanses effectively without causing flare-ups or dryness, which is crucial when managing both acne and sensitivity.\",\n        \"category\": \"cleanser\",\n        \"priority\": \"high\",\n        \"price_value\": \"budget\"\n    },\n    {\n        \"product_name\": \"Minimalist Dehydrated Skin Moisturizer with 10 Vitamin B5 for Oily & Acne-Prone Skin  Oil-Free Hydration & Lightweight Gel Formula for Damaged Barrier Repair  Fast-Absorbing & Non-Sticky Lightweight Winter Cream For Women & Men  Fragrance-Free  50 grams\",\n        \"brand\": \"Minimalist\",\n        \"reason\": \"This oil-free gel moisturizer is specifically designed for oily and acne-prone skin. It provides lightweight hydration with your preferred ingredient, Hyaluronic Acid, and helps repair the skin barrier with Vitamin B5, which is essential for reducing sensitivity.\",\n        \"category\": \"moisturizer\",\n        \"priority\": \"high\",\n        \"price_value\": \"budget\"\n    },\n    {\n        \"product_name\": \"WishCare 5 ...",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "response_length": 9116
+    }
+  },
+  {
+    "timestamp": "2025-07-17T19:38:04.446593",
+    "interaction_type": "product_recommendations_parsed",
+    "prompt": "JSON parsing successful",
+    "response": "Parsed 15 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "recommendations_count": 15
+    }
+  },
+  {
+    "timestamp": "2025-07-17T19:38:04.456875",
+    "interaction_type": "product_recommendations_formatted",
+    "prompt": "Recommendations formatted successfully",
+    "response": "Formatted 14 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "formatted_count": 14,
+      "sample_recommendations": [
+        "Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1",
+        "Cetaphil Paraben Sulphate-Free Gentle Skin Hydrating Face Wash Cleanser with Niacinamide Vitamin B5 for Dry to Normal Sensitive Skin - 125 ml",
+        "Minimalist Dehydrated Skin Moisturizer with 10 Vitamin B5 for Oily & Acne-Prone Skin  Oil-Free Hydration & Lightweight Gel Formula for Damaged Barrier Repair  Fast-Absorbing & Non-Sticky Lightweight Winter Cream For Women & Men  Fragrance-Free  50 grams"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-07-17T20:09:07.670290",
+    "interaction_type": "product_recommendations_prompt",
+    "prompt": "\n            You are an expert skincare consultant with access to a comprehensive product database. Based on the user profile and product database, recommend the most suitable skincare products.\n\n            \n            User Profile:\n            - Skin Type: combination\n            - Age Range: 25-34\n            - Skin Concerns: acne\n            - Preferred Ingredients: niacinamide, retinol, ahas\n            - Ingredients to Avoid: fragrance, alcohol, parabens, sulfates\n            - Budget Range: (500, 1500)\n            \n            \n                \n                Logic-Based Recommendations (for reference):\n                - Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1 (Minimalist)\n- Asaya Korean Pigmentation Serum  Hyperpigmentation & Dark Spot Remover  Tranexamic Acid Niacinamide & Arbutin  Reduces Melasma Acne Marks & Discoloration  Brightens & Evens Skin Tone  Berry Extracts for ...",
+    "response": null,
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "user_profile": {
+        "skinType": "combination",
+        "ageRange": "25-34",
+        "concerns": [
+          "acne"
+        ],
+        "preferredIngredients": [
+          "niacinamide",
+          "retinol",
+          "ahas"
+        ],
+        "avoidIngredients": [
+          "fragrance",
+          "alcohol",
+          "parabens",
+          "sulfates"
+        ],
+        "budget": [
+          500,
+          1500
+        ]
+      },
+      "product_database_size": 326,
+      "logic_recommendations_count": 30
+    }
+  },
+  {
+    "timestamp": "2025-07-17T20:10:16.687826",
+    "interaction_type": "product_recommendations_response",
+    "prompt": "Response received",
+    "response": "```json\n[\n    {\n        \"product_name\": \"Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1\",\n        \"brand\": \"Minimalist\",\n        \"reason\": \"This serum is a perfect match for your profile, containing 10% niacinamide to control oil production and zinc to soothe inflammation, directly addressing your acne concerns. It is fragrance-free and fits well within your budget.\",\n        \"category\": \"serum\",\n        \"priority\": \"high\",\n        \"price_value\": \"mid-range\"\n    },\n    {\n        \"product_name\": \"Pilgrim 25 AHA  2 BHA  5 PHA Peeling Solution 30ml For Face & Body 10-Minute Facial At HomeGentle Exfoliating Serum for Tan Removal For Glowing Skin Even Skin Tone Pore Cleansing Men Women\",\n        \"brand\": \"PILGRIM\",\n        \"reason\": \"To fulfill your preference for AHAs, this weekly peeling solution offers a potent blend of Glycolic (AHA) and Salicylic (BHA) acids. It will effectively exfoliate, unclog pores, and improve skin texture, which is beneficial for acne-prone skin.\",\n        \"category\": \"treatment\",\n        \"priority\": \"high\",\n        \"price_value\": \"mid-range\"\n    },\n    {\n        \"product_name\": \"Minimalist Anti-Acne Salicylic Acid 2 Face Wash For Oily & Acne Prone Skin  With LHA for Pore Cleansing Oil Control & Sebum Regulation  Sulfate-Free Formula with Zinc for Gentle Exfoliation  Cleanser for Women & Men  100 ml\",\n        \"brand\": \"Minimalist\",\n        \"reason\": \"A targeted cleanser with 2% Salicylic Acid is essential for managing acne. This sulfate-free formula cleanses deep within the pores to reduce breakouts and control oil without stripping the skin, making it ideal for your combination skin type.\",\n        \"category\": \"cleanser\",\n        \"priority\": \"high\",\n        \"price_value\": \"budget\"\n    },\n    {\n        \"product_name\": \"RE EQUIL Ultra Matte Dry Touch Sunscreen  SPF 50 PA  Water & Sweat Resistant  No White Cast Non-Greasy & Non-Comedogenic  For All S...",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "response_length": 8961
+    }
+  },
+  {
+    "timestamp": "2025-07-17T20:10:16.705907",
+    "interaction_type": "product_recommendations_parsed",
+    "prompt": "JSON parsing successful",
+    "response": "Parsed 15 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "recommendations_count": 15
+    }
+  },
+  {
+    "timestamp": "2025-07-17T20:10:16.721227",
+    "interaction_type": "product_recommendations_formatted",
+    "prompt": "Recommendations formatted successfully",
+    "response": "Formatted 15 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "formatted_count": 15,
+      "sample_recommendations": [
+        "Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1",
+        "Pilgrim 25 AHA  2 BHA  5 PHA Peeling Solution 30ml For Face & Body 10-Minute Facial At HomeGentle Exfoliating Serum for Tan Removal For Glowing Skin Even Skin Tone Pore Cleansing Men Women",
+        "Minimalist Anti-Acne Salicylic Acid 2 Face Wash For Oily & Acne Prone Skin  With LHA for Pore Cleansing Oil Control & Sebum Regulation  Sulfate-Free Formula with Zinc for Gentle Exfoliation  Cleanser for Women & Men  100 ml"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-07-17T20:10:16.812885",
+    "interaction_type": "product_recommendations_prompt",
+    "prompt": "\n            You are an expert skincare consultant with access to a comprehensive product database. Based on the user profile and product database, recommend the most suitable skincare products.\n\n            \n            User Profile:\n            - Skin Type: combination\n            - Age Range: 25-34\n            - Skin Concerns: acne\n            - Preferred Ingredients: niacinamide, retinol, ahas\n            - Ingredients to Avoid: fragrance, alcohol, parabens, sulfates\n            - Budget Range: (500, 1500)\n            \n            \n                \n                Logic-Based Recommendations (for reference):\n                - Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1 (Minimalist)\n- Asaya Korean Pigmentation Serum  Hyperpigmentation & Dark Spot Remover  Tranexamic Acid Niacinamide & Arbutin  Reduces Melasma Acne Marks & Discoloration  Brightens & Evens Skin Tone  Berry Extracts for ...",
+    "response": null,
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "user_profile": {
+        "skinType": "combination",
+        "ageRange": "25-34",
+        "concerns": [
+          "acne"
+        ],
+        "preferredIngredients": [
+          "niacinamide",
+          "retinol",
+          "ahas"
+        ],
+        "avoidIngredients": [
+          "fragrance",
+          "alcohol",
+          "parabens",
+          "sulfates"
+        ],
+        "budget": [
+          500,
+          1500
+        ]
+      },
+      "product_database_size": 326,
+      "logic_recommendations_count": 40
+    }
+  },
+  {
+    "timestamp": "2025-07-17T20:11:22.788402",
+    "interaction_type": "product_recommendations_response",
+    "prompt": "Response received",
+    "response": "```json\n[\n    {\n        \"product_name\": \"Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1\",\n        \"brand\": \"Minimalist\",\n        \"reason\": \"This serum is a perfect match for your needs. It contains a high concentration of your preferred ingredient, Niacinamide, which is excellent for controlling oil and managing acne. The addition of zinc helps soothe inflammation and regulate sebum production, making it ideal for combination, acne-prone skin.\",\n        \"category\": \"serum\",\n        \"priority\": \"high\",\n        \"price_value\": \"mid-range\"\n    },\n    {\n        \"product_name\": \"Pilgrim 25 AHA  2 BHA  5 PHA Peeling Solution 30ml For Face & Body 10-Minute Facial At HomeGentle Exfoliating Serum for Tan Removal For Glowing Skin Even Skin Tone Pore Cleansing Men Women\",\n        \"brand\": \"PILGRIM\",\n        \"reason\": \"Directly addresses your preference for AHAs with a powerful blend of glycolic and lactic acids, plus BHA (salicylic acid) to deeply cleanse pores and fight acne. This weekly treatment is a fantastic alternative to retinol for improving skin texture, fading marks, and promoting cell turnover.\",\n        \"category\": \"exfoliant\",\n        \"priority\": \"high\",\n        \"price_value\": \"mid-range\"\n    },\n    {\n        \"product_name\": \"Minimalist Anti-Acne Salicylic Acid 2 Face Wash For Oily & Acne Prone Skin  With LHA for Pore Cleansing Oil Control & Sebum Regulation  Sulfate-Free Formula with Zinc for Gentle Exfoliation  Cleanser for Women & Men  100 ml\",\n        \"brand\": \"Minimalist\",\n        \"reason\": \"A targeted cleanser is crucial for acne. This one contains 2% Salicylic Acid (BHA), which penetrates oil to clear out pores and prevent future breakouts. Its sulfate-free formula ensures it cleanses effectively without stripping the drier areas of your combination skin.\",\n        \"category\": \"cleanser\",\n        \"priority\": \"high\",\n        \"price_value\": \"budget\"\n    },\n    {\n  ...",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "response_length": 9165
+    }
+  },
+  {
+    "timestamp": "2025-07-17T20:11:22.800119",
+    "interaction_type": "product_recommendations_parsed",
+    "prompt": "JSON parsing successful",
+    "response": "Parsed 15 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "recommendations_count": 15
+    }
+  },
+  {
+    "timestamp": "2025-07-17T20:11:22.810665",
+    "interaction_type": "product_recommendations_formatted",
+    "prompt": "Recommendations formatted successfully",
+    "response": "Formatted 15 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "formatted_count": 15,
+      "sample_recommendations": [
+        "Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1",
+        "Pilgrim 25 AHA  2 BHA  5 PHA Peeling Solution 30ml For Face & Body 10-Minute Facial At HomeGentle Exfoliating Serum for Tan Removal For Glowing Skin Even Skin Tone Pore Cleansing Men Women",
+        "Minimalist Anti-Acne Salicylic Acid 2 Face Wash For Oily & Acne Prone Skin  With LHA for Pore Cleansing Oil Control & Sebum Regulation  Sulfate-Free Formula with Zinc for Gentle Exfoliation  Cleanser for Women & Men  100 ml"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-07-17T20:18:18.647638",
+    "interaction_type": "product_recommendations_prompt",
+    "prompt": "\n            You are an expert skincare consultant with access to a comprehensive product database. Based on the user profile and product database, recommend the most suitable skincare products.\n\n            \n            User Profile:\n            - Skin Type: combination\n            - Age Range: 25-34\n            - Skin Concerns: acne\n            - Preferred Ingredients: niacinamide, hyaluronic-acid, retinol, ahas\n            - Ingredients to Avoid: fragrance, alcohol, parabens\n            - Budget Range: (500, 1500)\n            \n            \n                \n                Logic-Based Recommendations (for reference):\n                - Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1 (Minimalist)\n- Asaya Korean Pigmentation Serum  Hyperpigmentation & Dark Spot Remover  Tranexamic Acid Niacinamide & Arbutin  Reduces Melasma Acne Marks & Discoloration  Brightens & Evens Skin Tone  Berry Extrac...",
+    "response": null,
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "user_profile": {
+        "skinType": "combination",
+        "ageRange": "25-34",
+        "concerns": [
+          "acne"
+        ],
+        "preferredIngredients": [
+          "niacinamide",
+          "hyaluronic-acid",
+          "retinol",
+          "ahas"
+        ],
+        "avoidIngredients": [
+          "fragrance",
+          "alcohol",
+          "parabens"
+        ],
+        "budget": [
+          500,
+          1500
+        ]
+      },
+      "product_database_size": 326,
+      "logic_recommendations_count": 30
+    }
+  },
+  {
+    "timestamp": "2025-07-17T20:19:23.753581",
+    "interaction_type": "product_recommendations_response",
+    "prompt": "Response received",
+    "response": "```json\n[\n    {\n        \"product_name\": \"Minimalist Anti-Acne Salicylic Acid 2 Face Wash For Oily & Acne Prone Skin  With LHA for Pore Cleansing Oil Control & Sebum Regulation  Sulfate-Free Formula with Zinc for Gentle Exfoliation  Cleanser for Women & Men  100 ml\",\n        \"brand\": \"Minimalist\",\n        \"reason\": \"This cleanser is specifically formulated for combination and acne-prone skin. It contains 2% Salicylic Acid (a BHA) which effectively exfoliates inside the pores to fight acne, combined with LHA for gentle surface exfoliation, making it ideal for the user's primary concern.\",\n        \"category\": \"cleanser\",\n        \"priority\": \"high\",\n        \"price_value\": \"budget\"\n    },\n    {\n        \"product_name\": \"CeraVe Foaming Cleanser For Normal To Oily Skin 88ml - Dermatologist-Developed Facewash  Non-Comedogenic And Fragrance-Free Cleansers For Acne-Prone Skin\",\n        \"brand\": \"CeraVe\",\n        \"reason\": \"An excellent gentle cleanser that won't strip the skin. It contains ceramides, hyaluronic acid, and niacinamide to cleanse effectively while supporting the skin barrier, which is crucial when using acne treatments. It's fragrance-free and suitable for combination skin.\",\n        \"category\": \"cleanser\",\n        \"priority\": \"high\",\n        \"price_value\": \"mid-range\"\n    },\n    {\n        \"product_name\": \"Plum 3 Niacinamide & Rice Water Face Toner  Alcohol-Free Toner for Oily Acne Prone Dry Combination Skin  Pore Tightening & Glowing Skin Fades Blemishes Brightens & Smoothens  Women & Men  150ml\",\n        \"brand\": \"Plum\",\n        \"reason\": \"This is an alcohol-free toner that directly incorporates one of the user's preferred ingredients, Niacinamide. It helps to tighten pores, fade blemishes, and control oil without drying out the skin, making it a perfect second step after cleansing for combination, acne-prone skin.\",\n        \"category\": \"toner\",\n        \"priority\": \"high\",\n        \"price_value\": \"mid-range\"\n    },\n    {\n        \"product_name\": \"Minimalist Oil C...",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "response_length": 10482
+    }
+  },
+  {
+    "timestamp": "2025-07-17T20:19:23.764731",
+    "interaction_type": "product_recommendations_parsed",
+    "prompt": "JSON parsing successful",
+    "response": "Parsed 17 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "recommendations_count": 17
+    }
+  },
+  {
+    "timestamp": "2025-07-17T20:19:23.776894",
+    "interaction_type": "product_recommendations_formatted",
+    "prompt": "Recommendations formatted successfully",
+    "response": "Formatted 17 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "formatted_count": 17,
+      "sample_recommendations": [
+        "Minimalist Anti-Acne Salicylic Acid 2 Face Wash For Oily & Acne Prone Skin  With LHA for Pore Cleansing Oil Control & Sebum Regulation  Sulfate-Free Formula with Zinc for Gentle Exfoliation  Cleanser for Women & Men  100 ml",
+        "CeraVe Foaming Cleanser For Normal To Oily Skin 88ml - Dermatologist-Developed Facewash  Non-Comedogenic And Fragrance-Free Cleansers For Acne-Prone Skin",
+        "Plum 3 Niacinamide & Rice Water Face Toner  Alcohol-Free Toner for Oily Acne Prone Dry Combination Skin  Pore Tightening & Glowing Skin Fades Blemishes Brightens & Smoothens  Women & Men  150ml"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-07-17T20:19:23.865616",
+    "interaction_type": "product_recommendations_prompt",
+    "prompt": "\n            You are an expert skincare consultant with access to a comprehensive product database. Based on the user profile and product database, recommend the most suitable skincare products.\n\n            \n            User Profile:\n            - Skin Type: combination\n            - Age Range: 25-34\n            - Skin Concerns: acne\n            - Preferred Ingredients: niacinamide, hyaluronic-acid, retinol, ahas\n            - Ingredients to Avoid: fragrance, alcohol, parabens\n            - Budget Range: (500, 1500)\n            \n            \n                \n                Logic-Based Recommendations (for reference):\n                - Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1 (Minimalist)\n- Asaya Korean Pigmentation Serum  Hyperpigmentation & Dark Spot Remover  Tranexamic Acid Niacinamide & Arbutin  Reduces Melasma Acne Marks & Discoloration  Brightens & Evens Skin Tone  Berry Extrac...",
+    "response": null,
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "user_profile": {
+        "skinType": "combination",
+        "ageRange": "25-34",
+        "concerns": [
+          "acne"
+        ],
+        "preferredIngredients": [
+          "niacinamide",
+          "hyaluronic-acid",
+          "retinol",
+          "ahas"
+        ],
+        "avoidIngredients": [
+          "fragrance",
+          "alcohol",
+          "parabens"
+        ],
+        "budget": [
+          500,
+          1500
+        ]
+      },
+      "product_database_size": 326,
+      "logic_recommendations_count": 40
+    }
+  },
+  {
+    "timestamp": "2025-07-17T20:20:23.389535",
+    "interaction_type": "product_recommendations_response",
+    "prompt": "Response received",
+    "response": "```json\n[\n    {\n        \"product_name\": \"Minimalist Anti-Acne Salicylic Acid 2% Face Wash For Oily & Acne Prone Skin  With LHA for Pore Cleansing Oil Control & Sebum Regulation  Sulfate-Free Formula with Zinc for Gentle Exfoliation  Cleanser for Women & Men  100 ml\",\n        \"brand\": \"Minimalist\",\n        \"reason\": \"This cleanser is ideal for your combination, acne-prone skin. The 2% Salicylic Acid (a BHA) effectively exfoliates within the pores to target active acne and prevent future breakouts, while Zinc helps regulate oil production without over-stripping the skin.\",\n        \"category\": \"cleanser\",\n        \"priority\": \"high\",\n        \"price_value\": \"budget\"\n    },\n    {\n        \"product_name\": \"CeraVe Foaming Cleanser For Normal To Oily Skin 88ml - Dermatologist-Developed Facewash  Non-Comedogenic And Fragrance-Free Cleansers For Acne-Prone Skin\",\n        \"brand\": \"CeraVe\",\n        \"reason\": \"A great gentle option for daily cleansing. It contains ceramides and hyaluronic acid to protect your skin's barrier and niacinamide to calm inflammation, making it perfect for combination skin that needs balance.\",\n        \"category\": \"cleanser\",\n        \"priority\": \"medium\",\n        \"price_value\": \"mid-range\"\n    },\n    {\n        \"product_name\": \"Minimalist Oil Control & Anti-Acne 10% Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1\",\n        \"brand\": \"Minimalist\",\n        \"reason\": \"This serum directly addresses your acne concerns using one of your preferred ingredients, niacinamide. The 10% concentration is effective for reducing blemishes and inflammation, controlling excess oil in the T-zone, and improving the appearance of pores.\",\n        \"category\": \"serum\",\n        \"priority\": \"high\",\n        \"price_value\": \"mid-range\"\n    },\n    {\n        \"product_name\": \"L'Oreal Paris Glycolic Bright 8% Melasyl & Niacinamide Face Serum for Brightening Dark Spots 15ml\",\n        \"brand\": \"LOREAL PARIS\",\n        \"reason\": \"Thi...",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "response_length": 8862
+    }
+  },
+  {
+    "timestamp": "2025-07-17T20:20:23.402958",
+    "interaction_type": "product_recommendations_parsed",
+    "prompt": "JSON parsing successful",
+    "response": "Parsed 15 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "recommendations_count": 15
+    }
+  },
+  {
+    "timestamp": "2025-07-17T20:20:23.414086",
+    "interaction_type": "product_recommendations_formatted",
+    "prompt": "Recommendations formatted successfully",
+    "response": "Formatted 6 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "formatted_count": 6,
+      "sample_recommendations": [
+        "CeraVe Foaming Cleanser For Normal To Oily Skin 88ml - Dermatologist-Developed Facewash  Non-Comedogenic And Fragrance-Free Cleansers For Acne-Prone Skin",
+        "Neutrogena Hydro Boost Hyaluronic Acid Face Moisturizer 50ml  24 hours long lasting Hydration  Oil free non sticky light water gel fast absorbing Daily use  All Skin Types  For Men & Women 50g",
+        "RE EQUIL Ceramide & Hyaluronic Acid Moisturiser  Moisturizer For Face  Barrier Repair Cream  Long Lasting Hydration  Suitable For Normal To Dry Skin  100G"
+      ]
+    }
+  }
+]
