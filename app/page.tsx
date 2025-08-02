@@ -50,14 +50,13 @@ export default function Home() {
               </div>
               <div className="relative h-[400px] rounded-lg overflow-hidden shadow-xl">
                 <div className="absolute inset-0 bg-gradient-to-br from-pink-100 to-purple-200 flex items-center justify-center">
-                  <Image
-                    src="/images/skincare-app-interface.png"
-                    alt="SkinSage app interface showing skin analysis and product recommendations"
-                    width={500}
-                    height={400}
-                    className="object-contain"
-                    priority
-                  />
+                  <div className="text-center p-8">
+                    <div className="w-24 h-24 mx-auto mb-4 bg-white rounded-full flex items-center justify-center shadow-lg">
+                      <Sparkles className="h-12 w-12 text-pink-500" />
+                    </div>
+                    <h3 className="text-xl font-semibold text-gray-800 mb-2">AI-Powered Analysis</h3>
+                    <p className="text-gray-600">Upload your photo for personalized skincare recommendations</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -74,7 +73,7 @@ export default function Home() {
                 </div>
                 <h3 className="text-xl font-semibold mb-2">Interactive Questionnaire</h3>
                 <p className="text-gray-600">
-                  Customers answer questions about their skin type, preferences, and concerns.
+                  Answer detailed questions about your skin type, concerns, preferred ingredients, and upload an optional photo for AI analysis.
                 </p>
               </div>
               <div className="bg-white p-6 rounded-lg shadow-md">
@@ -83,7 +82,7 @@ export default function Home() {
                 </div>
                 <h3 className="text-xl font-semibold mb-2">AI Analysis</h3>
                 <p className="text-gray-600">
-                  Our AI analyzes their responses and optional facial image to identify skin conditions.
+                  Our advanced AI analyzes your responses and facial image using computer vision and dermatological expertise to identify skin conditions and needs.
                 </p>
               </div>
               <div className="bg-white p-6 rounded-lg shadow-md">
@@ -92,8 +91,32 @@ export default function Home() {
                 </div>
                 <h3 className="text-xl font-semibold mb-2">Personalized Recommendations</h3>
                 <p className="text-gray-600">
-                  Customers receive tailored product recommendations and skincare routines.
+                  Receive personalized product recommendations from our database of 1000+ products, plus a custom skincare routine and professional analysis.
                 </p>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        <section className="py-16 px-4">
+          <div className="container mx-auto max-w-5xl text-center">
+            <h2 className="text-3xl font-bold mb-8">Powered by Advanced AI Technology</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="p-4">
+                <div className="text-3xl font-bold text-pink-600 mb-2">1000+</div>
+                <p className="text-gray-600">Curated Products</p>
+              </div>
+              <div className="p-4">
+                <div className="text-3xl font-bold text-pink-600 mb-2">AI</div>
+                <p className="text-gray-600">Computer Vision</p>
+              </div>
+              <div className="p-4">
+                <div className="text-3xl font-bold text-pink-600 mb-2">24/7</div>
+                <p className="text-gray-600">Available Analysis</p>
+              </div>
+              <div className="p-4">
+                <div className="text-3xl font-bold text-pink-600 mb-2">100%</div>
+                <p className="text-gray-600">Personalized</p>
               </div>
             </div>
           </div>

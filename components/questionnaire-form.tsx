@@ -126,38 +126,111 @@ export function QuestionnaireForm() {
       
       // Add face image if provided for Gemini vision analysis
       if (formData.faceImage) {
-        submitData.append("faceImage", formData.faceImage)
+        // Resize image before sending to reduce payload size
+        const resizedImage = await resizeImage(formData.faceImage, 800, 800)
+        submitData.append("faceImage", resizedImage)
+      }
+
+      setProgress(40)
+
+      // Add validation for required fields
+      const requiredFields = ['skinType', 'ageRange', 'budget']
+      const missingFields = requiredFields.filter(field => !formData[field as keyof FormData])
+      
+      if (missingFields.length > 0) {
+        throw new Error(`Please fill in all required fields: ${missingFields.join(', ')}`)
+      }
+
+      // Validate ingredients arrays
+      if (formData.preferredIngredients.length === 0) {
+        throw new Error("Please select at least one preferred ingredient")
       }
 
       setProgress(50)
 
-      // Call the Next.js API route with Gemini AI integration
-      const response = await fetch("/api/analyze", {
-        method: "POST",
-        body: submitData,
+      console.log("Submitting questionnaire data:", {
+        skinType: formData.skinType,
+        ageRange: formData.ageRange,
+        budget: formData.budget,
+        preferredIngredients: formData.preferredIngredients.length,
+        avoidIngredients: formData.avoidIngredients.length,
+        skinConcerns: formData.skinConcerns.length,
+        hasImage: !!formData.faceImage
       })
 
-      setProgress(80)
+      // Call the Next.js API route with enhanced error handling
+      const controller = new AbortController()
+      const timeoutId = setTimeout(() => {
+        controller.abort()
+        setError("Request timed out. Please try again.")
+      }, 60000) // 60 second timeout
 
-      if (!response.ok) {
-        const errorData = await response.json()
-        throw new Error(errorData.error || "Failed to get AI analysis")
+      try {
+        const response = await fetch("/api/analyze", {
+          method: "POST",
+          body: submitData,
+          signal: controller.signal
+        })
+
+        clearTimeout(timeoutId)
+        setProgress(80)
+
+        if (!response.ok) {
+          const errorData = await response.json().catch(() => ({ error: "Unknown error occurred" }))
+          throw new Error(errorData.error || `Server error: ${response.status}`)
+        }
+
+        const result = await response.json()
+        console.log("Analysis result received:", {
+          id: result.id,
+          hasAnalysis: !!result.skinConditionAnalysis,
+          hasProducts: !!result.recommendedProducts,
+          productCount: result.recommendedProducts?.length || 0,
+          hasRoutine: !!(result.routine || result.morningRoutine),
+          source: result.source
+        })
+
+        setProgress(90)
+
+        // Validate result structure
+        if (!result.id) {
+          throw new Error("Invalid response: missing analysis ID")
+        }
+
+        if (!result.skinConditionAnalysis) {
+          throw new Error("Invalid response: missing skin analysis")
+        }
+
+        // Store the result
+        addResult(result)
+        setProgress(100)
+        
+        // Small delay to show completion
+        setTimeout(() => {
+          router.push(`/results/${result.id}`)
+        }, 500)
+        
+      } finally {
+        clearTimeout(timeoutId)
       }
-
-      const result = await response.json()
-      console.log("Gemini AI analysis result:", result) // Debug log
-
-      setProgress(90)
-
-      // Store the result (it's already in the correct format from the API)
-      addResult(result)
-      
-      setProgress(100)
-      router.push(`/results/${result.id}`)
       
     } catch (error) {
       console.error("Error submitting questionnaire:", error)
-      setError(error instanceof Error ? error.message : "An unexpected error occurred. Please try again.")
+      
+      // Provide more specific error messages
+      let errorMessage = "An unexpected error occurred. Please try again."
+      
+      if (error instanceof Error) {
+        if (error.name === 'AbortError') {
+          errorMessage = "Request timed out. Please check your internet connection and try again."
+        } else if (error.message.includes('Failed to fetch')) {
+          errorMessage = "Unable to connect to the server. Please check your internet connection."
+        } else {
+          errorMessage = error.message
+        }
+      }
+      
+      setError(errorMessage)
       setIsSubmitting(false)
       setProgress(0)
     }

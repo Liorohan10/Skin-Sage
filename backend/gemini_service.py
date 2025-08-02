@@ -121,42 +121,52 @@ class GeminiAI:
             Available Products by Category:
             {formatted_products}
 
-            Create a comprehensive skincare routine using ONLY the products listed above. For each step, you MUST:
+            Create a comprehensive skincare routine using ONLY the products listed above. 
+            
+            CRITICAL REQUIREMENTS:
             1. Use [SPECIFIC PRODUCT NAME from the list] in your instructions
             2. Provide detailed application instructions
             3. Explain timing and frequency
             4. Include product-specific benefits
+            5. Each step must reference a specific product by its exact name
+            6. Provide realistic timing for each step
+            7. Include tips for application technique
 
             Return your response as JSON with this exact format:
             {{
               "morning": [
                 {{
                   "step": "Cleanse",
-                  "instruction": "Use [SPECIFIC PRODUCT NAME] to gently cleanse your face for 60 seconds with lukewarm water. Massage in circular motions focusing on the T-zone.",
+                  "instruction": "Use [EXACT PRODUCT NAME FROM LIST] to gently cleanse your face for 60 seconds with lukewarm water. Massage in circular motions, focusing on the T-zone if you have combination skin. Rinse thoroughly and pat dry with a clean towel.",
                   "product_name": "exact product name from list",
                   "timing": "60 seconds",
-                  "frequency": "daily"
+                  "frequency": "daily",
+                  "tips": "Focus on gentle circular motions, avoid harsh scrubbing"
                 }}
               ],
               "evening": [
                 {{
                   "step": "Cleanse", 
-                  "instruction": "Use [SPECIFIC PRODUCT NAME] to remove the day's impurities and prepare skin for treatments.",
+                  "instruction": "Use [EXACT PRODUCT NAME FROM LIST] to remove the day's impurities, makeup, and sunscreen. Double cleanse if wearing heavy makeup or sunscreen.",
                   "product_name": "exact product name from list",
                   "timing": "60 seconds",
-                  "frequency": "daily"
+                  "frequency": "daily",
+                  "tips": "Take extra time to ensure all impurities are removed"
                 }}
               ],
               "weekly": [
                 {{
                   "step": "Exfoliate",
-                  "instruction": "Use [SPECIFIC PRODUCT NAME] once weekly to remove dead skin cells and improve texture.",
+                  "instruction": "Use [EXACT PRODUCT NAME FROM LIST] once weekly to remove dead skin cells and improve texture. Start with once per week and adjust based on skin tolerance.",
                   "product_name": "exact product name from list",
                   "timing": "5-10 minutes",
-                  "frequency": "weekly"
+                  "frequency": "weekly",
+                  "tips": "Always follow with moisturizer and use sunscreen the next day"
                 }}
               ]
             }}
+            
+            IMPORTANT: Every step must include a specific product name from the available products list. Do not create generic steps without specific products.
             """
             
             response = self.model.generate_content(prompt)

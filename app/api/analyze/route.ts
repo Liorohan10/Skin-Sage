@@ -1,387 +1,569 @@
-import { type NextRequest, NextResponse } from "next/server"
-import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from "@google/generative-ai"
-import { storeResults } from "../results/[id]/route"
-import { fileToBase64 } from "@/lib/image-utils"
+"use client"
 
-// Initialize the Google Generative AI with the API key
-const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY || "")
+import { useEffect, useState } from "react"
+import { Card } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Separator } from "@/components/ui/separator"
+import { AlertCircle, CheckCircle2, Clock, ThumbsUp, Info } from "lucide-react"
+import { ResultsLoading } from "./results-loading"
+import { Button } from "@/components/ui/button"
+import { useRouter } from "next/navigation"
+import { useResultsStore, type ResultsData } from "@/lib/results-store"
 
-// Python backend URL
-const PYTHON_BACKEND_URL = "http://127.0.0.1:8000"
-
-// Helper function to convert budget string to price range
-function budgetToPriceRange(budgetStr: string): [number, number] {
-  switch (budgetStr) {
-    case "budget": return [0, 500]
-    case "mid-tier": return [500, 1500]
-    case "premium": return [1500, 5000]
-    case "mixed": return [0, 5000]
-    default: return [0, 5000]
-  }
+interface ResultsContentProps {
+  resultId: string
+  tab: "recommendations" | "analysis" | "routine"
 }
 
-// Utility function to infer skin concerns
-function inferSkinConcerns(skinType: string, ageRange: string): string[] {
-  const concerns: string[] = []
+// Use the existing types from results-store
+import { RoutineStep } from "@/lib/results-store"
 
-  // Age-based concerns
-  if (ageRange === "25-34" || ageRange === "35-44") {
-    concerns.push("Fine Lines", "Dark Spots")
-  } else if (ageRange === "45-54" || ageRange === "55-plus") {
-    concerns.push("Wrinkles", "Age Spots", "Loss of Firmness")
-  } else if (ageRange === "18-24") {
-    concerns.push("Acne", "Blackheads")
-  }
+// Enhanced product type with additional fields
+interface EnhancedProduct {
+  name: string
+  description: string
 
-  // Skin type-based concerns
-  switch (skinType) {
-    case "Oily":
-      concerns.push("Excess Oil", "Large Pores", "Acne")
-      break
-    case "Dry":
-      concerns.push("Dryness", "Flakiness", "Rough Texture")
-      break
-    case "Combination":
-      concerns.push("Oily T-Zone", "Dry Cheeks", "Uneven Texture")
-      break
-    case "Sensitive":
-      concerns.push("Redness", "Irritation", "Reactive Skin")
-      break
-  }
-
-  return concerns
-}
-
-export async function POST(request: NextRequest) {
+// Enhanced error handling for backend requests
+async function fetchWithTimeout(url: string, options: RequestInit, timeout = BACKEND_TIMEOUT) {
+  const controller = new AbortController()
+  const timeoutId = setTimeout(() => controller.abort(), timeout)
+  
   try {
-    const formData = await request.formData()
-
-    // Extract data from form
-    const skinType = formData.get("skinType") as string
-    const preferredIngredientsRaw = formData.get("preferredIngredients") as string
-    const avoidIngredientsRaw = formData.get("avoidIngredients") as string
-    const ageRange = formData.get("ageRange") as string
-    const budget = formData.get("budget") as string
-    const skinConcernsRaw = (formData.get("skinConcerns") as string) || "[]"
-
-    // Validate required fields
-    if (!skinType || !preferredIngredientsRaw || !avoidIngredientsRaw || !ageRange || !budget) {
-      return NextResponse.json({ error: "Missing required fields in the form data" }, { status: 400 })
-    }
-
-    // Parse JSON strings safely
-    let preferredIngredients: string[] = []
-    let avoidIngredients: string[] = []
-    let skinConcerns: string[] = []
-
-    try {
-      preferredIngredients = JSON.parse(preferredIngredientsRaw)
-      avoidIngredients = JSON.parse(avoidIngredientsRaw)
-      skinConcerns = JSON.parse(skinConcernsRaw)
-    } catch (error) {
-      console.error("Error parsing JSON:", error)
-      return NextResponse.json({ error: "Invalid JSON format for ingredients or concerns" }, { status: 400 })
-    }
-
-    // If no skin concerns were provided, infer them
-    if (skinConcerns.length === 0) {
-      skinConcerns = inferSkinConcerns(skinType, ageRange)
-    }
-
-    // Create a unique ID for this analysis
-    const analysisId = `rec_${Date.now()}`
-
-    // Initialize backend data variables
-    let backendRecommendations = null
-    let backendRoutine = null
-    let acneDetections = []
-    let imageAnalysisInsights = ""
-    
-    // Handle image upload and analysis
-    const faceImage = formData.get("faceImage") as File | null
-    let imageBase64 = ""
-    let imageMimeType = ""
-    
-    if (faceImage) {
-      try {
-        console.log("Processing uploaded image for analysis...")
-        imageBase64 = await fileToBase64(faceImage)
-        imageMimeType = faceImage.type
-        
-        // Try to get acne detection from Python backend
-        try {
-          const imageFormData = new FormData()
-          imageFormData.append('file', faceImage)
-          
-          const acneResponse = await fetch(`${PYTHON_BACKEND_URL}/api/detect-skin-issues`, {
-            method: 'POST',
-            body: imageFormData,
-          })
-          
-          if (acneResponse.ok) {
-            const acneData = await acneResponse.json()
-            acneDetections = acneData.detections || []
-            console.log(`Detected ${acneDetections.length} skin issues`)
-          }
-        } catch (acneError) {
-          console.error("Acne detection failed:", acneError)
-        }
-      } catch (imageError) {
-        console.error("Error processing image:", imageError)
-      }
-    }
-
-    // Get recommendations from Python backend
-    try {
-      console.log("Attempting to fetch products from Python backend (Supabase)...")
-      
-      // Convert budget to price range
-      const priceRange = budgetToPriceRange(budget)
-      
-      // Format request data for backend
-      const backendRequestData = {
-        age_group: ageRange,
-        skin_concerns: skinConcerns,
-        skin_type: skinType,
-        price_range: priceRange,
-        ingredients: preferredIngredients,
-        avoid_ingredients: avoidIngredients,
-        use_ai_enhancement: true,
-        acne_detections: acneDetections
-      }
-      
-      console.log("Backend request data:", backendRequestData)
-      
-      // Send request to Python backend
-      const backendResponse = await fetch(`${PYTHON_BACKEND_URL}/api/recommend-products`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(backendRequestData),
-      })
-      
-      if (backendResponse.ok) {
-        const backendData = await backendResponse.json()
-        console.log("Successfully fetched backend data")
-        
-        // Store backend data
-        backendRecommendations = backendData.products || backendData.recommendations || []
-        backendRoutine = backendData.routine || null
-        imageAnalysisInsights = backendData.skin_analysis || ""
-        
-        console.log("Backend products count:", backendRecommendations.length)
-      } else {
-        console.error("Backend error:", backendResponse.status, await backendResponse.text())
-      }
-    } catch (backendError) {
-      console.error("Failed to fetch from backend:", backendError)
-    }
-    
-    try {
-      // Configure the model - using Gemini 2.5 Pro for enhanced capabilities
-      const model = genAI.getGenerativeModel({
-        model: "gemini-2.0-flash-exp",
-        safetySettings: [
-          {
-            category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
-            threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-          },
-          {
-            category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
-            threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-          },
-        ],
-      })
-
-      // Enhanced prompt for comprehensive analysis
-      const prompt = `
-        You are a board-certified dermatologist providing a comprehensive skin consultation. Analyze the patient's profile and provide professional insights.
-
-        User Profile:
-        - Skin Type: ${skinType}
-        - Age Range: ${ageRange}
-        - Budget: ${budget}
-        - Skin Concerns: ${skinConcerns.join(", ")}
-        - Preferred Ingredients: ${preferredIngredients.join(", ")}
-        - Ingredients to Avoid: ${avoidIngredients.join(", ")}
-        ${acneDetections.length > 0 ? `\n- Detected Skin Issues: ${acneDetections.length} areas of concern identified` : ''}
-        ${imageAnalysisInsights ? `\n- Backend Analysis: ${imageAnalysisInsights}` : ''}
-
-        ${faceImage ? 'I am also providing a facial image for visual analysis. Please examine the image for visible skin conditions, texture, tone, and any concerns that can be observed.' : ''}
-
-        Provide a detailed analysis in the following JSON format:
-        {
-          "skinConditionAnalysis": "Comprehensive analysis including visual observations if image provided, skin type assessment, concern evaluation, and professional insights",
-          "skinCareAdvice": "Additional personalized advice including lifestyle recommendations, frequency of product use, what to expect during the adjustment period, and when to see results."
-        }
-      `
-
-      // Create parts array for the model input
-      const parts: any[] = [{ text: prompt }]
-
-      // Add image to analysis if provided
-      if (faceImage) {
-        parts.push({
-          inlineData: {
-            mimeType: imageMimeType,
-            data: imageBase64,
-          },
-        })
-      }
-
-      // Generate content with Gemini
-      const result = await model.generateContent({
-        contents: [{ role: "user", parts }],
-        generationConfig: {
-          temperature: 0.2,
-          topK: 32,
-          topP: 0.95,
-          maxOutputTokens: 8192,
-        },
-      })
-
-      const response = result.response
-      const responseText = response.text()
-      
-      console.log("Raw Gemini response length:", responseText.length)
-      console.log("Response starts with:", responseText.substring(0, 100))
-
-      // Try to parse the JSON response from Gemini
-      let parsedResponse
-      try {
-        // Extract JSON from the response (it might be wrapped in markdown code blocks)
-        let cleanedResponse = responseText.trim()
-        
-        // Remove markdown code blocks if present
-        if (cleanedResponse.startsWith('```json')) {
-          cleanedResponse = cleanedResponse.replace(/^```json\s*/, '').replace(/\s*```$/, '')
-        } else if (cleanedResponse.startsWith('```')) {
-          cleanedResponse = cleanedResponse.replace(/^```\s*/, '').replace(/\s*```$/, '')
-        }
-        
-        // Handle incomplete JSON by trying to find the complete object
-        if (!cleanedResponse.endsWith('}')) {
-          const lastBraceIndex = cleanedResponse.lastIndexOf('}')
-          if (lastBraceIndex > -1) {
-            cleanedResponse = cleanedResponse.substring(0, lastBraceIndex + 1)
-          }
-        }
-        
-        console.log("Attempting to parse cleaned response...")
-        parsedResponse = JSON.parse(cleanedResponse.trim())
-        console.log("Successfully parsed Gemini response")
-        
-        // Ensure we have valid products array
-        if (!Array.isArray(parsedResponse.recommendedProducts)) {
-          parsedResponse.recommendedProducts = []
-        }
-      } catch (parseError) {
-        console.error("Failed to parse Gemini response as JSON:", parseError)
-        
-        // Extract analysis from non-JSON response
-        const analysisMatch = responseText.match(/skinConditionAnalysis['"]\s*:\s*['"]([^'"]+)['"]/i)
-        const adviceMatch = responseText.match(/skinCareAdvice['"]\s*:\s*['"]([^'"]+)['"]/i)
-        
-        parsedResponse = {
-          skinConditionAnalysis: analysisMatch ? analysisMatch[1] : 
-            `Based on your ${skinType} skin type and age range (${ageRange}), our analysis shows that your main skin concerns are ${skinConcerns.join(", ")}.`,
-          skinCareAdvice: adviceMatch ? adviceMatch[1] : 
-            "Focus on maintaining a consistent skincare routine and staying hydrated.",
-        }
-      }
-
-      // Combine backend analysis with Gemini analysis
-      if (imageAnalysisInsights && parsedResponse.skinConditionAnalysis) {
-        parsedResponse.skinConditionAnalysis = `${parsedResponse.skinConditionAnalysis}\n\nAdditional AI Analysis: ${imageAnalysisInsights}`
-      }
-
-      console.log("Gemini response validation passed")
-      
-      // Use backend products if available
-      const finalProducts = backendRecommendations && backendRecommendations.length > 0
-        ? backendRecommendations
-        : []
-
-      // Create the final response object
-      const recommendations = {
-        id: analysisId,
-        skinConditionAnalysis: parsedResponse.skinConditionAnalysis || 
-          `Based on your ${skinType} skin type and concerns, we've identified key areas for improvement.`,
-        recommendedProducts: finalProducts,
-        routine: backendRoutine,
-        morningRoutine: backendRoutine?.morning || [],
-        nightRoutine: backendRoutine?.evening || [],
-        skinCareAdvice: parsedResponse.skinCareAdvice || 
-          "Maintain a consistent skincare routine and be patient with results.",
-        aiResponse: responseText,
-        acneDetections,
-        hasImageAnalysis: !!faceImage,
-        userProfile: {
-          skinType,
-          preferredIngredients,
-          avoidIngredients,
-          ageRange,
-          budget,
-          concerns: skinConcerns,
-        },
-      }
-
-      // Store the results for later retrieval
-      storeResults(recommendations.id, recommendations)
-      
-      console.log("Final recommendations object:", {
-        id: recommendations.id,
-        hasAnalysis: !!recommendations.skinConditionAnalysis,
-        hasProducts: !!recommendations.recommendedProducts,
-        productCount: recommendations.recommendedProducts?.length || 0,
-        hasMorningRoutine: !!recommendations.morningRoutine,
-        hasNightRoutine: !!recommendations.nightRoutine
-      })
-
-      return NextResponse.json(recommendations)
-
-    } catch (aiError) {
-      console.error("Error with AI processing:", aiError)
-
-      // Fallback when AI fails
-      const fallbackProducts = backendRecommendations && backendRecommendations.length > 0
-        ? backendRecommendations
-        : []
-      
-      const result = {
-        id: analysisId,
-        skinConditionAnalysis: `Based on your ${skinType} skin type and age range (${ageRange}), our analysis shows that your main skin concerns are ${skinConcerns.join(", ")}. ${imageAnalysisInsights}`,
-        recommendedProducts: fallbackProducts,
-        routine: backendRoutine,
-        morningRoutine: backendRoutine?.morning || [],
-        nightRoutine: backendRoutine?.evening || [],
-        skinCareAdvice: "Focus on maintaining a consistent skincare routine and staying hydrated.",
-        aiResponse: "AI processing failed, using fallback recommendations",
-        acneDetections,
-        hasImageAnalysis: !!faceImage,
-        userProfile: {
-          skinType,
-          preferredIngredients,
-          avoidIngredients,
-          ageRange,
-          budget,
-          concerns: skinConcerns,
-        },
-      }
-
-      storeResults(result.id, result)
-      return NextResponse.json(result)
-    }
-
+    const response = await fetch(url, {
+      ...options,
+      signal: controller.signal
+    })
+    clearTimeout(timeoutId)
+    return response
   } catch (error) {
-    console.error("Error in analysis route:", error)
-    return NextResponse.json(
-      { 
-        error: "Failed to process skin analysis", 
-        details: error instanceof Error ? error.message : String(error) 
-      },
-      { status: 500 }
+    clearTimeout(timeoutId)
+    throw error
+  }
+}
+
+  price: string
+  ingredients: string
+  suitableFor: string
+  matchReasons?: string[]
+}
+
+// Enhanced data type for results
+interface EnhancedResultsData extends Omit<ResultsData, 'morningRoutine' | 'nightRoutine'> {
+  recommendedProducts: EnhancedProduct[];
+  morningRoutine?: string | string[];
+  nightRoutine?: string | string[];
+}
+
+// Utility function to process routine steps
+const processRoutineStep = (step: string | RoutineStep) => {
+  // Get the raw step text
+  const rawStepText = typeof step === 'string' 
+    ? (step.includes('. ') ? step.substring(step.indexOf('. ') + 2) : step)
+    : step.instruction || step.step || '';
+  
+  // Remove any asterisks that might be present
+  const stepText = typeof rawStepText === 'string' 
+    ? rawStepText.replace(/\*\*/g, '').replace(/\*/g, '')
+    : rawStepText;
+    
+  // Get product name if available
+  const productName = typeof step === 'string' 
+    ? null 
+    : step.product?.name;
+  
+  // Extract action from step text if it exists - with support for timing in parentheses
+  const actionMatch = typeof stepText === 'string' ? stepText.match(/^([^:]+):(.+)$/) : null;
+      const backendResponse = await fetchWithTimeout(`${PYTHON_BACKEND_URL}/api/recommend-products`, {
+  const instruction = actionMatch ? actionMatch[2].trim() : stepText;
+  
+  return { stepText, productName, action, instruction };
+};
+
+export function ResultsContent({ resultId, tab }: ResultsContentProps) {
+  const router = useRouter()
+  const getResult = useResultsStore((state) => state.getResult)
+  const [data, setData] = useState<EnhancedResultsData | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    // Get the result from the store
+    const result = getResult(resultId)
+
+    if (result) {
+        
+        // Validate backend data structure
+        if (backendRecommendations && Array.isArray(backendRecommendations)) {
+          backendRecommendations = backendRecommendations.map(product => ({
+            name: product.name || 'Unknown Product',
+            description: product.description || 'No description available',
+            price: product.price || 'Price not available',
+            ingredients: product.ingredients || 'Ingredients not listed',
+            suitableFor: product.suitableFor || 'All skin types',
+            brand: product.brand || 'Unknown Brand',
+            rating: product.rating || 0,
+            category: product.category || 'Skincare',
+            matchReasons: product.matchReasons || ['Recommended for your skin type']
+          }))
+        }
+      console.log("Found result in store:", result) // Debug log
+      console.log("Recommended products:", result.recommendedProducts) // Debug log
+      setData(result as EnhancedResultsData)
+    } else {
+      setError("Results not found. Please try starting a new consultation.")
+      
+      // Provide fallback products when backend fails
+      backendRecommendations = [
+        {
+          name: "Gentle Daily Cleanser",
+          description: "A mild, pH-balanced cleanser suitable for daily use",
+          price: "₹299",
+          ingredients: "Glycerin, Ceramides, Niacinamide",
+          suitableFor: skinType,
+          brand: "SkinSage",
+          rating: 4.5,
+          category: "Cleanser",
+          matchReasons: [`Suitable for ${skinType} skin`, "Gentle formula", "Contains beneficial ingredients"]
+        },
+        {
+          name: "Hydrating Face Serum",
+          description: "Lightweight serum for daily hydration and skin barrier support",
+          price: "₹599",
+          ingredients: "Hyaluronic Acid, Vitamin B5, Glycerin",
+          suitableFor: skinType,
+          brand: "SkinSage",
+          rating: 4.7,
+          category: "Serum",
+          matchReasons: [`Perfect for ${skinType} skin`, "Addresses hydration needs", "Non-comedogenic formula"]
+        }
+      ]
+    }
+
+    setLoading(false)
+  }, [resultId, getResult])
+
+  if (loading) {
+    return <ResultsLoading />
+  }
+
+  if (error) {
+    return (
+      <div className="p-8 text-center">
+        <AlertCircle className="h-12 w-12 text-red-500 mx-auto mb-4" />
+        <h3 className="text-xl font-bold mb-2">Error Loading Results</h3>
+        <p className="text-gray-600 mb-4">{error}</p>
+        <div className="flex justify-center space-x-4">
+          <Button variant="outline" onClick={() => window.location.reload()}>
+            Try Again
+          </Button>
+          <Button onClick={() => router.push("/questionnaire")}>Start New Consultation</Button>
+        </div>
+      </div>
     )
   }
+
+  if (!data) {
+    return (
+      <div className="p-8 text-center">
+        <AlertCircle className="h-12 w-12 text-amber-500 mx-auto mb-4" />
+        <h3 className="text-xl font-bold mb-2">Results Not Found</h3>
+        <p className="text-gray-600 mb-4">We couldn't find the recommendations you're looking for.</p>
+        <Button onClick={() => router.push("/questionnaire")}>Start New Consultation</Button>
+      </div>
+    )
+  }
+
+  if (tab === "recommendations") {
+    return (
+      <div className="space-y-6">
+        <h2 className="text-2xl font-bold mb-4">Recommended Products</h2>
+        <p className="text-gray-600 mb-6">
+          Based on your skin profile, we recommend the following products that are suitable for your skin type,
+          preferences, and budget.
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {data.recommendedProducts.map((product, index) => (
+            <Card key={index} className="p-4 h-full flex flex-col">
+              <div className="flex-1">
+                <h3 className="text-lg font-semibold mb-1">{product.name}</h3>
+                <p className="text-pink-600 font-medium mb-3">{product.price}</p>
+                <p className="text-gray-700 mb-3">{product.description}</p>
+                <div className="mt-auto">
+                  <div className="text-sm text-gray-600 mb-2">
+                    <span className="font-medium">Suitable for:</span> {product.suitableFor}
+                  </div>
+                  <div className="text-sm text-gray-600">
+                    <span className="font-medium">Key ingredients:</span> {product.ingredients}
+                  </div>
+
+                  {/* Display match reasons */}
+                  {product.matchReasons && product.matchReasons.length > 0 && (
+                    <div className="mt-3 pt-3 border-t border-gray-100">
+                      <h4 className="text-sm font-medium mb-2 flex items-center">
+                        <ThumbsUp className="h-4 w-4 mr-1 text-green-600" />
+                        Why this matches your profile:
+                      </h4>
+                      <ul className="text-sm text-gray-600 space-y-1">
+                        {product.matchReasons.map((reason, idx) => (
+                          <li key={idx} className="flex items-start">
+                            <span className="text-green-600 mr-1.5">•</span> {reason}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="mt-4 pt-4 border-t flex justify-between items-center">
+                <Badge variant="outline" className="bg-green-50 text-green-700 hover:bg-green-50">
+                  Recommended
+                </Badge>
+                <button className="text-pink-600 text-sm font-medium hover:underline">View Details</button>
+              </div>
+            </Card>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  if (tab === "analysis") {
+    return (
+      <div className="space-y-6">
+        <h2 className="text-2xl font-bold mb-4">Skin Condition Analysis</h2>
+        <Card className="p-6">
+          <div className="flex items-start space-x-4 mb-6">
+            <div className="bg-pink-100 p-2 rounded-full">
+              <CheckCircle2 className="h-6 w-6 text-pink-600" />
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-2">Analysis Results</h3>
+              <p className="text-gray-700">{data.skinConditionAnalysis ? data.skinConditionAnalysis.replace(/\*\*/g, '').replace(/\*/g, '') : ''}</p>
+            </div>
+          </div>
+
+          {data.skinCareAdvice && (
+            <>
+              <Separator className="my-6" />
+              <div className="flex items-start space-x-4">
+                <div className="bg-blue-100 p-2 rounded-full">
+                  <Info className="h-6 w-6 text-blue-600" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold mb-2">Personalized Advice</h3>
+                  <p className="text-gray-700">{data.skinCareAdvice ? data.skinCareAdvice.replace(/\*\*/g, '').replace(/\*/g, '') : ''}</p>
+                </div>
+              </div>
+            </>
+          )}
+
+          <Separator className="my-6" />
+
+          <div>
+            <h3 className="text-lg font-semibold mb-4">Key Observations</h3>
+            <ul className="space-y-3">
+              {data.userProfile?.concerns?.map((concern, index) => (
+                <li key={index} className="flex items-start space-x-2">
+                  <CheckCircle2 className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                  <span>{concern}</span>
+                </li>
+              ))}
+              <li className="flex items-start space-x-2">
+                <CheckCircle2 className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                <span>
+                  {data.userProfile?.skinType} skin type with specific needs for your {data.userProfile?.ageRange} age
+                  range
+                </span>
+              </li>
+            </ul>
+          </div>
+        </Card>
+      </div>
+    )
+  }
+
+  if (tab === "routine") {
+    // Enhanced routine handling to support different formats
+    const getRoutineSteps = (routineData: any) => {
+      if (!routineData) return [];
+      
+      // If it's an array already, use it
+      if (Array.isArray(routineData)) {
+        return routineData;
+      }
+      
+      // If it's a string, split by newlines
+      if (typeof routineData === 'string') {
+        return routineData.split("\n").filter(line => line.trim() !== '');
+      }
+      
+      // If it's an object with step/instruction properties (like from backend)
+      if (typeof routineData === 'object' && routineData !== null) {
+        // If it's a collection of routine steps
+        if (Array.isArray(routineData.morning) || Array.isArray(routineData.evening)) {
+          return routineData;
+        }
+      }
+      
+      // Last resort, return empty array
+      console.warn("Unknown routine data format:", routineData);
+      return [];
+          "skinConditionAnalysis": "Comprehensive professional analysis (minimum 300 words) including visual observations if image provided, skin type assessment, concern evaluation, and detailed professional insights about the current skin condition and underlying causes",
+          "skinCareAdvice": "Detailed personalized advice (minimum 200 words) including lifestyle recommendations, frequency of product use, what to expect during the adjustment period, when to see results, and long-term skin health maintenance tips"
+    // Process the different possible formats with explicit typing
+    const morningSteps: (string | RoutineStep)[] = 
+      (data.routine?.morning && Array.isArray(data.routine.morning)) 
+        ? data.routine.morning 
+        : getRoutineSteps(data.morningRoutine) || [];
+        
+    const eveningSteps: (string | RoutineStep)[] = 
+      (data.routine?.evening && Array.isArray(data.routine.evening)) 
+        ? data.routine.evening 
+        : getRoutineSteps(data.nightRoutine) || [];
+        
+    const weeklySteps: (string | RoutineStep)[] = 
+      (data.routine?.weekly && Array.isArray(data.routine.weekly)) 
+        ? data.routine.weekly 
+        : [];
+
+    return (
+      <div className="space-y-6">
+        <h2 className="text-2xl font-bold mb-4">Recommended Skincare Routine</h2>
+        <p className="text-gray-600 mb-6">
+          temperature: 0.3,
+          responds.
+        </p>
+          maxOutputTokens: 4096,
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <Card className="p-6">
+            <div className="flex items-center space-x-3 mb-4">
+              <div className="bg-amber-100 p-2 rounded-full">
+                <Clock className="h-5 w-5 text-amber-600" />
+              </div>
+              <h3 className="text-xl font-semibold">Morning Routine</h3>
+            </div>
+        Please provide a comprehensive dermatological analysis that includes:
+        1. Detailed skin condition assessment based on the provided information
+        2. Analysis of how the user's age and skin type interact with their concerns
+        3. Professional insights about the detected skin issues (if any)
+        4. Explanation of why certain ingredients are beneficial for their specific needs
+        5. Lifestyle and environmental factors that may be affecting their skin
+        6. Realistic timeline for seeing improvements
+        7. Professional recommendations for maintaining healthy skin long-term
+
+
+            <ol className="space-y-4 mt-4">
+              {morningSteps.map((step: string | RoutineStep, index: number) => {
+                // Process the step using our utility function
+                const { stepText, productName, action, instruction } = processRoutineStep(step);
+                
+                return (
+                  <li key={index} className="flex items-start">
+                    <span className="bg-pink-100 text-pink-800 w-6 h-6 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                      {index + 1}
+                    </span>
+                    <div className="flex-1">
+                      {action ? (
+                        <>
+                          <span className="font-semibold block">{action}</span>
+                          <span className="block text-gray-700 mb-1">{instruction}</span>
+                        <div className="mt-1 text-sm bg-blue-50 p-2 rounded border border-blue-100">
+                          <span className="font-medium">Product:</span> {productName}
+                        </div>
+                      )}
+        // Try to extract meaningful content even if JSON parsing fails
+        let extractedAnalysis = responseText
+        let extractedAdvice = ""
+        
+        // Look for structured content
+        const analysisMatch = responseText.match(/(?:skinConditionAnalysis|analysis|condition)['"]*\s*[:=]\s*['"]*([^'"{}]+)/i)
+        const adviceMatch = responseText.match(/(?:skinCareAdvice|advice|recommendations)['"]*\s*[:=]\s*['"]*([^'"{}]+)/i)
+        
+        if (analysisMatch) {
+          extractedAnalysis = analysisMatch[1]
+        }
+        if (adviceMatch) {
+          extractedAdvice = adviceMatch[1]
+        }
+                )
+              })}
+          skinConditionAnalysis: extractedAnalysis || 
+            `Based on your ${skinType} skin type and age range (${ageRange}), our comprehensive analysis shows that your main skin concerns are ${skinConcerns.join(", ")}. Your skin type requires a balanced approach to address both oily and dry areas effectively. The combination of your age and skin type suggests that you may benefit from ingredients that help regulate oil production while maintaining proper hydration levels.`,
+          skinCareAdvice: extractedAdvice || 
+            `For your ${skinType} skin, I recommend establishing a consistent morning and evening routine. Start with gentle cleansing, followed by targeted treatments for your specific concerns. Always use sunscreen during the day, and consider incorporating the ingredients you prefer gradually. Results typically become visible after 4-6 weeks of consistent use. Stay hydrated, maintain a balanced diet, and be patient with your skin's adjustment period.`,
+            <div className="flex items-center space-x-3 mb-4">
+              <div className="bg-indigo-100 p-2 rounded-full">
+                <Clock className="h-5 w-5 text-indigo-600" />
+              </div>
+              <h3 className="text-xl font-semibold">Evening Routine</h3>
+            </div>
+
+            <ol className="space-y-4 mt-4">
+              {eveningSteps.map((step: string | RoutineStep, index: number) => {
+                // Process the step using our utility function
+                const { stepText, productName, action, instruction } = processRoutineStep(step);
+                
+                return (
+                  <li key={index} className="flex items-start">
+                    <span className="bg-pink-100 text-pink-800 w-6 h-6 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+      // Generate routine text from backend routine structure if available
+      let morningRoutineText = ""
+      let nightRoutineText = ""
+      
+      if (backendRoutine) {
+        if (backendRoutine.morning && Array.isArray(backendRoutine.morning)) {
+          morningRoutineText = backendRoutine.morning.map((step: any, index: number) => {
+            const stepNumber = index + 1
+            const stepName = step.step || `Step ${stepNumber}`
+            const instruction = step.instruction || 'Follow product instructions'
+            const productName = step.product?.name || ''
+            
+            if (productName) {
+              return `${stepNumber}. ${stepName}: Use ${productName}. ${instruction}`
+            } else {
+              return `${stepNumber}. ${stepName}: ${instruction}`
+            }
+          }).join('\n')
+        }
+        
+        if (backendRoutine.evening && Array.isArray(backendRoutine.evening)) {
+          nightRoutineText = backendRoutine.evening.map((step: any, index: number) => {
+            const stepNumber = index + 1
+            const stepName = step.step || `Step ${stepNumber}`
+            const instruction = step.instruction || 'Follow product instructions'
+            const productName = step.product?.name || ''
+            
+            if (productName) {
+              return `${stepNumber}. ${stepName}: Use ${productName}. ${instruction}`
+            } else {
+              return `${stepNumber}. ${stepName}: ${instruction}`
+            }
+          }).join('\n')
+        }
+      }
+      
+      // Fallback routine generation if backend doesn't provide one
+      if (!morningRoutineText && finalProducts.length > 0) {
+        const cleanser = finalProducts.find(p => p.category?.toLowerCase().includes('cleanser') || p.name.toLowerCase().includes('cleanser'))
+        const serum = finalProducts.find(p => p.category?.toLowerCase().includes('serum') || p.name.toLowerCase().includes('serum'))
+        const moisturizer = finalProducts.find(p => p.category?.toLowerCase().includes('moisturizer') || p.name.toLowerCase().includes('moisturizer'))
+        
+        const morningSteps = []
+        if (cleanser) morningSteps.push(`1. Cleanse: Use ${cleanser.name} to gently cleanse your face with lukewarm water`)
+        if (serum) morningSteps.push(`2. Treat: Apply ${serum.name} to address your skin concerns`)
+        if (moisturizer) morningSteps.push(`3. Moisturize: Apply ${moisturizer.name} to hydrate and protect your skin`)
+        morningSteps.push(`4. Protect: Apply a broad-spectrum sunscreen SPF 30 or higher`)
+        
+        morningRoutineText = morningSteps.join('\n')
+      }
+      
+      if (!nightRoutineText && finalProducts.length > 0) {
+        const cleanser = finalProducts.find(p => p.category?.toLowerCase().includes('cleanser') || p.name.toLowerCase().includes('cleanser'))
+        const serum = finalProducts.find(p => p.category?.toLowerCase().includes('serum') || p.name.toLowerCase().includes('serum'))
+        const moisturizer = finalProducts.find(p => p.category?.toLowerCase().includes('moisturizer') || p.name.toLowerCase().includes('moisturizer'))
+        
+        const nightSteps = []
+        if (cleanser) nightSteps.push(`1. Cleanse: Use ${cleanser.name} to remove the day's impurities`)
+        if (serum) nightSteps.push(`2. Treat: Apply ${serum.name} for overnight skin repair`)
+        if (moisturizer) nightSteps.push(`3. Moisturize: Apply ${moisturizer.name} for overnight hydration`)
+        
+        nightRoutineText = nightSteps.join('\n')
+      }
+
+                      {index + 1}
+                    </span>
+                    <div className="flex-1">
+                      {action ? (
+          `Based on your ${skinType} skin type and age range (${ageRange}), our comprehensive analysis shows that your main skin concerns are ${skinConcerns.join(", ")}. Your skin requires a balanced approach that addresses your specific needs while maintaining overall skin health.`,
+                          <span className="font-semibold block">{action}</span>
+                          <span className="block text-gray-700 mb-1">{instruction}</span>
+        morningRoutine: morningRoutineText || "1. Cleanse gently\n2. Apply treatment products\n3. Moisturize\n4. Apply sunscreen",
+        nightRoutine: nightRoutineText || "1. Cleanse thoroughly\n2. Apply treatment products\n3. Moisturize",
+                        <span className="block mb-1">{instruction}</span>
+          `For your ${skinType} skin, maintain a consistent routine and introduce new products gradually. Results typically become visible after 4-6 weeks of consistent use. Stay hydrated, protect your skin from sun damage, and be patient during the adjustment period.`,
+                      {productName && (
+                        <div className="mt-1 text-sm bg-blue-50 p-2 rounded border border-blue-100">
+                          <span className="font-medium">Product:</span> {productName}
+        source: "hybrid_analysis",
+                        </div>
+                      )}
+                    </div>
+                  </li>
+                )
+              })}
+            </ol>
+          </Card>
+        </div>
+
+        {weeklySteps.length > 0 && (
+          <Card className="p-6 mt-6 bg-blue-50 border-blue-200">
+            <h3 className="text-lg font-semibold mb-2">Weekly Treatments</h3>
+            <p className="text-gray-700 mb-4">In addition to your daily routine, consider these weekly treatments:</p>
+            <ul className="space-y-3">
+              {weeklySteps.map((step: string | RoutineStep, index: number) => {
+                // Process the step using our utility function
+                const { stepText, productName, action, instruction } = processRoutineStep(step);
+        hasMorningRoutine: !!recommendations.morningRoutine,
+        hasNightRoutine: !!recommendations.nightRoutine,
+        source: recommendations.source
+                  <li key={index} className="flex items-start space-x-2">
+                    <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
+                    <div className="flex-1">
+                      {action ? (
+                        <>
+                          <span className="font-semibold block">{action}</span>
+                          <span className="block text-gray-700 mb-1">{instruction}</span>
+                        </>
+                      ) : (
+                        <span className="block mb-1">{instruction}</span>
+                      )}
+                      {productName && (
+      // Generate fallback routine text
+      const fallbackMorningRoutine = fallbackProducts.length > 0 
+        ? `1. Cleanse: Use ${fallbackProducts[0]?.name || 'a gentle cleanser'} to start your day\n2. Treat: Apply targeted treatments for your concerns\n3. Moisturize: Use a suitable moisturizer for ${skinType} skin\n4. Protect: Apply broad-spectrum sunscreen`
+        : "1. Cleanse gently\n2. Apply treatment products\n3. Moisturize\n4. Apply sunscreen"
+        
+      const fallbackNightRoutine = fallbackProducts.length > 0
+        ? `1. Cleanse: Use ${fallbackProducts[0]?.name || 'a gentle cleanser'} to remove impurities\n2. Treat: Apply overnight treatments\n3. Moisturize: Use a nourishing night moisturizer`
+        : "1. Cleanse thoroughly\n2. Apply treatment products\n3. Moisturize"
+
+                        <div className="mt-1 text-sm bg-blue-50 p-2 rounded border border-blue-100">
+                          <span className="font-medium">Product:</span> {productName}
+        skinConditionAnalysis: `Based on your ${skinType} skin type and age range (${ageRange}), our comprehensive analysis shows that your main skin concerns are ${skinConcerns.join(", ")}. Your skin type requires a balanced approach that addresses both your specific concerns and maintains overall skin health. ${imageAnalysisInsights ? `Additional insights: ${imageAnalysisInsights}` : ''}`,
+                      )}
+                    </div>
+        morningRoutine: fallbackMorningRoutine,
+        nightRoutine: fallbackNightRoutine,
+        skinCareAdvice: `For your ${skinType} skin, focus on maintaining a consistent skincare routine. Introduce new products gradually and be patient with results, which typically appear after 4-6 weeks. Stay hydrated, protect your skin from environmental damage, and consider consulting a dermatologist for persistent concerns.`,
+            </ul>
+          </Card>
+        )}
+        source: "fallback_analysis",
+
+        {weeklySteps.length === 0 && (
+          <Card className="p-6 mt-6 bg-blue-50 border-blue-200">
+            <h3 className="text-lg font-semibold mb-2">Weekly Treatments</h3>
+            <p className="text-gray-700 mb-4">In addition to your daily routine, consider these weekly treatments:</p>
+            <ul className="space-y-3">
+              <li className="flex items-start space-x-2">
+                <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
+                <span>Gentle exfoliation 1-2 times per week to remove dead skin cells</span>
+              </li>
+              <li className="flex items-start space-x-2">
+                <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
+                <span>Hydrating mask once per week, focusing on dry areas</span>
+              </li>
+              <li className="flex items-start space-x-2">
+                <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
+                <span>Clay mask on oily areas once per week to control excess sebum</span>
+              </li>
+            </ul>
+          </Card>
+        )}
+      </div>
+    )
+  }
+
+  return null
 }

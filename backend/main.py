@@ -75,34 +75,108 @@ async def recommend_products(request: RecommendationRequest):
     acne_detections = preferences.pop('acne_detections', None)
     use_ai_enhancement = preferences.pop('use_ai_enhancement', True)
     
+    try:
+        # Validate input data
+        required_fields = ['skin_type', 'age_group', 'price_range']
+        for field in required_fields:
+            if field not in preferences:
+                return JSONResponse(
+                    status_code=400, 
+                    content={"error": f"Missing required field: {field}"}
+                )
+        
+        # Validate price_range format
+        price_range = preferences.get('price_range')
+        if not isinstance(price_range, (list, tuple)) or len(price_range) != 2:
+            return JSONResponse(
+                status_code=400,
+                content={"error": "price_range must be a list/tuple of two numbers"}
+            )
+    
+    except Exception as validation_error:
+        return JSONResponse(
+            status_code=400,
+            content={"error": f"Validation error: {str(validation_error)}"}
+        )
+    
     # Get hybrid recommendations with logic + AI
-    recommendations = recommender.recommend(
-        preferences, 
-        num_recommendations=15,  # Get more recommendations for better variety
-        use_ai_enhancement=use_ai_enhancement
-    )
+    try:
+        recommendations = recommender.recommend(
+            preferences, 
+            num_recommendations=15,  # Get more recommendations for better variety
+            use_ai_enhancement=use_ai_enhancement
+        )
+        
+        if not recommendations:
+            print("No recommendations found, trying with relaxed parameters...")
+            # Try with more relaxed parameters
+            relaxed_preferences = preferences.copy()
+            relaxed_preferences['price_range'] = [0, 5000]  # Expand price range
+            relaxed_preferences['avoid_ingredients'] = []   # Remove avoid ingredients
+            
+            recommendations = recommender.recommend(
+                relaxed_preferences,
+                num_recommendations=10,
+                use_ai_enhancement=False  # Disable AI for fallback
+            )
+    
+    except Exception as rec_error:
+        print(f"Recommendation error: {rec_error}")
+        return JSONResponse(
+            status_code=500,
+            content={"error": f"Failed to generate recommendations: {str(rec_error)}"}
+        )
     
     # Generate the personalized routine using the recommender's method (with Gemini AI)
-    acne_detected = bool(acne_detections and len(acne_detections) > 0)
-    routine = recommender.generate_skincare_routine(preferences, acne_detected)
+    try:
+        acne_detected = bool(acne_detections and len(acne_detections) > 0)
+        routine = recommender.generate_skincare_routine(preferences, acne_detected)
+    except Exception as routine_error:
+        print(f"Routine generation error: {routine_error}")
+        # Generate basic fallback routine
+        routine = {
+            'morning': [
+                {'step': 'Cleanse', 'instruction': 'Gently cleanse your face with a suitable cleanser'},
+                {'step': 'Treat', 'instruction': 'Apply targeted treatments for your skin concerns'},
+                {'step': 'Moisturize', 'instruction': 'Apply moisturizer to hydrate your skin'},
+                {'step': 'Protect', 'instruction': 'Apply broad-spectrum sunscreen SPF 30+'}
+            ],
+            'evening': [
+                {'step': 'Cleanse', 'instruction': 'Remove makeup and impurities with a gentle cleanser'},
+                {'step': 'Treat', 'instruction': 'Apply evening treatments and serums'},
+                {'step': 'Moisturize', 'instruction': 'Apply a nourishing night moisturizer'}
+            ],
+            'weekly': []
+        }
     
     # Generate AI-powered skin analysis with acne detection results
-    user_profile = {
-        'skinType': preferences.get('skin_type', 'Unknown'),
-        'ageRange': preferences.get('age_group', 'Unknown'),
-        'concerns': preferences.get('skin_concerns', []),
-        'preferredIngredients': preferences.get('ingredients', []),
-        'avoidIngredients': preferences.get('avoid_ingredients', []),
-        'budget': preferences.get('price_range', 'Unknown')
-    }
-    
-    # Pass acne detections to skin analysis
-    skin_analysis = recommender.generate_skin_analysis(user_profile, acne_detections)
+    try:
+        user_profile = {
+            'skinType': preferences.get('skin_type', 'Unknown'),
+            'ageRange': preferences.get('age_group', 'Unknown'),
+            'concerns': preferences.get('skin_concerns', []),
+            'preferredIngredients': preferences.get('ingredients', []),
+            'avoidIngredients': preferences.get('avoid_ingredients', []),
+            'budget': preferences.get('price_range', 'Unknown')
+        }
+        
+        # Pass acne detections to skin analysis
+        skin_analysis = recommender.generate_skin_analysis(user_profile, acne_detections)
+    except Exception as analysis_error:
+        print(f"Skin analysis error: {analysis_error}")
+        skin_analysis = f"Based on your {preferences.get('skin_type', 'Unknown')} skin type, we recommend following a consistent skincare routine tailored to your needs."
     
     return {
         "recommendations": recommendations, 
         "routine": routine,
-        "skin_analysis": skin_analysis
+        "skin_analysis": skin_analysis,
+        "status": "success",
+        "metadata": {
+            "total_recommendations": len(recommendations),
+            "has_routine": bool(routine),
+            "has_skin_analysis": bool(skin_analysis),
+            "acne_detected": bool(acne_detections and len(acne_detections) > 0)
+        }
     }
 
 @app.post("/api/generate-routine")

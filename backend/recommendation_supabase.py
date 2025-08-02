@@ -235,7 +235,13 @@ class ProductRecommenderSupabase:
                 'dryness': ['dry', 'moistur', 'hydrat', 'barrier'],
                 'sensitivity': ['sensitive', 'gentle', 'sooth', 'calm'],
                 'brightening': ['brighten', 'vitamin.?c', 'glow', 'radiant'],
-                'anti-aging': ['anti.?age', 'retinol', 'peptide', 'collagen']
+                'anti-aging': ['anti.?age', 'retinol', 'peptide', 'collagen'],
+                'oiliness': ['oil.?control', 'sebum', 'mattif', 'shine'],
+                'dehydration': ['hydrat', 'moisture', 'plump', 'hyaluronic'],
+                'uneven texture': ['texture', 'smooth', 'exfoliat', 'resurface'],
+                'redness': ['red', 'calm', 'sooth', 'anti.?inflammatory'],
+                'blackheads': ['blackhead', 'pore', 'salicylic', 'bha'],
+                'wrinkles': ['wrinkle', 'anti.?age', 'firm', 'lift']
             }
             
             for concern in skin_concerns:
@@ -246,16 +252,25 @@ class ProductRecommenderSupabase:
                         if field in filtered_df.columns:
                             mask = filtered_df[field].str.contains(pattern, case=False, na=False)
                             filtered_df.loc[mask, 'concern_score'] += 2
+                else:
+                    # Fallback: search for the concern term directly
+                    for field in ['product_benefits', 'about_item', 'content']:
+                        if field in filtered_df.columns:
+                            mask = filtered_df[field].str.contains(concern_lower, case=False, na=False)
+                            filtered_df.loc[mask, 'concern_score'] += 1
 
         # Ingredient scoring (bonus for preferred, penalty for avoided)
         preferred_ingredients = preferences.get('ingredients', [])
         for ingredient in preferred_ingredients:
-            mask = filtered_df['content'].str.contains(ingredient, case=False, na=False)
+            # More flexible ingredient matching
+            ingredient_lower = ingredient.lower().replace('-', '.?').replace(' ', '.?')
+            mask = filtered_df['content'].str.contains(ingredient_lower, case=False, na=False)
             filtered_df.loc[mask, 'ingredient_score'] += 2
         
         avoid_ingredients = preferences.get('avoid_ingredients', [])
         for ingredient in avoid_ingredients:
-            mask = filtered_df['content'].str.contains(ingredient, case=False, na=False)
+            ingredient_lower = ingredient.lower().replace('-', '.?').replace(' ', '.?')
+            mask = filtered_df['content'].str.contains(ingredient_lower, case=False, na=False)
             filtered_df.loc[mask, 'ingredient_score'] -= 3
 
         # Price range filtering (keep products within 50% extension if needed)
@@ -266,7 +281,7 @@ class ProductRecommenderSupabase:
             # First try exact range
             price_mask = (filtered_df['price'] >= min_price) & (filtered_df['price'] <= max_price) & (filtered_df['price'] > 0)
             
-            if price_mask.sum() < 50:  # If too few products, extend range
+            if price_mask.sum() < 30:  # If too few products, extend range
                 extended_min = max(0, min_price * 0.5)
                 extended_max = max_price * 1.5
                 price_mask = (filtered_df['price'] >= extended_min) & (filtered_df['price'] <= extended_max) & (filtered_df['price'] > 0)
@@ -291,7 +306,10 @@ class ProductRecommenderSupabase:
             (filtered_df['rating'] >= 4.0)
         ]
         
-        if len(good_products) >= 50:
+        if len(good_products) >= 20:
+            filtered_df = good_products
+        elif len(good_products) >= 10:
+            # If we have some good products but not many, keep them
             filtered_df = good_products
         
         print(f"After intelligent filtering: {len(filtered_df)} products")

@@ -10,7 +10,11 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata: Metadata = {
   title: "SkinSage - AI-Powered Skincare Recommendations",
   description: "Personalized skincare recommendations powered by AI for cosmetic brands",
-    generator: 'v0.dev'
+  generator: 'v0.dev',
+  keywords: ['skincare', 'AI', 'recommendations', 'dermatology', 'beauty', 'skin analysis'],
+  authors: [{ name: 'SkinSage Team' }],
+  viewport: 'width=device-width, initial-scale=1',
+  robots: 'index, follow'
 }
 
 export default function RootLayout({

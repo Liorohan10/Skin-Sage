@@ -35,6 +35,9 @@ interface EnhancedProduct {
   ingredients: string
   suitableFor: string
   matchReasons?: string[]
+  brand?: string
+  rating?: number
+  category?: string
 }
 
 // Enhanced data type for results
@@ -42,6 +45,7 @@ interface EnhancedResultsData extends Omit<ResultsData, 'morningRoutine' | 'nigh
   recommendedProducts: EnhancedProduct[];
   morningRoutine?: string | string[];
   nightRoutine?: string | string[];
+  source?: string;
 }
 
 // Utility function to process routine steps
@@ -131,12 +135,30 @@ export function ResultsContent({ resultId, tab }: ResultsContentProps) {
           preferences, and budget.
         </p>
 
+        {data.source && (
+          <div className="mb-4">
+            <Badge variant="outline" className="bg-blue-50 text-blue-700">
+              {data.source === 'hybrid_analysis' ? 'AI + Database Analysis' : 
+               data.source === 'fallback_analysis' ? 'Fallback Recommendations' : 'Standard Analysis'}
+            </Badge>
+          </div>
+        )}
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {data.recommendedProducts.map((product, index) => (
             <Card key={index} className="p-4 h-full flex flex-col">
               <div className="flex-1">
                 <h3 className="text-lg font-semibold mb-1">{product.name}</h3>
+                {product.brand && (
+                  <p className="text-sm text-gray-500 mb-1">by {product.brand}</p>
+                )}
                 <p className="text-pink-600 font-medium mb-3">{product.price}</p>
+                {product.rating && product.rating > 0 && (
+                  <div className="flex items-center mb-2">
+                    <span className="text-yellow-500">★</span>
+                    <span className="text-sm text-gray-600 ml-1">{product.rating.toFixed(1)}/5</span>
+                  </div>
+                )}
                 <p className="text-gray-700 mb-3">{product.description}</p>
                 <div className="mt-auto">
                   <div className="text-sm text-gray-600 mb-2">
@@ -145,6 +167,11 @@ export function ResultsContent({ resultId, tab }: ResultsContentProps) {
                   <div className="text-sm text-gray-600">
                     <span className="font-medium">Key ingredients:</span> {product.ingredients}
                   </div>
+                  {product.category && (
+                    <div className="text-sm text-gray-600 mt-1">
+                      <span className="font-medium">Category:</span> {product.category}
+                    </div>
+                  )}
 
                   {/* Display match reasons */}
                   {product.matchReasons && product.matchReasons.length > 0 && (
@@ -173,6 +200,16 @@ export function ResultsContent({ resultId, tab }: ResultsContentProps) {
             </Card>
           ))}
         </div>
+        
+        {data.recommendedProducts.length === 0 && (
+          <Card className="p-8 text-center">
+            <AlertCircle className="h-12 w-12 text-amber-500 mx-auto mb-4" />
+            <h3 className="text-lg font-semibold mb-2">No Products Found</h3>
+            <p className="text-gray-600">
+              We couldn't find products matching your exact criteria. Try adjusting your preferences or budget range.
+            </p>
+          </Card>
+        )}
       </div>
     )
   }

@@ -37,6 +37,9 @@ export interface ResultsData {
   routine?: SkincareRoutine  // New Supabase format
   skinCareAdvice?: string
   aiResponse: string
+  acneDetections?: any[]
+  hasImageAnalysis?: boolean
+  source?: string
   userProfile?: {
     skinType: string
     preferredIngredients: string[]
