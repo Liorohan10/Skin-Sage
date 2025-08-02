@@ -1,30 +1,24 @@
-# Product Recommendation Logic using Supabase and Gemini AI
 import pandas as pd
 import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from supabase import create_client, Client
 import os
-from dotenv import load_dotenv
-from gemini_service import GeminiAIService
+from typing import List, Dict, Optional, Tuple
 import json
-from typing import Dict, List, Optional, Any
-import datetime
-import traceback
-
-# Load environment variables
-load_dotenv()
+from datetime import datetime
+from gemini_service import GeminiAI
 
 class ProductRecommenderSupabase:
-    def __init__(self):
-        # Initialize Supabase client
-        url = os.getenv("SUPABASE_URL")
-        key = os.getenv("SUPABASE_ANON_KEY")
+    def __init__(self, supabase_url: str = None, supabase_key: str = None):
+        """Initialize the recommender with Supabase connection and AI services."""
+        self.supabase_url = supabase_url or os.getenv('SUPABASE_URL')
+        self.supabase_key = supabase_key or os.getenv('SUPABASE_ANON_KEY')
         
-        if not url or not key:
-            raise ValueError("Missing Supabase credentials. Please check your .env file.")
+        if not self.supabase_url or not self.supabase_key:
+            raise ValueError("Supabase URL and key must be provided either as parameters or environment variables")
         
-        self.supabase: Client = create_client(url, key)
+        self.supabase: Client = create_client(self.supabase_url, self.supabase_key)
         self.df = None
         self.tfidf = None
         self.tfidf_matrix = None
@@ -32,89 +26,117 @@ class ProductRecommenderSupabase:
         
         # Initialize Gemini AI service
         try:
-            self.gemini_ai = GeminiAIService()
+            self.gemini_ai = GeminiAI()
             print("✅ Gemini AI service initialized")
         except Exception as e:
-            print(f"⚠️ Gemini AI not available: {e}")
+            print(f"⚠️ Gemini AI initialization failed: {e}")
             self.gemini_ai = None
         
-        self._load_and_prepare_data()
+        # Load and prepare data on initialization
+        self._load_data_from_supabase()
+        if self.df is not None and not self.df.empty:
+            self._build_recommendation_system()
 
-    def _load_and_prepare_data(self):
-        """Load product data from Supabase and prepare for recommendations"""
+    def _load_data_from_supabase(self):
+        """Load product data from Supabase with improved error handling."""
         try:
-            # Fetch all products from Supabase
             print("Loading products from Supabase...")
             response = self.supabase.table('products').select('*').execute()
             
             if not response.data:
-                raise ValueError("No products found in Supabase database")
+                print("⚠️ No products found in Supabase database")
+                self.df = pd.DataFrame()
+                return
             
             # Convert to DataFrame
             self.df = pd.DataFrame(response.data)
             print(f"Loaded {len(self.df)} products from Supabase")
             
-            # Clean and prepare data
-            self.df = self.df.drop_duplicates(subset=['asin']).copy()
-            self.df['price'] = pd.to_numeric(self.df['price'], errors='coerce')
-            self.df['rating'] = pd.to_numeric(self.df['rating'], errors='coerce')
-            self.df['brand'] = self.df['brand'].fillna('Unknown Brand')
-            self.df['skin_type'] = self.df['skin_type'].fillna('All')
-            self.df['product_benefits'] = self.df['product_benefits'].fillna('')
-            self.df['about_item'] = self.df['about_item'].fillna('')
-            self.df['active_ingredients'] = self.df['active_ingredients'].fillna('')
-            
-            # Create content field for similarity matching
-            content_fields = ['product_name', 'brand', 'product_benefits', 'active_ingredients', 'about_item', 'skin_type']
-            self.df['content'] = self.df[content_fields].fillna('').astype(str).apply(lambda x: ' '.join(x), axis=1)
-            
-            # Create price and rating categories
-            self.df['price_category'] = pd.cut(self.df['price'], bins=[0, 300, 600, 1000, float('inf')], labels=['Budget', 'Mid-range', 'Premium', 'Luxury'])
-            self.df['rating_category'] = pd.cut(self.df['rating'], bins=[0, 3.0, 4.0, 4.5, 5.0], labels=['Below Average', 'Good', 'Very Good', 'Excellent'])
-            
-            # Build recommendation system
-            self._build_advanced_recommendation_system()
+            # Prepare data
+            self._prepare_data()
             
         except Exception as e:
-            print(f"Error loading data from Supabase: {e}")
-            raise
+            print(f"Error loading data from Supabase: {str(e)}")
+            self.df = pd.DataFrame()
 
-    def _build_advanced_recommendation_system(self):
-        """Build TF-IDF vectorizer and cosine similarity matrix"""
+    def _prepare_data(self):
+        """Clean and prepare the data for recommendations with enhanced processing."""
+        if self.df is None or self.df.empty:
+            return
+            
+        # Handle missing values with better defaults
+        self.df['brand'] = self.df['brand'].fillna('Unknown Brand')
+        self.df['skin_type'] = self.df['skin_type'].fillna('All')
+        self.df['product_benefits'] = self.df['product_benefits'].fillna('')
+        self.df['about_item'] = self.df['about_item'].fillna('')
+        self.df['active_ingredients'] = self.df['active_ingredients'].fillna('')
+        self.df['product_name'] = self.df['product_name'].fillna('Unknown Product')
+        
+        # Ensure numeric fields are properly handled
+        self.df['price'] = pd.to_numeric(self.df['price'], errors='coerce').fillna(0)
+        self.df['rating'] = pd.to_numeric(self.df['rating'], errors='coerce').fillna(3.0)
+        
+        # Create enhanced content field for better matching
+        content_fields = ['product_name', 'brand', 'product_benefits', 'active_ingredients', 'about_item', 'skin_type']
+        self.df['content'] = self.df[content_fields].fillna('').astype(str).apply(
+            lambda x: ' '.join(x).lower(), axis=1
+        )
+        
+        # Create price categories with better ranges
+        self.df['price_category'] = pd.cut(
+            self.df['price'], 
+            bins=[0, 500, 1500, 3000, float('inf')], 
+            labels=['Budget', 'Mid-range', 'Premium', 'Luxury']
+        )
+        
+        # Create rating categories
+        self.df['rating_category'] = pd.cut(
+            self.df['rating'], 
+            bins=[0, 3.0, 4.0, 4.5, 5.0], 
+            labels=['Below Average', 'Good', 'Very Good', 'Excellent']
+        )
+
+    def _build_recommendation_system(self):
+        """Build the TF-IDF recommendation system with improved parameters."""
+        if self.df is None or self.df.empty:
+            print("⚠️ No data available to build recommendation system")
+            return
+        
         try:
-            self.tfidf = TfidfVectorizer(max_features=8000, stop_words='english', ngram_range=(1, 3), min_df=2, max_df=0.9)
+            print("Building recommendation system...")
+            self.tfidf = TfidfVectorizer(
+                max_features=10000, 
+                stop_words='english', 
+                ngram_range=(1, 3), 
+                min_df=1,  # More lenient for smaller datasets
+                max_df=0.95
+            )
+            
             self.tfidf_matrix = self.tfidf.fit_transform(self.df['content'])
             self.cosine_sim = cosine_similarity(self.tfidf_matrix)
             print("Recommendation system built successfully")
         except Exception as e:
             print(f"Error building recommendation system: {e}")
-            # Fallback to simple recommendation without TF-IDF
             self.tfidf = None
             self.tfidf_matrix = None
             self.cosine_sim = None
 
-    def recommend(self, preferences, num_recommendations=10, use_ai_enhancement=True):
-        """Get product recommendations using hybrid logic + AI approach"""
-        print(f"Recommending with preferences: {preferences}")
+    def recommend(self, preferences: Dict, num_recommendations: int = 15, use_ai_enhancement: bool = True) -> List[Dict]:
+        """Generate enhanced product recommendations using logic + AI."""
+        print(f"Generating recommendations with preferences: {preferences}")
         
-        if self.df is None or self.df.empty:
-            print("No product data available")
+        # Get logic-based recommendations first
+        logic_recommendations = self._get_logic_based_recommendations(preferences, num_recommendations * 2)
+        
+        if not logic_recommendations:
+            print("⚠️ No logic-based recommendations found")
             return []
         
-        # Step 1: Get logic-based recommendations
-        logic_recommendations = self._get_logic_based_recommendations(preferences, num_recommendations)
-        print(f"Logic-based recommendations: {len(logic_recommendations)} products")
-        
-        # Step 2: Get AI-enhanced recommendations if enabled and available
-        ai_recommendations = []
+        # If AI enhancement is enabled and available, enhance with Gemini AI
         if use_ai_enhancement and self.gemini_ai:
             try:
-                print("Getting AI-enhanced recommendations...")
-                
-                # Prepare product database for AI
+                # Prepare data for AI enhancement
                 product_database = self.df.to_dict('records')
-                
-                # Prepare user profile for AI
                 user_profile = {
                     'skinType': preferences.get('skin_type', 'Unknown'),
                     'ageRange': preferences.get('age_group', 'Unknown'),
@@ -124,281 +146,70 @@ class ProductRecommenderSupabase:
                     'budget': preferences.get('price_range', 'Unknown')
                 }
                 
-                # Log the AI request
-                self._log_ai_interaction(
-                    interaction_type="product_recommendations_request",
-                    query="Requesting AI product recommendations",
-                    user_profile=user_profile,
-                    metadata={
-                        "logic_recommendations_count": len(logic_recommendations),
-                        "product_database_size": len(product_database),
-                        "preferences": preferences
-                    }
-                )
-                
+                # Get AI-enhanced recommendations
                 ai_recommendations = self.gemini_ai.generate_ai_product_recommendations(
                     user_profile, 
                     product_database, 
                     logic_recommendations
                 )
                 
-                # Log successful AI response
-                self._log_ai_interaction(
-                    interaction_type="product_recommendations_success",
-                    query="AI product recommendations completed",
-                    response={
-                        "recommendations_count": len(ai_recommendations),
-                        "recommendations": [{"name": rec.get("name", "Unknown"), "reasoning": rec.get("ai_reasoning", "")} for rec in ai_recommendations[:5]]  # First 5 for brevity
-                    },
-                    user_profile=user_profile,
-                    metadata={"total_recommendations": len(ai_recommendations)}
+                # Combine logic and AI recommendations
+                final_recommendations = self._combine_recommendations(
+                    logic_recommendations, 
+                    ai_recommendations, 
+                    num_recommendations
                 )
                 
-                print(f"AI-enhanced recommendations: {len(ai_recommendations)} products")
+                print(f"✅ Generated {len(final_recommendations)} hybrid recommendations")
+                return final_recommendations
                 
             except Exception as e:
-                # Log AI error
-                self._log_ai_interaction(
-                    interaction_type="product_recommendations_error",
-                    query="AI product recommendations failed",
-                    error=e,
-                    user_profile=user_profile,
-                    metadata={"preferences": preferences}
-                )
-                print(f"AI enhancement failed, using logic-only: {e}")
+                print(f"⚠️ AI enhancement failed, using logic-based recommendations: {e}")
         
-        # Step 3: Combine and rank recommendations intelligently
-        final_recommendations = self._combine_recommendations(
-            logic_recommendations, 
-            ai_recommendations, 
-            num_recommendations
-        )
-        
-        print(f"Final hybrid recommendations: {len(final_recommendations)} products")
-        return final_recommendations
+        # Return logic-based recommendations if AI is not available
+        return logic_recommendations[:num_recommendations]
 
-    def _get_logic_based_recommendations(self, preferences, num_recommendations):
-        """Get recommendations using the existing logic-based system"""
-        df = self._smart_filter_products(self.df, preferences)
-        print(f"Filtered dataframe has {len(df)} products")
-        
-        if df.empty:
-            print("No products found after filtering, trying with relaxed filters...")
-            # Try with just price filter if no products found
-            df = self.df.copy()
-            price_range = preferences.get('price_range')
-            if price_range:
-                min_price, max_price = price_range
-                df = df[(df['price'] >= min_price) & (df['price'] <= max_price) & (df['price'].notna())]
-                print(f"With relaxed filters: {len(df)} products")
-            
-            # If still empty, just take top products by rating
-            if df.empty:
-                print("Still no products, using top rated products...")
-                df = self.df.copy()
-                df = df.dropna(subset=['rating']).nlargest(num_recommendations, 'rating')
-                print(f"Using top rated products: {len(df)} products")
-            
-        if df.empty:
-            print("No products found even after fallbacks")
+    def _get_logic_based_recommendations(self, preferences: Dict, num_recommendations: int) -> List[Dict]:
+        """Get logic-based recommendations with improved filtering."""
+        if self.df is None or self.df.empty:
             return []
-            
-        # Calculate recommendation scores
-        scores = []
-        for idx, product in df.iterrows():
-            score = 0
-            
-            # Base rating score (40% weight)
-            if pd.notna(product['rating']):
-                score += (product['rating'] / 5.0) * 0.4
-            
-            # Price score (20% weight) - inverse of price within range
-            if pd.notna(product['price']):
-                max_price = df['price'].max()
-                min_price = df['price'].min()
-                if max_price > min_price:
-                    price_score = 1 - ((product['price'] - min_price) / (max_price - min_price))
-                    score += price_score * 0.2
-            
-            # Filter score (40% weight) - from intelligent filtering
-            if 'total_filter_score' in product:
-                max_filter_score = df['total_filter_score'].max() if df['total_filter_score'].max() > 0 else 1
-                normalized_filter_score = product['total_filter_score'] / max_filter_score
-                score += normalized_filter_score * 0.4
-            else:
-                score += 0.2  # Base content score if no filter score
-                
-            scores.append(score)
         
-        df = df.copy()
-        df['recommendation_score'] = scores
-        recommendations = df.nlargest(num_recommendations * 2, 'recommendation_score')  # Get more for combining
+        # Apply intelligent filtering
+        filtered_df = self._intelligent_filter_products(preferences)
         
-        # Transform the data to match frontend expectations
-        formatted_recommendations = []
-        for _, product in recommendations.iterrows():
-            formatted_product = {
-                'name': product.get('product_name', 'Unknown Product'),
-                'description': self._truncate_text(product.get('about_item', 'No description available'), 200),
-                'price': f"₹{product.get('price', 0)}" if pd.notna(product.get('price')) else 'Price not available',
-                'ingredients': product.get('active_ingredients', product.get('ingredients', 'Ingredients not listed')),
-                'suitableFor': product.get('skin_type', 'All skin types'),
-                'brand': product.get('brand', 'Unknown Brand'),
-                'rating': product.get('rating', 'No rating'),
-                'image': product.get('product_image', ''),
-                'link': product.get('link_href', ''),
-                'logic_score': product.get('recommendation_score', 0),
-                'recommendation_source': 'logic',
-                'matchReasons': [
-                    f"Suitable for {product.get('skin_type', 'all skin types')}",
-                    f"Contains {product.get('active_ingredients', 'beneficial ingredients')}",
-                    f"Rated {product.get('rating', 'well')} by customers"
-                ]
-            }
-            formatted_recommendations.append(formatted_product)
+        if filtered_df.empty:
+            print("No products found with strict filters, using fallback strategy...")
+            filtered_df = self._fallback_filter_strategy(preferences)
         
-        return formatted_recommendations
+        if filtered_df.empty:
+            print("No products found even with fallback, returning empty list")
+            return []
+        
+        # Calculate enhanced scores
+        scores = self._calculate_enhanced_scores(filtered_df, preferences)
+        filtered_df = filtered_df.copy()
+        filtered_df['recommendation_score'] = scores
+        
+        # Get top recommendations
+        recommendations = filtered_df.nlargest(num_recommendations, 'recommendation_score')
+        
+        # Format for frontend
+        return self._format_recommendations(recommendations, preferences)
 
-    def _combine_recommendations(self, logic_recs, ai_recs, num_recommendations):
-        """Intelligently combine logic-based and AI recommendations"""
-        if not ai_recs:
-            return logic_recs[:num_recommendations]
+    def _intelligent_filter_products(self, preferences: Dict) -> pd.DataFrame:
+        """Apply intelligent filtering with scoring approach."""
+        filtered_df = self.df.copy()
+        print(f"Starting with {len(filtered_df)} total products")
         
-        if not logic_recs:
-            return ai_recs[:num_recommendations]
-        
-        # Create combined list with scoring
-        combined_products = {}
-        
-        # Add logic-based recommendations with their scores
-        for i, product in enumerate(logic_recs):
-            product_key = product['name'].lower()
-            combined_products[product_key] = {
-                **product,
-                'logic_score': product.get('logic_score', 0),
-                'logic_rank': i + 1,
-                'ai_score': 0,
-                'ai_rank': None,
-                'has_logic': True,
-                'has_ai': False
-            }
-        
-        # Add AI recommendations and merge with existing
-        for i, product in enumerate(ai_recs):
-            product_key = product['name'].lower()
-            
-            if product_key in combined_products:
-                # Product exists in logic recommendations - boost its score
-                combined_products[product_key]['ai_score'] = 1.0 - (i / len(ai_recs))  # Higher score for higher AI rank
-                combined_products[product_key]['ai_rank'] = i + 1
-                combined_products[product_key]['has_ai'] = True
-                combined_products[product_key]['ai_reasoning'] = product.get('ai_reasoning', '')
-                combined_products[product_key]['recommendation_source'] = 'hybrid'
-                
-                # Update match reasons to include AI insights
-                ai_reason = product.get('ai_reasoning', 'AI recommended')
-                combined_products[product_key]['matchReasons'].insert(0, f"AI Expert: {ai_reason}")
-                
-            else:
-                # New product from AI - add it
-                combined_products[product_key] = {
-                    **product,
-                    'logic_score': 0,
-                    'logic_rank': None,
-                    'ai_score': 1.0 - (i / len(ai_recs)),
-                    'ai_rank': i + 1,
-                    'has_logic': False,
-                    'has_ai': True,
-                    'recommendation_source': 'ai'
-                }
-        
-        # Calculate final hybrid scores
-        for product_key, product in combined_products.items():
-            hybrid_score = 0
-            
-            # Logic score contribution (60% if available)
-            if product['has_logic']:
-                logic_weight = 0.6
-                normalized_logic = product['logic_score']
-                hybrid_score += normalized_logic * logic_weight
-            
-            # AI score contribution (40% base, 70% if no logic)
-            if product['has_ai']:
-                ai_weight = 0.4 if product['has_logic'] else 0.7
-                hybrid_score += product['ai_score'] * ai_weight
-            
-            # Bonus for products recommended by both systems
-            if product['has_logic'] and product['has_ai']:
-                hybrid_score += 0.2  # 20% bonus for consensus
-            
-            # Priority boost for high-priority AI recommendations
-            if product.get('ai_priority') == 'high':
-                hybrid_score += 0.1
-            
-            product['hybrid_score'] = hybrid_score
-        
-        # Sort by hybrid score and return top recommendations
-        sorted_products = sorted(
-            combined_products.values(), 
-            key=lambda x: x['hybrid_score'], 
-            reverse=True
-        )
-        
-        # Add diversity check to ensure category variety
-        final_recommendations = self._ensure_category_diversity(sorted_products, num_recommendations)
-        
-        # Log the final selection for debugging
-        print("Final recommendation breakdown:")
-        for i, prod in enumerate(final_recommendations[:10]):
-            source = prod.get('recommendation_source', 'unknown')
-            score = prod.get('hybrid_score', 0)
-            print(f"  {i+1}. {prod['name'][:40]}... | Source: {source} | Score: {score:.3f}")
-        
-        return final_recommendations
-
-    def _ensure_category_diversity(self, sorted_products, num_recommendations):
-        """Ensure diversity across product categories in final recommendations"""
-        categories_seen = {}
-        diversified_products = []
-        remaining_products = []
-        
-        # First pass: ensure category diversity
-        for product in sorted_products:
-            category = product.get('ai_category', 'general').lower()
-            
-            # Allow up to 3 products per category initially
-            if categories_seen.get(category, 0) < 3:
-                diversified_products.append(product)
-                categories_seen[category] = categories_seen.get(category, 0) + 1
-            else:
-                remaining_products.append(product)
-            
-            if len(diversified_products) >= num_recommendations:
-                break
-        
-        # Second pass: fill remaining slots with highest-scoring products
-        if len(diversified_products) < num_recommendations:
-            needed = num_recommendations - len(diversified_products)
-            diversified_products.extend(remaining_products[:needed])
-        
-        return diversified_products[:num_recommendations]
-
-    def _smart_filter_products(self, df, preferences):
-        """Filter products based on user preferences with scoring instead of hard filtering"""
-        print(f"Starting with {len(df)} total products")
-        filtered_df = df.copy()
-        
-        # Add scoring columns for intelligent filtering
+        # Initialize scoring columns
         filtered_df['skin_type_score'] = 0
-        filtered_df['price_score'] = 0
         filtered_df['concern_score'] = 0
         filtered_df['ingredient_score'] = 0
-
-        # Skin Type Scoring (not filtering)
-        skin_type = preferences.get('skin_type')
-        if skin_type and skin_type != "Any":
-            print(f"Scoring by skin type: {skin_type}")
-            skin_type_lower = skin_type.lower()
+        filtered_df['price_score'] = 0
+        
+        # Skin type scoring (flexible matching)
+        skin_type = preferences.get('skin_type', '').lower()
+        if skin_type and skin_type != "any":
             skin_keywords = {
                 'dry': ['dry', 'all', 'normal', 'sensitive'],
                 'oily': ['oily', 'all', 'combination', 'normal'],
@@ -406,661 +217,370 @@ class ProductRecommenderSupabase:
                 'normal': ['normal', 'all', 'sensitive'],
                 'combination': ['combination', 'all', 'oily', 'normal']
             }
-            if skin_type_lower in skin_keywords:
-                pattern = '|'.join(skin_keywords[skin_type_lower])
-                # Give higher scores to exact matches, lower to compatible types
-                exact_match = filtered_df['skin_type'].str.contains(skin_type_lower, case=False, na=False)
-                compatible_match = filtered_df['skin_type'].str.contains(pattern, case=False, na=True)
-                filtered_df.loc[exact_match, 'skin_type_score'] = 3
-                filtered_df.loc[compatible_match & ~exact_match, 'skin_type_score'] = 2
-                filtered_df.loc[~compatible_match, 'skin_type_score'] = 1
-
-        # Price Range Filtering (keep this as hard filter)
-        price_range = preferences.get('price_range')
-        if price_range:
-            min_price, max_price = price_range
-            print(f"Filtering by price range: {min_price} - {max_price}")
-            # Keep products within 150% of max price to account for currency differences
-            extended_max = max_price * 1.5
-            in_price_range = (filtered_df['price'] >= min_price) & (filtered_df['price'] <= extended_max) & (filtered_df['price'].notna())
-            before_count = len(filtered_df)
-            filtered_df = filtered_df[in_price_range]
-            print(f"After price filter: {len(filtered_df)} products (was {before_count})")
             
-            # If too few products after price filter, expand the range
-            if len(filtered_df) < 10:
-                print("Too few products after price filter, expanding range...")
-                filtered_df = df[df['price'].notna()].copy()
-                print(f"Expanded to all priced products: {len(filtered_df)} products")
+            if skin_type in skin_keywords:
+                for keyword in skin_keywords[skin_type]:
+                    mask = filtered_df['skin_type'].str.contains(keyword, case=False, na=False)
+                    filtered_df.loc[mask, 'skin_type_score'] += 3
 
-        # Skin Concerns Scoring (not filtering)
+        # Concern-based scoring with expanded patterns
         skin_concerns = preferences.get('skin_concerns', [])
         if skin_concerns:
-            print(f"Scoring by concerns: {skin_concerns}")
             benefit_patterns = {
-                'Brightening': ['brighten', 'bright', 'glow', 'radiant', 'luminous', 'vitamin c', 'vitamin-c'],
-                'Anti-aging': ['anti.?age', 'anti.?aging', 'wrinkle', 'fine.?line', 'collagen', 'retinol', 'peptide'],
-                'Moisturizing': ['moistur', 'hydrat', 'nourish', 'dry.?skin', 'hyaluronic'],
-                'Acne': ['acne', 'pimple', 'blemish', 'blackhead', 'salicylic', 'benzoyl', 'tea tree'],
-                'Sun Protection': ['spf', 'sun.?protection', 'uv', 'sunscreen'],
-                'Exfoliating': ['exfoliat', 'scrub', 'aha', 'bha', 'glycolic', 'lactic'],
-                'Dark Spots': ['dark.?spot', 'hyperpigment', 'melasma', 'brighten', 'even.?tone'],
-                'Oily T-Zone': ['oil.?control', 'sebum', 'mattif', 'pore', 'combination'],
-                'Dryness': ['moistur', 'hydrat', 'dry', 'barrier', 'ceramide'],
-                'Fine Lines': ['fine.?line', 'wrinkle', 'anti.?age', 'retinol', 'collagen'],
-                'Large Pores': ['pore', 'niacinamide', 'bha', 'salicylic'],
-                'Uneven Skin Tone': ['even.?tone', 'brighten', 'vitamin c', 'niacinamide']
+                'acne': ['acne', 'pimple', 'blemish', 'blackhead', 'salicylic', 'anti.?acne'],
+                'dark spots': ['dark.?spot', 'hyperpigment', 'melasma', 'brighten', 'even.?tone'],
+                'oily t-zone': ['oil.?control', 'sebum', 'mattif', 'pore', 'combination'],
+                'fine lines': ['fine.?line', 'wrinkle', 'anti.?age', 'retinol', 'collagen'],
+                'large pores': ['pore', 'niacinamide', 'bha', 'salicylic'],
+                'dryness': ['dry', 'moistur', 'hydrat', 'barrier'],
+                'sensitivity': ['sensitive', 'gentle', 'sooth', 'calm'],
+                'brightening': ['brighten', 'vitamin.?c', 'glow', 'radiant'],
+                'anti-aging': ['anti.?age', 'retinol', 'peptide', 'collagen']
             }
             
             for concern in skin_concerns:
-                if concern in benefit_patterns:
-                    pattern = '|'.join(benefit_patterns[concern])
-                    concern_match = (
-                        filtered_df['product_benefits'].str.contains(pattern, case=False, na=False) |
-                        filtered_df['about_item'].str.contains(pattern, case=False, na=False) |
-                        filtered_df['content'].str.contains(pattern, case=False, na=False)
-                    )
-                    filtered_df.loc[concern_match, 'concern_score'] += 2
-                else:
-                    # Generic search for unlisted concerns
-                    concern_pattern = concern.lower().replace(' ', '.?')
-                    generic_match = filtered_df['content'].str.contains(concern_pattern, case=False, na=False)
-                    filtered_df.loc[generic_match, 'concern_score'] += 1
+                concern_lower = concern.lower()
+                if concern_lower in benefit_patterns:
+                    pattern = '|'.join(benefit_patterns[concern_lower])
+                    for field in ['product_benefits', 'about_item', 'content']:
+                        if field in filtered_df.columns:
+                            mask = filtered_df[field].str.contains(pattern, case=False, na=False)
+                            filtered_df.loc[mask, 'concern_score'] += 2
 
-        # Ingredient Scoring (prefer products with desired ingredients - ANY match is good)
-        ingredients = preferences.get('ingredients', [])
-        if ingredients:
-            print(f"Scoring by preferred ingredients: {ingredients}")
-            # Give bonus points for each ingredient found (flexible matching)
-            for ingredient in ingredients:
-                ingredient_match = filtered_df['content'].str.contains(ingredient, case=False, na=False)
-                filtered_df.loc[ingredient_match, 'ingredient_score'] += 3  # Increased from 2 to 3
-                print(f"  Found {ingredient_match.sum()} products with {ingredient}")
-
-        # Avoid Ingredient Filtering (HARD filter - remove products with ANY avoided ingredient)
+        # Ingredient scoring (bonus for preferred, penalty for avoided)
+        preferred_ingredients = preferences.get('ingredients', [])
+        for ingredient in preferred_ingredients:
+            mask = filtered_df['content'].str.contains(ingredient, case=False, na=False)
+            filtered_df.loc[mask, 'ingredient_score'] += 2
+        
         avoid_ingredients = preferences.get('avoid_ingredients', [])
-        if avoid_ingredients:
-            print(f"Hard filtering avoided ingredients: {avoid_ingredients}")
-            before_count = len(filtered_df)
-            for ingredient in avoid_ingredients:
-                avoid_match = filtered_df['content'].str.contains(ingredient, case=False, na=False)
-                filtered_df = filtered_df[~avoid_match]  # Remove products with this ingredient
-                print(f"  Removed {avoid_match.sum()} products containing {ingredient}")
-            print(f"After avoid ingredients filter: {len(filtered_df)} products (was {before_count})")
-            
-            # If too few products after avoid filter, warn but continue
-            if len(filtered_df) < 5:
-                print("⚠️ Very few products left after avoiding ingredients. Consider relaxing restrictions.")
-                # Don't expand here - let the user know their restrictions are too tight
+        for ingredient in avoid_ingredients:
+            mask = filtered_df['content'].str.contains(ingredient, case=False, na=False)
+            filtered_df.loc[mask, 'ingredient_score'] -= 3
 
-        # Calculate total score and keep top products
+        # Price range filtering (keep products within 50% extension if needed)
+        price_range = preferences.get('price_range')
+        if price_range and len(price_range) == 2:
+            min_price, max_price = price_range
+            
+            # First try exact range
+            price_mask = (filtered_df['price'] >= min_price) & (filtered_df['price'] <= max_price) & (filtered_df['price'] > 0)
+            
+            if price_mask.sum() < 50:  # If too few products, extend range
+                extended_min = max(0, min_price * 0.5)
+                extended_max = max_price * 1.5
+                price_mask = (filtered_df['price'] >= extended_min) & (filtered_df['price'] <= extended_max) & (filtered_df['price'] > 0)
+                print(f"Extended price range to {extended_min}-{extended_max} to get more products")
+            
+            if price_mask.sum() > 0:
+                filtered_df = filtered_df[price_mask]
+            else:
+                print("No products in price range, keeping all priced products")
+                filtered_df = filtered_df[filtered_df['price'] > 0]
+
+        # Calculate total filter score
         filtered_df['total_filter_score'] = (
             filtered_df['skin_type_score'] + 
             filtered_df['concern_score'] + 
             filtered_df['ingredient_score']
         )
         
-        # Sort by total score and keep reasonable number of products
-        filtered_df = filtered_df.sort_values('total_filter_score', ascending=False)
+        # Keep products with positive scores or high ratings
+        good_products = filtered_df[
+            (filtered_df['total_filter_score'] > 0) | 
+            (filtered_df['rating'] >= 4.0)
+        ]
         
-        # Keep at least 75 products for recommendation scoring, or all if less than 75
-        min_products = min(75, len(filtered_df))
-        filtered_df = filtered_df.head(min_products)
+        if len(good_products) >= 50:
+            filtered_df = good_products
         
         print(f"After intelligent filtering: {len(filtered_df)} products")
-        print(f"Score distribution - Max: {filtered_df['total_filter_score'].max()}, Min: {filtered_df['total_filter_score'].min()}")
-
         return filtered_df
 
-    def _truncate_text(self, text, max_length):
-        """Truncate text to specified length"""
-        if pd.isna(text) or text == '':
-            return 'No description available'
-        text = str(text)
-        if len(text) > max_length:
-            return text[:max_length] + '...'
-        return text
+    def _fallback_filter_strategy(self, preferences: Dict) -> pd.DataFrame:
+        """Fallback strategy when strict filtering returns no results."""
+        print("Using fallback filtering strategy...")
+        
+        # Start with all products
+        fallback_df = self.df.copy()
+        
+        # Apply only essential filters
+        price_range = preferences.get('price_range')
+        if price_range and len(price_range) == 2:
+            min_price, max_price = price_range
+            # Use wider price range for fallback
+            extended_min = max(0, min_price * 0.3)
+            extended_max = max_price * 2
+            fallback_df = fallback_df[
+                (fallback_df['price'] >= extended_min) & 
+                (fallback_df['price'] <= extended_max) & 
+                (fallback_df['price'] > 0)
+            ]
+        
+        # If still empty, return top-rated products
+        if fallback_df.empty:
+            fallback_df = self.df.dropna(subset=['rating']).nlargest(100, 'rating')
+        
+        print(f"Fallback strategy returned {len(fallback_df)} products")
+        return fallback_df
 
-    def generate_skincare_routine(self, preferences, acne_detected=False, image_insights=None):
-        """Generate a comprehensive personalized skincare routine using enhanced Gemini AI with product integration."""
-        try:
-            recommendations = self.recommend(preferences, num_recommendations=20)
-            print(f"Got {len(recommendations)} product recommendations for routine generation")
+    def _calculate_enhanced_scores(self, df: pd.DataFrame, preferences: Dict) -> List[float]:
+        """Calculate enhanced recommendation scores."""
+        scores = []
+        
+        for _, product in df.iterrows():
+            score = 0
             
-            # Debug: Print product names and descriptions to see what we're working with
-            print("Available products for routine:")
-            for i, product in enumerate(recommendations[:10]):  # Show first 10
-                print(f"  {i+1}. {product['name'][:50]}...")
-                print(f"     Description: {product['description'][:80]}...")
-            
-            # Use enhanced Gemini AI if available
-            if self.gemini_ai:
-                print("Using enhanced Gemini AI for routine generation...")
-                user_profile = {
-                    'skinType': preferences.get('skin_type', 'Unknown'),
-                    'ageRange': preferences.get('age_group', 'Unknown'),
-                    'concerns': preferences.get('skin_concerns', []),
-                    'preferredIngredients': preferences.get('ingredients', []),
-                    'avoidIngredients': preferences.get('avoid_ingredients', []),
-                    'budget': preferences.get('price_range', 'Unknown')
-                }
-                
-                # Log enhanced routine generation request
-                self._log_ai_interaction(
-                    interaction_type="routine_generation_request",
-                    query="Requesting enhanced AI routine generation",
-                    user_profile=user_profile,
-                    metadata={
-                        "acne_detected": acne_detected,
-                        "recommendations_count": len(recommendations),
-                        "has_image_insights": bool(image_insights),
-                        "image_analysis_quality": image_insights.get('analysis_quality', 'none') if image_insights else 'none',
-                        "available_products": [rec.get("name", "Unknown") for rec in recommendations[:10]]
-                    }
-                )
-                
-                try:
-                    # Use enhanced routine generation with image insights
-                    ai_routine = self.gemini_ai.generate_skincare_routine(
-                        user_profile, 
-                        recommendations, 
-                        acne_detected,
-                        image_insights
-                    )
-                    
-                    # Check if AI routine has content
-                    if (ai_routine.get('morning') or ai_routine.get('evening')):
-                        # Log successful routine generation
-                        self._log_ai_interaction(
-                            interaction_type="routine_generation_success",
-                            query="Enhanced AI routine generation completed",
-                            response={
-                                "morning_steps": len(ai_routine.get('morning', [])),
-                                "evening_steps": len(ai_routine.get('evening', [])),
-                                "weekly_steps": len(ai_routine.get('weekly', [])),
-                                "routine_type": "enhanced_with_image_insights" if image_insights else "profile_based",
-                                "product_integration_success": sum(1 for step in (ai_routine.get('morning', []) + ai_routine.get('evening', [])) if step.get('product')),
-                                "routine_preview": {
-                                    "morning": [step.get("step", "Unknown") for step in ai_routine.get('morning', [])[:3]],
-                                    "evening": [step.get("step", "Unknown") for step in ai_routine.get('evening', [])[:3]]
-                                }
-                            },
-                            user_profile=user_profile
-                        )
-                        
-                        print(f"AI routine generated successfully: {len(ai_routine.get('morning', []))} morning steps, {len(ai_routine.get('evening', []))} evening steps")
-                        return ai_routine
-                    else:
-                        # Log empty routine
-                        self._log_ai_interaction(
-                            interaction_type="routine_generation_empty",
-                            query="AI routine generation returned empty",
-                            response=ai_routine,
-                            user_profile=user_profile
-                        )
-                        print("AI routine was empty, falling back to rule-based")
-                        
-                except Exception as routine_error:
-                    # Log routine generation error
-                    self._log_ai_interaction(
-                        interaction_type="routine_generation_error",
-                        query="AI routine generation failed",
-                        error=routine_error,
-                        user_profile=user_profile,
-                        metadata={"acne_detected": acne_detected}
-                    )
-                    print(f"AI routine generation failed: {routine_error}")
-            
-            # Fallback to rule-based routine generation
-            print("Using rule-based routine generation...")
-            return self._generate_rule_based_routine(recommendations, acne_detected)
-            
-        except Exception as e:
-            print(f"Error generating routine: {e}")
-            return self._generate_rule_based_routine([], acne_detected)
-
-    def generate_skin_analysis(self, user_profile, acne_detections=None, image_insights=None):
-        """Generate comprehensive skin analysis using enhanced Gemini AI with image insights."""
-        try:
-            if self.gemini_ai:
-                print("Using enhanced Gemini AI for detailed skin analysis...")
-                
-                # Log skin analysis request with image insights
-                self._log_ai_interaction(
-                    interaction_type="skin_analysis_request",
-                    query="Requesting enhanced AI skin analysis",
-                    user_profile=user_profile,
-                    metadata={
-                        "has_acne_detections": bool(acne_detections),
-                        "acne_detections_count": len(acne_detections) if acne_detections else 0,
-                        "has_image_insights": bool(image_insights),
-                        "image_analysis_quality": image_insights.get('analysis_quality', 'none') if image_insights else 'none'
-                    }
-                )
-                
-                try:
-                    # Use enhanced skin analysis with image insights
-                    analysis_result = self.gemini_ai.generate_skin_analysis(
-                        user_profile, 
-                        acne_detections, 
-                        image_insights
-                    )
-                    
-                    # Log successful analysis
-                    self._log_ai_interaction(
-                        interaction_type="skin_analysis_success",
-                        query="Enhanced AI skin analysis completed",
-                        response={
-                            "analysis_length": len(str(analysis_result)) if analysis_result else 0,
-                            "analysis_preview": str(analysis_result)[:200] + "..." if len(str(analysis_result)) > 200 else str(analysis_result),
-                            "analysis_type": "enhanced_with_image_insights" if image_insights else "profile_based"
-                        },
-                        user_profile=user_profile
-                    )
-                    
-                    return analysis_result
-                    
-                except Exception as analysis_error:
-                    # Log analysis error
-                    self._log_ai_interaction(
-                        interaction_type="skin_analysis_error",
-                        query="Enhanced AI skin analysis failed",
-                        error=analysis_error,
-                        user_profile=user_profile
-                    )
-                    print(f"Enhanced AI skin analysis failed: {analysis_error}")
-                    return self._generate_fallback_analysis(user_profile, acne_detections)
+            # Rating score (40% weight)
+            if pd.notna(product['rating']) and product['rating'] > 0:
+                rating_score = (product['rating'] / 5.0) * 40
+                score += rating_score
             else:
-                print("Using fallback skin analysis...")
-                return self._generate_fallback_analysis(user_profile, acne_detections)
-        except Exception as e:
-            # Log general error
-            self._log_ai_interaction(
-                interaction_type="skin_analysis_general_error",
-                query="Skin analysis process failed",
-                error=e,
-                user_profile=user_profile
-            )
-            print(f"Error generating enhanced skin analysis: {e}")
-            return self._generate_fallback_analysis(user_profile, acne_detections)
+                score += 20  # Default score for products without ratings
+            
+            # Price value score (20% weight)
+            if pd.notna(product['price']) and product['price'] > 0:
+                # Inverse price scoring - lower prices get higher scores within range
+                price_range = preferences.get('price_range', [0, 5000])
+                if len(price_range) == 2:
+                    min_price, max_price = price_range
+                    if min_price <= product['price'] <= max_price:
+                        # Normalize price within range (lower = better)
+                        if max_price > min_price:
+                            price_score = (1 - (product['price'] - min_price) / (max_price - min_price)) * 20
+                            score += price_score
+                        else:
+                            score += 20
+            
+            # Filter score (40% weight) - from intelligent filtering
+            if 'total_filter_score' in product:
+                filter_score = min(product['total_filter_score'] * 4, 40)  # Cap at 40
+                score += filter_score
+            
+            scores.append(max(score, 10))  # Minimum score of 10
+        
+        return scores
 
-    def _generate_rule_based_routine(self, recommendations, acne_detected=False):
-        """Generate routine using the original rule-based approach."""
+    def _combine_recommendations(self, logic_recs: List[Dict], ai_recs: List[Dict], limit: int) -> List[Dict]:
+        """Combine logic and AI recommendations intelligently."""
+        if not ai_recs:
+            return logic_recs[:limit]
+        
+        # Create a combined list, prioritizing AI recommendations
+        combined = []
+        used_names = set()
+        
+        # Add AI recommendations first (they're usually more targeted)
+        for rec in ai_recs:
+            if rec['name'] not in used_names:
+                combined.append(rec)
+                used_names.add(rec['name'])
+                if len(combined) >= limit:
+                    break
+        
+        # Fill remaining slots with logic recommendations
+        for rec in logic_recs:
+            if len(combined) >= limit:
+                break
+            if rec['name'] not in used_names:
+                combined.append(rec)
+                used_names.add(rec['name'])
+        
+        return combined[:limit]
+
+    def _format_recommendations(self, recommendations: pd.DataFrame, preferences: Dict) -> List[Dict]:
+        """Format recommendations for frontend with enhanced details."""
+        formatted_recommendations = []
+        
+        for _, product in recommendations.iterrows():
+            # Generate match reasons based on scoring
+            match_reasons = []
+            
+            if hasattr(product, 'skin_type_score') and product.get('skin_type_score', 0) > 0:
+                match_reasons.append(f"Suitable for {preferences.get('skin_type', 'your')} skin")
+            
+            if hasattr(product, 'concern_score') and product.get('concern_score', 0) > 0:
+                concerns = preferences.get('skin_concerns', [])
+                if concerns:
+                    match_reasons.append(f"Addresses {', '.join(concerns[:2])}")
+            
+            if hasattr(product, 'ingredient_score') and product.get('ingredient_score', 0) > 0:
+                preferred = preferences.get('ingredients', [])
+                if preferred:
+                    match_reasons.append(f"Contains preferred ingredients")
+            
+            if pd.notna(product.get('rating')) and product.get('rating', 0) >= 4.0:
+                match_reasons.append(f"Highly rated ({product.get('rating', 0):.1f}/5)")
+            
+            # Ensure we have at least one match reason
+            if not match_reasons:
+                match_reasons.append("Quality product for your skin type")
+            
+            formatted_product = {
+                'name': str(product.get('product_name', 'Unknown Product')),
+                'description': self._truncate_text(str(product.get('about_item', 'No description available')), 200),
+                'price': f"₹{int(product.get('price', 0))}" if pd.notna(product.get('price')) and product.get('price', 0) > 0 else 'Price not available',
+                'ingredients': str(product.get('active_ingredients', product.get('ingredients', 'Ingredients not listed'))),
+                'suitableFor': str(product.get('skin_type', 'All skin types')),
+                'brand': str(product.get('brand', 'Unknown Brand')),
+                'rating': float(product.get('rating', 0)) if pd.notna(product.get('rating')) else 0,
+                'category': str(product.get('category', 'Skincare')),
+                'matchReasons': match_reasons
+            }
+            formatted_recommendations.append(formatted_product)
+        
+        return formatted_recommendations
+
+    def generate_skincare_routine(self, preferences: Dict, acne_detected: bool = False) -> Dict:
+        """Generate a personalized skincare routine using AI if available."""
+        if not self.gemini_ai:
+            return self._generate_basic_routine(preferences, acne_detected)
+        
         try:
-            # Categorize products by type with more comprehensive keywords
-            routine_categories = {
-                'cleanser': ['cleanser', 'face wash', 'cleansing', 'foam', 'gel cleanser', 'cleansing gel'],
-                'moisturizer': ['moisturizer', 'moisturiser', 'cream', 'lotion', 'hydrating', 'hydration', 'face cream', 'day cream', 'night cream', 'moisturizing', 'moisture'],
-                'serum': ['serum', 'essence', 'treatment', 'concentrate', 'ampoule'],
-                'sunscreen': ['sunscreen', 'spf', 'sun protection', 'sunblock', 'sun cream', 'uv protection', 'broad spectrum'],
-                'toner': ['toner', 'astringent', 'refresher', 'mist', 'essence'],
-                'exfoliator': ['exfoliat', 'scrub', 'peel', 'aha', 'bha', 'glycolic', 'salicylic'],
-                'mask': ['mask', 'pack', 'sheet mask', 'clay mask']
+            # Get recommended products for routine generation
+            recommended_products = self.recommend(preferences, num_recommendations=20, use_ai_enhancement=False)
+            
+            # Prepare user profile for AI
+            user_profile = {
+                'skinType': preferences.get('skin_type', 'Unknown'),
+                'ageRange': preferences.get('age_group', 'Unknown'),
+                'concerns': preferences.get('skin_concerns', []),
+                'preferredIngredients': preferences.get('ingredients', []),
+                'avoidIngredients': preferences.get('avoid_ingredients', []),
+                'budget': preferences.get('price_range', 'Unknown')
             }
             
-            routine = {}
-            used_products = set()
+            # Generate AI-powered routine
+            routine = self.gemini_ai.generate_skincare_routine(
+                user_profile, 
+                recommended_products, 
+                acne_detected
+            )
             
-            # Build routine step by step with better product matching
-            for category, keywords in routine_categories.items():
-                category_products = []
-                for product in recommendations:
-                    if product['name'] not in used_products:
-                        product_name_lower = product['name'].lower()
-                        product_desc_lower = product['description'].lower()
-                        product_ingredients_lower = str(product.get('ingredients', '')).lower()
-                        product_suitable_lower = str(product.get('suitableFor', '')).lower()
-                        
-                        # Combine all text for better matching
-                        combined_text = f"{product_name_lower} {product_desc_lower} {product_ingredients_lower} {product_suitable_lower}"
-                        
-                        # Check if any keyword matches in the combined text
-                        if any(keyword in combined_text for keyword in keywords):
-                            category_products.append(product)
-                            used_products.add(product['name'])
-                            print(f"Found {category}: {product['name']}")
-                            break  # Take only one product per category
-                
-                if category_products:
-                    routine[category] = category_products[0]
-                else:
-                    print(f"No product found for category: {category}")
-            
-            print(f"Routine products found: {list(routine.keys())}")
-            
-            # Ensure we have essential products - try harder to find moisturizer and sunscreen
-            essential_categories = ['moisturizer', 'sunscreen']
-            for essential_cat in essential_categories:
-                if essential_cat not in routine:
-                    print(f"Trying harder to find {essential_cat}...")
-                    # Try with looser keywords
-                    loose_keywords = {
-                        'moisturizer': ['cream', 'lotion', 'hydrat', 'moisture', 'moistur'],
-                        'sunscreen': ['spf', 'sun', 'uv', 'protect']
-                    }
-                    
-                    for product in recommendations:
-                        if product['name'] not in used_products:
-                            combined_text = f"{product['name'].lower()} {product['description'].lower()} {str(product.get('ingredients', '')).lower()}"
-                            
-                            if any(keyword in combined_text for keyword in loose_keywords.get(essential_cat, [])):
-                                routine[essential_cat] = product
-                                used_products.add(product['name'])
-                                print(f"Found {essential_cat} with loose matching: {product['name']}")
-                                break
-            
-            # Special handling for acne-detected users
-            if acne_detected:
-                acne_keywords = ['acne', 'salicylic', 'benzoyl peroxide', 'tea tree', 'bha']
-                acne_products = []
-                for product in recommendations:
-                    if product['name'] not in used_products:
-                        content = (product['name'] + ' ' + product['description'] + ' ' + str(product['ingredients'])).lower()
-                        if any(keyword in content for keyword in acne_keywords):
-                            acne_products.append(product)
-                            break
-                
-                if acne_products:
-                    routine['acne_treatment'] = acne_products[0]
-            
-            # Format routine steps with actual product names and details
-            routine_steps = {
-                'morning': [
-                    {
-                        'step': 'Cleanser', 
-                        'product': routine.get('cleanser'),
-                        'instruction': f"Use {routine.get('cleanser', {}).get('name', 'a gentle cleanser')} to gently cleanse your face and remove impurities accumulated overnight. Massage for 1 minute." if routine.get('cleanser') else 'Gently cleanse your face to remove impurities'
-                    },
-                    {
-                        'step': 'Toner', 
-                        'product': routine.get('toner'),
-                        'instruction': f"Apply {routine.get('toner', {}).get('name', 'a balancing toner')} to balance skin pH and prepare your skin for the next steps." if routine.get('toner') else 'Apply toner to balance skin pH'
-                    },
-                    {
-                        'step': 'Serum', 
-                        'product': routine.get('serum'),
-                        'instruction': f"Apply {routine.get('serum', {}).get('name', 'a targeted serum')} for targeted treatment of your skin concerns. Pat gently until absorbed." if routine.get('serum') else 'Apply serum for targeted treatment'
-                    },
-                    {
-                        'step': 'Moisturizer', 
-                        'product': routine.get('moisturizer'),
-                        'instruction': f"Use {routine.get('moisturizer', {}).get('name', 'a suitable moisturizer')} to hydrate your skin and lock in previous products. Apply evenly to face and neck." if routine.get('moisturizer') else 'Hydrate your skin with a suitable moisturizer'
-                    },
-                    {
-                        'step': 'Sunscreen', 
-                        'product': routine.get('sunscreen'),
-                        'instruction': f"Apply {routine.get('sunscreen', {}).get('name', 'a broad-spectrum SPF 30+ sunscreen')} generously to protect your skin from sun damage and prevent hyperpigmentation. Reapply every 2 hours." if routine.get('sunscreen') else 'Protect your skin with SPF 30+ sunscreen'
-                    }
-                ],
-                'evening': [
-                    {
-                        'step': 'Cleanser', 
-                        'product': routine.get('cleanser'),
-                        'instruction': f"Use {routine.get('cleanser', {}).get('name', 'a gentle cleanser')} to remove makeup, dirt, and oil accumulated during the day. Double cleanse if wearing makeup." if routine.get('cleanser') else 'Remove makeup and impurities'
-                    },
-                    {
-                        'step': 'Toner', 
-                        'product': routine.get('toner'),
-                        'instruction': f"Apply {routine.get('toner', {}).get('name', 'a balancing toner')} to prepare your skin for evening treatments." if routine.get('toner') else 'Apply toner to prepare skin'
-                    },
-                    {
-                        'step': 'Serum', 
-                        'product': routine.get('serum'),
-                        'instruction': f"Apply {routine.get('serum', {}).get('name', 'an evening serum')} for overnight repair and treatment of your skin concerns." if routine.get('serum') else 'Apply evening serum or treatment'
-                    },
-                    {
-                        'step': 'Moisturizer', 
-                        'product': routine.get('moisturizer'),
-                        'instruction': f"Use {routine.get('moisturizer', {}).get('name', 'a nourishing moisturizer')} to provide deep hydration and support overnight skin repair. Apply generously." if routine.get('moisturizer') else 'Apply a heavier night moisturizer for deep hydration'
-                    }
-                ] + ([{
-                    'step': 'Acne Treatment', 
-                    'product': routine.get('acne_treatment'),
-                    'instruction': f"Apply {routine.get('acne_treatment', {}).get('name', 'acne treatment')} to target breakouts and prevent future blemishes. Use as directed."
-                }] if routine.get('acne_treatment') and acne_detected else []),
-                'weekly': [
-                    routine.get('exfoliator') and {
-                        'step': 'Exfoliator', 
-                        'product': routine.get('exfoliator'),
-                        'instruction': f"Use {routine.get('exfoliator', {}).get('name', 'an exfoliating product')} 2-3 times per week to remove dead skin cells and improve skin texture."
-                    },
-                    routine.get('mask') and {
-                        'step': 'Face Mask', 
-                        'product': routine.get('mask'),
-                        'instruction': f"Apply {routine.get('mask', {}).get('name', 'a treatment mask')} 1-2 times per week for deep treatment and nourishment."
-                    }
-                ]
-            }
-            
-            # Remove None entries and invalid entries
-            for period in routine_steps:
-                routine_steps[period] = [step for step in routine_steps[period] if step and isinstance(step, dict)]
-            for period in routine_steps:
-                routine_steps[period] = [step for step in routine_steps[period] if step is not None]
-            
-            return routine_steps
+            return routine
             
         except Exception as e:
-            print(f"Error generating rule-based routine: {e}")
-            return {
-                'morning': [],
-                'evening': [],
-                'weekly': []
-            }
+            print(f"AI routine generation failed: {e}")
+            return self._generate_basic_routine(preferences, acne_detected)
 
-    def _generate_fallback_analysis(self, user_profile, acne_detections=None):
-        """Generate fallback skin analysis when AI is unavailable."""
+    def _generate_basic_routine(self, preferences: Dict, acne_detected: bool) -> Dict:
+        """Generate a basic rule-based routine as fallback."""
+        # Get some recommended products
+        products = self.recommend(preferences, num_recommendations=10, use_ai_enhancement=False)
+        
+        # Categorize products
+        cleansers = [p for p in products if 'cleanser' in p.get('category', '').lower() or 'wash' in p.get('name', '').lower()]
+        serums = [p for p in products if 'serum' in p.get('category', '').lower() or 'serum' in p.get('name', '').lower()]
+        moisturizers = [p for p in products if 'moisturizer' in p.get('category', '').lower() or 'cream' in p.get('name', '').lower()]
+        sunscreens = [p for p in products if 'sunscreen' in p.get('name', '').lower() or 'spf' in p.get('name', '').lower()]
+        
+        # Build routine steps
+        morning_routine = []
+        evening_routine = []
+        
+        # Morning routine
+        if cleansers:
+            morning_routine.append({
+                'step': 'Cleanse',
+                'instruction': f"Use {cleansers[0]['name']} to gently cleanse your face with lukewarm water.",
+                'product': cleansers[0]
+            })
+        
+        if serums:
+            morning_routine.append({
+                'step': 'Treat',
+                'instruction': f"Apply {serums[0]['name']} to address your skin concerns.",
+                'product': serums[0]
+            })
+        
+        if moisturizers:
+            morning_routine.append({
+                'step': 'Moisturize',
+                'instruction': f"Apply {moisturizers[0]['name']} to hydrate and protect your skin.",
+                'product': moisturizers[0]
+            })
+        
+        if sunscreens:
+            morning_routine.append({
+                'step': 'Protect',
+                'instruction': f"Apply {sunscreens[0]['name']} for sun protection.",
+                'product': sunscreens[0]
+            })
+        
+        # Evening routine
+        if cleansers:
+            evening_routine.append({
+                'step': 'Cleanse',
+                'instruction': f"Use {cleansers[0]['name']} to remove the day's impurities.",
+                'product': cleansers[0]
+            })
+        
+        if len(serums) > 1:
+            evening_routine.append({
+                'step': 'Treat',
+                'instruction': f"Apply {serums[1]['name']} for overnight skin repair.",
+                'product': serums[1]
+            })
+        elif serums:
+            evening_routine.append({
+                'step': 'Treat',
+                'instruction': f"Apply {serums[0]['name']} for skin treatment.",
+                'product': serums[0]
+            })
+        
+        if moisturizers:
+            evening_routine.append({
+                'step': 'Moisturize',
+                'instruction': f"Apply {moisturizers[0]['name']} for overnight hydration.",
+                'product': moisturizers[0]
+            })
+        
+        return {
+            'morning': morning_routine,
+            'evening': evening_routine,
+            'weekly': []
+        }
+
+    def generate_skin_analysis(self, user_profile: Dict, acne_detections: List = None) -> str:
+        """Generate AI-powered skin analysis."""
+        if not self.gemini_ai:
+            return self._generate_basic_analysis(user_profile, acne_detections)
+        
+        try:
+            return self.gemini_ai.generate_skin_analysis(user_profile, acne_detections)
+        except Exception as e:
+            print(f"AI skin analysis failed: {e}")
+            return self._generate_basic_analysis(user_profile, acne_detections)
+
+    def _generate_basic_analysis(self, user_profile: Dict, acne_detections: List = None) -> str:
+        """Generate basic skin analysis as fallback."""
         skin_type = user_profile.get('skinType', 'Unknown')
-        concerns = user_profile.get('concerns', [])
         age_range = user_profile.get('ageRange', 'Unknown')
-
-        analysis = f"Based on your {skin_type.lower()} skin type and {age_range} age range, "
+        concerns = user_profile.get('concerns', [])
+        
+        analysis = f"Based on your {skin_type} skin type and age range ({age_range}), "
         
         if concerns:
-            analysis += f"your main concerns of {', '.join(concerns)} suggest you need "
+            analysis += f"your main concerns are {', '.join(concerns)}. "
         
-        if skin_type.lower() == 'oily':
-            analysis += "products that control sebum production while maintaining hydration. "
-        elif skin_type.lower() == 'dry':
-            analysis += "intensive moisturizing and barrier repair products. "
-        elif skin_type.lower() == 'sensitive':
-            analysis += "gentle, fragrance-free products with minimal ingredients. "
-        elif skin_type.lower() == 'combination':
-            analysis += "a balanced approach with different products for different facial zones. "
-
-        if acne_detections:
-            analysis += "Our analysis detected acne-prone areas that would benefit from targeted treatments. "
-
-        analysis += "The recommended products have been selected to address your specific needs while being gentle on your skin."
-
+        if acne_detections and len(acne_detections) > 0:
+            analysis += f"Our AI detected {len(acne_detections)} areas of concern in your facial image. "
+        
+        analysis += "We recommend following a consistent skincare routine with products suited to your specific needs."
+        
         return analysis
 
-    def _log_ai_interaction(self, interaction_type, query, response=None, error=None, user_profile=None, metadata=None):
-        """Log AI interactions to JSON file for debugging"""
-        try:
-            log_entry = {
-                "timestamp": datetime.datetime.now().isoformat(),
-                "interaction_type": interaction_type,
-                "user_profile": user_profile,
-                "query": query,
-                "response": response,
-                "error": str(error) if error else None,
-                "error_traceback": traceback.format_exc() if error else None,
-                "metadata": metadata or {}
-            }
-            
-            # Create logs directory if it doesn't exist
-            import os
-            logs_dir = "logs"
-            if not os.path.exists(logs_dir):
-                os.makedirs(logs_dir)
-            
-            # Generate filename with date
-            date_str = datetime.datetime.now().strftime("%Y%m%d")
-            log_file = os.path.join(logs_dir, f"gemini_ai_interactions_{date_str}.json")
-            
-            # Read existing logs or create new list
-            existing_logs = []
-            if os.path.exists(log_file):
-                try:
-                    with open(log_file, 'r', encoding='utf-8') as f:
-                        existing_logs = json.load(f)
-                except Exception:
-                    existing_logs = []
-            
-            # Append new log entry
-            existing_logs.append(log_entry)
-            
-            # Keep only last 100 entries to prevent file from getting too large
-            if len(existing_logs) > 100:
-                existing_logs = existing_logs[-100:]
-            
-            # Write back to file
-            with open(log_file, 'w', encoding='utf-8') as f:
-                json.dump(existing_logs, f, indent=2, ensure_ascii=False)
-            
-            print(f"📝 AI interaction logged to {log_file}")
-            
-        except Exception as log_error:
-            print(f"Failed to log AI interaction: {log_error}")
+    def _truncate_text(self, text: str, max_length: int) -> str:
+        """Truncate text to specified length with ellipsis."""
+        if not text or len(text) <= max_length:
+            return text
+        return text[:max_length].rstrip() + '...'
 
-    def analyze_skin_image_and_generate_insights(self, image_data: bytes, user_profile: Dict) -> Dict:
-        """Analyze uploaded skin image and generate comprehensive insights for personalization."""
-        try:
-            if self.gemini_ai:
-                print("Analyzing uploaded skin image for enhanced personalization...")
-                
-                # Log image analysis request
-                self._log_ai_interaction(
-                    interaction_type="image_analysis_request",
-                    query="Requesting comprehensive image analysis",
-                    user_profile=user_profile,
-                    metadata={
-                        "image_size": len(image_data),
-                        "analysis_type": "comprehensive_vision_analysis"
-                    }
-                )
-                
-                try:
-                    # Get detailed image analysis
-                    image_analysis = self.gemini_ai.analyze_skin_image(image_data, user_profile)
-                    
-                    # Log successful image analysis
-                    self._log_ai_interaction(
-                        interaction_type="image_analysis_success",
-                        query="Image analysis completed successfully",
-                        response={
-                            "analysis_type": image_analysis.get('analysis_quality', 'unknown'),
-                            "has_structured_insights": bool(image_analysis.get('structured_insights')),
-                            "full_analysis_length": len(image_analysis.get('full_analysis', '')),
-                            "key_insights": list(image_analysis.get('structured_insights', {}).keys())
-                        },
-                        user_profile=user_profile
-                    )
-                    
-                    return image_analysis
-                    
-                except Exception as analysis_error:
-                    # Log image analysis error
-                    self._log_ai_interaction(
-                        interaction_type="image_analysis_error",
-                        query="Image analysis failed",
-                        error=analysis_error,
-                        user_profile=user_profile
-                    )
-                    print(f"Image analysis failed: {analysis_error}")
-                    return None
-                    
-            else:
-                print("Gemini AI not available for image analysis")
-                return None
-                
-        except Exception as e:
-            # Log general error
-            self._log_ai_interaction(
-                interaction_type="image_analysis_general_error",
-                query="Image analysis process failed",
-                error=e,
-                user_profile=user_profile
-            )
-            print(f"Error analyzing skin image: {e}")
-            return None
-
-    def generate_complete_skin_assessment(self, user_profile: Dict, acne_detections=None, image_data: bytes = None):
-        """Generate complete skin assessment with image analysis, recommendations, and routine."""
-        try:
-            print("Starting complete skin assessment with enhanced personalization...")
-            
-            # Step 1: Analyze image if provided
-            image_insights = None
-            if image_data and self.gemini_ai:
-                image_insights = self.analyze_skin_image_and_generate_insights(image_data, user_profile)
-                print(f"Image analysis completed: {image_insights.get('analysis_quality', 'none') if image_insights else 'failed'}")
-            
-            # Step 2: Generate enhanced skin analysis
-            preferences = {
-                'skin_type': user_profile.get('skinType', 'Unknown'),
-                'age_group': user_profile.get('ageRange', 'Unknown'),
-                'skin_concerns': user_profile.get('concerns', []),
-                'ingredients': user_profile.get('preferredIngredients', []),
-                'avoid_ingredients': user_profile.get('avoidIngredients', []),
-                'price_range': user_profile.get('budget', 'Unknown')
-            }
-            
-            skin_analysis = self.generate_skin_analysis(
-                user_profile, 
-                acne_detections, 
-                image_insights
-            )
-            
-            # Step 3: Generate product recommendations with enhanced context
-            recommendations = self.recommend(preferences, num_recommendations=15)
-            
-            # Step 4: Generate personalized routine with image insights
-            routine = self.generate_skincare_routine(
-                preferences, 
-                bool(acne_detections), 
-                image_insights
-            )
-            
-            # Compile complete assessment
-            complete_assessment = {
-                'skin_analysis': skin_analysis,
-                'image_insights': image_insights,
-                'product_recommendations': recommendations,
-                'skincare_routine': routine,
-                'assessment_metadata': {
-                    'has_image_analysis': bool(image_insights),
-                    'has_acne_detection': bool(acne_detections),
-                    'recommendations_count': len(recommendations),
-                    'routine_completeness': {
-                        'morning_steps': len(routine.get('morning', [])),
-                        'evening_steps': len(routine.get('evening', [])),
-                        'weekly_steps': len(routine.get('weekly', []))
-                    }
-                }
-            }
-            
-            print("Complete skin assessment generated successfully")
-            return complete_assessment
-            
-        except Exception as e:
-            print(f"Error generating complete skin assessment: {e}")
-            # Return fallback assessment
-            return {
-                'skin_analysis': self._generate_fallback_analysis(user_profile, acne_detections),
-                'image_insights': None,
-                'product_recommendations': [],
-                'skincare_routine': self._generate_rule_based_routine([], bool(acne_detections)),
-                'assessment_metadata': {
-                    'has_image_analysis': False,
-                    'has_acne_detection': bool(acne_detections),
-                    'recommendations_count': 0,
-                    'fallback_mode': True
-                }
-            }
-
-    # ...existing code...
-
-# Backwards compatibility - keep the old class name as an alias
-ProductRecommender = ProductRecommenderSupabase
+    def refresh_data(self):
+        """Refresh data from Supabase and rebuild recommendation system."""
+        self._load_data_from_supabase()
+        if self.df is not None and not self.df.empty:
+            self._build_recommendation_system()
+            print("Data refreshed successfully")
+        else:
+            print("Failed to refresh data")
