@@ -1,12 +1,25 @@
+## Web framework & server
 fastapi
-uvicorn
-opencv-python-headless
+uvicorn[standard]
+
+## Data & ML
 numpy
 pandas
 scikit-learn
-supabase
-python-dotenv
+opencv-python-headless
+torch
+
+## AI services
 google-generativeai
+
+## Supabase client
+supabase
+
+## Utilities
+python-dotenv
 pydantic
 aiofiles
- 
+python-multipart
+pillow
+requests
+
