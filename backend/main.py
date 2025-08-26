@@ -1,5 +1,5 @@
 # FastAPI backend for AI-powered endpoints
-from fastapi import FastAPI, File, UploadFile
+from fastapi import FastAPI, File, UploadFile, Form
 from pydantic import BaseModel, Field
 from typing import List, Tuple, Optional
 import os
@@ -28,6 +28,11 @@ app.add_middleware(
 
 acne_detector = AcneDetector()
 
+"""
+RAG functionality removed: simplifying the backend to a straightforward
+recommendation + Gemini-driven routine and analysis workflow.
+"""
+
 # Try to use Supabase if credentials are available, otherwise fall back to CSV
 try:
     from recommendation_supabase import ProductRecommenderSupabase
@@ -38,8 +43,24 @@ try:
         raise ImportError("Supabase credentials not found")
 except (ImportError, Exception) as e:
     print(f"⚠️ Supabase not available ({str(e)}), falling back to CSV-based recommendations")
-    from recommendation import ProductRecommender
-    recommender = ProductRecommender()
+    try:
+        from recommendation_minimal import ProductRecommender
+        recommender = ProductRecommender()
+        print("✅ Using minimal CSV-based recommendations for debugging")
+    except Exception as e2:
+        print(f"❌ Error loading minimal recommender: {e2}")
+        from recommendation import ProductRecommender
+        recommender = ProductRecommender()
+        print("✅ Using original CSV-based recommendations")
+
+# Initialize Gemini service (for direct image analysis endpoint)
+try:
+    from gemini_service import GeminiAIService
+    gemini_ai = GeminiAIService()
+    print("✅ Gemini service initialized for analysis endpoint")
+except Exception as e:
+    print(f"⚠️ Gemini service not available: {e}")
+    gemini_ai = None
 
 # Pydantic model for the recommendation request body
 class RecommendationRequest(BaseModel):
@@ -47,6 +68,7 @@ class RecommendationRequest(BaseModel):
     skinConcerns: List[str] = Field(..., alias="skin_concerns")
     skinType: str = Field(..., alias="skin_type")
     budget: Tuple[int, int] = Field(..., alias="price_range")
+    budgetTier: Optional[str] = Field(default=None, alias="budget_tier")
     ingredients: List[str] = Field(default_factory=list)
     avoidIngredients: List[str] = Field(default_factory=list, alias="avoid_ingredients")
     useAiEnhancement: bool = Field(default=True, alias="use_ai_enhancement")  # New field for AI toggle
@@ -120,6 +142,75 @@ async def generate_routine(request: RecommendationRequest):
     return {
         "routine": routine,
         "status": "success"
+    }
+
+@app.post("/api/analyze-skin")
+async def analyze_skin(
+    file: UploadFile = File(...),
+    skin_type: str = Form(...),
+    age_group: str = Form(...),
+    skin_concerns: str = Form("[]"),  # JSON array string
+    ingredients: str = Form("[]"),    # JSON array string
+    avoid_ingredients: str = Form("[]"),  # JSON array string
+    price_range: str = Form("[]")  # JSON array string like [min, max]
+):
+    """Analyze a face image with Gemini and user context.
+
+    Accepts multipart/form-data with an image file and user fields.
+    Returns Gemini's detailed analysis, structured insights, and acne detections.
+    """
+    if gemini_ai is None:
+        return JSONResponse(status_code=503, content={"message": "Gemini service not available"})
+
+    # Read the uploaded image
+    contents = await file.read()
+    nparr = np.frombuffer(contents, np.uint8)
+    image = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+    if image is None:
+        return JSONResponse(status_code=400, content={"message": "Invalid image file"})
+
+    # Acne detections via YOLO (optional context)
+    image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    detections = acne_detector.detect(image_rgb)
+
+    # Parse JSON-like fields
+    import json as _json
+    try:
+        concerns = _json.loads(skin_concerns) if skin_concerns else []
+    except Exception:
+        concerns = []
+    try:
+        pref_ingredients = _json.loads(ingredients) if ingredients else []
+    except Exception:
+        pref_ingredients = []
+    try:
+        avoid_ing = _json.loads(avoid_ingredients) if avoid_ingredients else []
+    except Exception:
+        avoid_ing = []
+    try:
+        budget = _json.loads(price_range) if price_range else []
+    except Exception:
+        budget = []
+
+    user_profile = {
+        'skinType': skin_type,
+        'ageRange': age_group,
+        'concerns': concerns,
+        'preferredIngredients': pref_ingredients,
+        'avoidIngredients': avoid_ing,
+        'budget': budget
+    }
+
+    # Run Gemini vision analysis
+    analysis = gemini_ai.analyze_skin_image(contents, user_profile)
+
+    # Also generate text consultation that references detections
+    consultation_text = gemini_ai.generate_skin_analysis(user_profile, acne_detections=detections)
+
+    return {
+        "acne_detections": detections,
+        "gemini_vision": analysis,
+        "consultation": consultation_text
     }
 
 @app.get("/api/test-ai-routine")
@@ -224,12 +315,20 @@ async def test_ai_recommendations(request: RecommendationRequest):
                 "ai_available": False,
                 "message": "AI enhancement not available"
             }
-            
     except Exception as e:
-        return JSONResponse(
-            status_code=500, 
-            content={
-                "status": "error", 
-                "message": f"Error testing AI recommendations: {str(e)}"
-            }
-        )
+        return {"error": str(e), "status": "error"}
+
+@app.get("/api/health")
+async def enhanced_health_check():
+    """Simplified health check without RAG."""
+    return {
+        "services": {
+            "acne_detector": "operational",
+            "recommender": "operational",
+            "gemini": "operational" if gemini_ai is not None else "unavailable"
+        }
+    }
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)

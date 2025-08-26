@@ -14,22 +14,22 @@ export function BudgetStep({ formData, updateFormData }: BudgetStepProps) {
     {
       value: "budget",
       label: "Budget-Friendly",
-      description: "Affordable options that won't break the bank ($5-$20 per product).",
+  description: "Affordable options for everyday use",
     },
     {
       value: "mid-tier",
       label: "Mid-Tier",
-      description: "Quality products with effective ingredients ($20-$50 per product).",
+  description: "Quality products with effective, dermatologist-tested ingredients",
     },
     {
       value: "premium",
       label: "Premium",
-      description: "High-end products with advanced formulations ($50+ per product).",
+  description: "High-end products with advanced formulations from premium brands",
     },
     {
       value: "mixed",
       label: "Mixed Budget",
-      description: "Willing to splurge on certain products while saving on others.",
+  description: "Flexible mix across Budget, Mid-Tier, and Premium options",
     },
   ]
 

@@ -1,0 +1,400 @@
+[
+  {
+    "timestamp": "2025-08-22T15:29:49.205474",
+    "interaction_type": "product_recommendations_prompt",
+    "prompt": "\n            You are an expert skincare consultant with access to a comprehensive product database. Based on the user profile and product database, recommend the most suitable skincare products.\n\n            \n            User Profile:\n            - Skin Type: combination\n            - Age Range: 18-24\n            - Skin Concerns: acne\n            - Preferred Ingredients: niacinamide, retinol\n            - Ingredients to Avoid: fragrance, alcohol\n            - Budget Range: (0, 5000)\n            \n            \n                \n                Logic-Based Recommendations (for reference):\n                - AARCHITA Herbal Night Cream With Avocado Provitamin B5 For Overnight Hydration Skin Rejuvenation Sulphate-Free 30 Ml (AARCHITA)\n- Turmeric Kojic Acid and Turmeric Cleansing Pads for Face Dark Spots Kojic and Turmeric Cleansing Pads Suitable for All Skin Types - 50 pcs . CONTAINER - 1.. (KITWELL)\n- Novology SPF 50 PA Ultralight Gel Sunscreen with Niacinamide Fights Acne and Sebum Non-Grea...",
+    "response": null,
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "user_profile": {
+        "skinType": "combination",
+        "ageRange": "18-24",
+        "concerns": [
+          "acne"
+        ],
+        "preferredIngredients": [
+          "niacinamide",
+          "retinol"
+        ],
+        "avoidIngredients": [
+          "fragrance",
+          "alcohol"
+        ],
+        "budget": [
+          0,
+          5000
+        ]
+      },
+      "product_database_size": 326,
+      "logic_recommendations_count": 30
+    }
+  },
+  {
+    "timestamp": "2025-08-22T15:30:40.915524",
+    "interaction_type": "product_recommendations_response",
+    "prompt": "Response received",
+    "response": "```json\n[\n    {\n        \"product_name\": \"Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1\",\n        \"brand\": \"Minimalist\",\n        \"reason\": \"This serum is a perfect match, featuring your preferred ingredient, Niacinamide, at a potent 10% concentration. It's specifically formulated to control oil, clarify skin, and manage blemishes, which directly addresses your primary concern of acne on combination skin.\",\n        \"category\": \"serum\",\n        \"priority\": \"high\",\n        \"price_value\": \"mid-range\"\n    },\n    {\n        \"product_name\": \"The Derma Co Face Wash with 2 Salicylic Acid and 2 Niacinamide  Sali-Cinamide Anti-Acne Face Wash - 80ml\",\n        \"brand\": \"The Derma Co\",\n        \"reason\": \"An excellent daily cleanser that targets acne with 2% Salicylic Acid to exfoliate and clear pores, while also including your preferred Niacinamide to soothe and reduce oil. It's a powerful two-in-one formula for managing active breakouts.\",\n        \"category\": \"cleanser\",\n        \"priority\": \"high\",\n        \"price_value\": \"budget\"\n    },\n    {\n        \"product_name\": \"Dermistry Aging Repair Retinol Collagen SPF 30 Skin Firming Lifting Moisturizer Day Face Cream Reduces Ageing Wrinkles Fine Lines Improves Elasticity Tightening Suits Dry Oily Skin Men Women 50 ML\",\n        \"brand\": \"DERMISTRY\",\n        \"reason\": \"This product introduces your preferred ingredient, Retinol, in a gentle moisturizer format. It is ideal for a beginner to help with cell turnover, which is key for treating and preventing acne and improving skin texture. Use this at night to start incorporating retinol into your routine.\",\n        \"category\": \"moisturizer\",\n        \"priority\": \"high\",\n        \"price_value\": \"budget\"\n    },\n    {\n        \"product_name\": \"WishCare 5 Niacinamide Oil Balance Fluid Sunscreen SPF 50 PA with 8 Hrs SPF Protection- Lightweight Matte Sunscreen SPF 50 for Oily Skin & No White Cast 50g\",\n  ...",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "response_length": 9571
+    }
+  },
+  {
+    "timestamp": "2025-08-22T15:30:40.931883",
+    "interaction_type": "product_recommendations_parsed",
+    "prompt": "JSON parsing successful",
+    "response": "Parsed 16 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "recommendations_count": 16
+    }
+  },
+  {
+    "timestamp": "2025-08-22T15:30:40.941532",
+    "interaction_type": "product_recommendations_formatted",
+    "prompt": "Recommendations formatted successfully",
+    "response": "Formatted 16 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "formatted_count": 16,
+      "sample_recommendations": [
+        "Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1",
+        "The Derma Co Face Wash with 2 Salicylic Acid and 2 Niacinamide  Sali-Cinamide Anti-Acne Face Wash - 80ml",
+        "Dermistry Aging Repair Retinol Collagen SPF 30 Skin Firming Lifting Moisturizer Day Face Cream Reduces Ageing Wrinkles Fine Lines Improves Elasticity Tightening Suits Dry Oily Skin Men Women 50 ML"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-08-22T15:30:41.030654",
+    "interaction_type": "product_recommendations_prompt",
+    "prompt": "\n            You are an expert skincare consultant with access to a comprehensive product database. Based on the user profile and product database, recommend the most suitable skincare products.\n\n            \n            User Profile:\n            - Skin Type: combination\n            - Age Range: 18-24\n            - Skin Concerns: acne\n            - Preferred Ingredients: niacinamide, retinol\n            - Ingredients to Avoid: fragrance, alcohol\n            - Budget Range: (0, 5000)\n            \n            \n                \n                Logic-Based Recommendations (for reference):\n                - AARCHITA Herbal Night Cream With Avocado Provitamin B5 For Overnight Hydration Skin Rejuvenation Sulphate-Free 30 Ml (AARCHITA)\n- Turmeric Kojic Acid and Turmeric Cleansing Pads for Face Dark Spots Kojic and Turmeric Cleansing Pads Suitable for All Skin Types - 50 pcs . CONTAINER - 1.. (KITWELL)\n- Novology SPF 50 PA Ultralight Gel Sunscreen with Niacinamide Fights Acne and Sebum Non-Grea...",
+    "response": null,
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "user_profile": {
+        "skinType": "combination",
+        "ageRange": "18-24",
+        "concerns": [
+          "acne"
+        ],
+        "preferredIngredients": [
+          "niacinamide",
+          "retinol"
+        ],
+        "avoidIngredients": [
+          "fragrance",
+          "alcohol"
+        ],
+        "budget": [
+          0,
+          5000
+        ]
+      },
+      "product_database_size": 326,
+      "logic_recommendations_count": 40
+    }
+  },
+  {
+    "timestamp": "2025-08-22T15:31:33.788007",
+    "interaction_type": "product_recommendations_response",
+    "prompt": "Response received",
+    "response": "```json\n[\n    {\n        \"product_name\": \"Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1\",\n        \"brand\": \"Minimalist\",\n        \"reason\": \"This serum directly addresses your concerns with 10% niacinamide, a preferred ingredient, to control oil, reduce acne marks, and improve skin texture. The addition of zinc helps regulate sebum production, making it ideal for combination, acne-prone skin.\",\n        \"category\": \"serum\",\n        \"priority\": \"high\",\n        \"price_value\": \"mid-range\"\n    },\n    {\n        \"product_name\": \"The Derma Co Face Wash with 2 Salicylic Acid and 2 Niacinamide  Sali-Cinamide Anti-Acne Face Wash - 80ml\",\n        \"brand\": \"The Derma Co\",\n        \"reason\": \"An excellent starting point for an anti-acne routine. It combines Salicylic Acid to exfoliate and unclog pores with Niacinamide to soothe inflammation and control oil, targeting your primary concern of acne effectively.\",\n        \"category\": \"cleanser\",\n        \"priority\": \"high\",\n        \"price_value\": \"budget\"\n    },\n    {\n        \"product_name\": \"Dermistry Aging Repair Retinol Collagen SPF 30 Skin Firming Lifting Moisturizer Day Face Cream Reduces Ageing Wrinkles Fine Lines Improves Elasticity Tightening Suits Dry Oily Skin Men Women 50 ML\",\n        \"brand\": \"DERMISTRY\",\n        \"reason\": \"This is a perfect way to introduce your preferred ingredient, retinol, into your routine. It's a multi-tasking day cream with a gentle form of retinol to help with cell turnover for acne, niacinamide, and SPF 30 for sun protection.\",\n        \"category\": \"moisturizer\",\n        \"priority\": \"high\",\n        \"price_value\": \"budget\"\n    },\n    {\n        \"product_name\": \"WishCare 5 Niacinamide Oil Balance Fluid Sunscreen SPF 50 PA with 8 Hrs SPF Protection- Lightweight Matte Sunscreen SPF 50 for Oily Skin & No White Cast 50g\",\n        \"brand\": \"WishCare\",\n        \"reason\": \"This sunscreen is specifically formulated f...",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "response_length": 9413
+    }
+  },
+  {
+    "timestamp": "2025-08-22T15:31:33.809973",
+    "interaction_type": "product_recommendations_parsed",
+    "prompt": "JSON parsing successful",
+    "response": "Parsed 16 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "recommendations_count": 16
+    }
+  },
+  {
+    "timestamp": "2025-08-22T15:31:33.825026",
+    "interaction_type": "product_recommendations_formatted",
+    "prompt": "Recommendations formatted successfully",
+    "response": "Formatted 16 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "formatted_count": 16,
+      "sample_recommendations": [
+        "Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1",
+        "The Derma Co Face Wash with 2 Salicylic Acid and 2 Niacinamide  Sali-Cinamide Anti-Acne Face Wash - 80ml",
+        "Dermistry Aging Repair Retinol Collagen SPF 30 Skin Firming Lifting Moisturizer Day Face Cream Reduces Ageing Wrinkles Fine Lines Improves Elasticity Tightening Suits Dry Oily Skin Men Women 50 ML"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-08-22T16:56:25.149468",
+    "interaction_type": "product_recommendations_prompt",
+    "prompt": "\n            You are an expert skincare consultant with access to a comprehensive product database. Based on the user profile and product database, recommend the most suitable skincare products.\n\n            \n            User Profile:\n            - Skin Type: combination\n            - Age Range: 18-24\n            - Skin Concerns: acne\n            - Preferred Ingredients: niacinamide, hyaluronic-acid, retinol\n            - Ingredients to Avoid: fragrance, alcohol\n            - Budget Range: (0, 5000)\n            \n            \n                \n                Logic-Based Recommendations (for reference):\n                - AARCHITA Herbal Night Cream With Avocado Provitamin B5 For Overnight Hydration Skin Rejuvenation Sulphate-Free 30 Ml (AARCHITA)\n- Turmeric Kojic Acid and Turmeric Cleansing Pads for Face Dark Spots Kojic and Turmeric Cleansing Pads Suitable for All Skin Types - 50 pcs . CONTAINER - 1.. (KITWELL)\n- Novology SPF 50 PA Ultralight Gel Sunscreen with Niacinamide Fights Acne a...",
+    "response": null,
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "user_profile": {
+        "skinType": "combination",
+        "ageRange": "18-24",
+        "concerns": [
+          "acne"
+        ],
+        "preferredIngredients": [
+          "niacinamide",
+          "hyaluronic-acid",
+          "retinol"
+        ],
+        "avoidIngredients": [
+          "fragrance",
+          "alcohol"
+        ],
+        "budget": [
+          0,
+          5000
+        ]
+      },
+      "product_database_size": 326,
+      "logic_recommendations_count": 30
+    }
+  },
+  {
+    "timestamp": "2025-08-22T16:57:19.678635",
+    "interaction_type": "product_recommendations_response",
+    "prompt": "Response received",
+    "response": "```json\n[\n    {\n        \"product_name\": \"Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1\",\n        \"brand\": \"Minimalist\",\n        \"reason\": \"This serum directly targets your concern of acne and preference for niacinamide. The 10% concentration is effective for regulating sebum and reducing blemishes, while zinc provides anti-inflammatory benefits, making it ideal for your combination, acne-prone skin.\",\n        \"category\": \"Serum\",\n        \"priority\": \"high\",\n        \"price_value\": \"mid-range\"\n    },\n    {\n        \"product_name\": \"The Derma Co Face Wash with 2 Salicylic Acid and 2 Niacinamide  Sali-Cinamide Anti-Acne Face Wash - 80ml\",\n        \"brand\": \"The Derma Co\",\n        \"reason\": \"An excellent starting point for your routine, this cleanser contains Salicylic Acid to exfoliate and unclog pores, directly fighting acne. It also includes Niacinamide, a preferred ingredient, to help control oil and reduce inflammation without stripping your skin.\",\n        \"category\": \"Cleanser\",\n        \"priority\": \"high\",\n        \"price_value\": \"budget\"\n    },\n    {\n        \"product_name\": \"Minimalist Dehydrated Skin Moisturizer with 10 Vitamin B5 for Oily & Acne-Prone Skin  Oil-Free Hydration & Lightweight Gel Formula for Damaged Barrier Repair  Fast-Absorbing & Non-Sticky Lightweight Winter Cream For Women & Men  Fragrance-Free  50 grams\",\n        \"brand\": \"Minimalist\",\n        \"reason\": \"Perfect for combination skin, this oil-free, lightweight gel moisturizer provides necessary hydration using hyaluronic acid without clogging pores. It's specifically formulated for acne-prone skin and is fragrance-free, aligning with your avoidance criteria.\",\n        \"category\": \"Moisturizer\",\n        \"priority\": \"high\",\n        \"price_value\": \"mid-range\"\n    },\n    {\n        \"product_name\": \"Minimalist Sunscreen SPF 50 PA  Clinically Tested in US In-Vivo  Lightweight Cream with Multi-Vitamins  No ...",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "response_length": 9134
+    }
+  },
+  {
+    "timestamp": "2025-08-22T16:57:19.689047",
+    "interaction_type": "product_recommendations_parsed",
+    "prompt": "JSON parsing successful",
+    "response": "Parsed 15 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "recommendations_count": 15
+    }
+  },
+  {
+    "timestamp": "2025-08-22T16:57:19.698057",
+    "interaction_type": "product_recommendations_formatted",
+    "prompt": "Recommendations formatted successfully",
+    "response": "Formatted 15 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "formatted_count": 15,
+      "sample_recommendations": [
+        "Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1",
+        "The Derma Co Face Wash with 2 Salicylic Acid and 2 Niacinamide  Sali-Cinamide Anti-Acne Face Wash - 80ml",
+        "Minimalist Dehydrated Skin Moisturizer with 10 Vitamin B5 for Oily & Acne-Prone Skin  Oil-Free Hydration & Lightweight Gel Formula for Damaged Barrier Repair  Fast-Absorbing & Non-Sticky Lightweight Winter Cream For Women & Men  Fragrance-Free  50 grams"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-08-22T16:57:19.783581",
+    "interaction_type": "product_recommendations_prompt",
+    "prompt": "\n            You are an expert skincare consultant with access to a comprehensive product database. Based on the user profile and product database, recommend the most suitable skincare products.\n\n            \n            User Profile:\n            - Skin Type: combination\n            - Age Range: 18-24\n            - Skin Concerns: acne\n            - Preferred Ingredients: niacinamide, hyaluronic-acid, retinol\n            - Ingredients to Avoid: fragrance, alcohol\n            - Budget Range: (0, 5000)\n            \n            \n                \n                Logic-Based Recommendations (for reference):\n                - AARCHITA Herbal Night Cream With Avocado Provitamin B5 For Overnight Hydration Skin Rejuvenation Sulphate-Free 30 Ml (AARCHITA)\n- Turmeric Kojic Acid and Turmeric Cleansing Pads for Face Dark Spots Kojic and Turmeric Cleansing Pads Suitable for All Skin Types - 50 pcs . CONTAINER - 1.. (KITWELL)\n- Novology SPF 50 PA Ultralight Gel Sunscreen with Niacinamide Fights Acne a...",
+    "response": null,
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "user_profile": {
+        "skinType": "combination",
+        "ageRange": "18-24",
+        "concerns": [
+          "acne"
+        ],
+        "preferredIngredients": [
+          "niacinamide",
+          "hyaluronic-acid",
+          "retinol"
+        ],
+        "avoidIngredients": [
+          "fragrance",
+          "alcohol"
+        ],
+        "budget": [
+          0,
+          5000
+        ]
+      },
+      "product_database_size": 326,
+      "logic_recommendations_count": 40
+    }
+  },
+  {
+    "timestamp": "2025-08-22T16:58:12.915509",
+    "interaction_type": "product_recommendations_response",
+    "prompt": "Response received",
+    "response": "```json\n[\n    {\n        \"product_name\": \"Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1\",\n        \"brand\": \"Minimalist\",\n        \"reason\": \"This serum is a perfect match, featuring a high concentration of your preferred ingredient, Niacinamide, combined with Zinc. It directly targets your primary concerns of acne and oil control, helping to clarify skin and minimize pores without causing irritation.\",\n        \"category\": \"Serum\",\n        \"priority\": \"high\",\n        \"price_value\": \"mid-range\"\n    },\n    {\n        \"product_name\": \"The Derma Co Face Wash with 2 Salicylic Acid and 2 Niacinamide  Sali-Cinamide Anti-Acne Face Wash - 80ml\",\n        \"brand\": \"The Derma Co\",\n        \"reason\": \"An excellent cleanser for your acne concerns, this face wash combines Salicylic Acid to exfoliate and clear pores with Niacinamide to reduce inflammation and oiliness. It addresses acne effectively while being gentle enough for combination skin.\",\n        \"category\": \"Cleanser\",\n        \"priority\": \"high\",\n        \"price_value\": \"budget\"\n    },\n    {\n        \"product_name\": \"WishCare 5 Niacinamide Oil Balance Fluid Sunscreen SPF 50 PA with 8 Hrs SPF Protection- Lightweight Matte Sunscreen SPF 50 for Oily Skin & No White Cast 50g\",\n        \"brand\": \"WishCare\",\n        \"reason\": \"This sunscreen is ideal for your combination skin type. It offers high SPF 50 protection in a lightweight, matte formula and contains 5% Niacinamide to help control sebum production throughout the day, directly aligning with your preferences and concerns.\",\n        \"category\": \"Sunscreen\",\n        \"priority\": \"high\",\n        \"price_value\": \"budget\"\n    },\n    {\n        \"product_name\": \"Minimalist Dehydrated Skin Moisturizer with 10 Vitamin B5 for Oily & Acne-Prone Skin  Oil-Free Hydration & Lightweight Gel Formula for Damaged Barrier Repair  Fast-Absorbing & Non-Sticky Lightweight Winter Cream For Women & Men  Fragra...",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "response_length": 8722
+    }
+  },
+  {
+    "timestamp": "2025-08-22T16:58:12.926741",
+    "interaction_type": "product_recommendations_parsed",
+    "prompt": "JSON parsing successful",
+    "response": "Parsed 15 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "recommendations_count": 15
+    }
+  },
+  {
+    "timestamp": "2025-08-22T16:58:12.935113",
+    "interaction_type": "product_recommendations_formatted",
+    "prompt": "Recommendations formatted successfully",
+    "response": "Formatted 15 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "formatted_count": 15,
+      "sample_recommendations": [
+        "Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1",
+        "The Derma Co Face Wash with 2 Salicylic Acid and 2 Niacinamide  Sali-Cinamide Anti-Acne Face Wash - 80ml",
+        "WishCare 5 Niacinamide Oil Balance Fluid Sunscreen SPF 50 PA with 8 Hrs SPF Protection- Lightweight Matte Sunscreen SPF 50 for Oily Skin & No White Cast 50g"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-08-22T17:16:06.092970",
+    "interaction_type": "product_recommendations_prompt",
+    "prompt": "\n            You are an expert skincare consultant with access to a comprehensive product database. Based on the user profile and product database, recommend the most suitable skincare products.\n\n            \n            User Profile:\n            - Skin Type: combination\n            - Age Range: 18-24\n            - Skin Concerns: acne\n            - Preferred Ingredients: niacinamide, hyaluronic-acid\n            - Ingredients to Avoid: fragrance, alcohol\n            - Budget Range: (0, 5000)\n            \n            \n                \n                Logic-Based Recommendations (for reference):\n                - Novology SPF 50 PA Ultralight Gel Sunscreen with Niacinamide Fights Acne and Sebum Non-Greasy Quick Absorbing Invisible Finish  Designed for Oily Skin 50 g (Novology)\n- Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1 (Minimalist)\n- Orgatre Acne Clear Face Wash with Tea Tree 2 Salicylic...",
+    "response": null,
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "user_profile": {
+        "skinType": "combination",
+        "ageRange": "18-24",
+        "concerns": [
+          "acne"
+        ],
+        "preferredIngredients": [
+          "niacinamide",
+          "hyaluronic-acid"
+        ],
+        "avoidIngredients": [
+          "fragrance",
+          "alcohol"
+        ],
+        "budget": [
+          0,
+          5000
+        ]
+      },
+      "product_database_size": 326,
+      "logic_recommendations_count": 30
+    }
+  },
+  {
+    "timestamp": "2025-08-22T17:16:07.490236",
+    "interaction_type": "product_recommendations_general_error",
+    "prompt": "General error in AI recommendations",
+    "response": null,
+    "error": "404 models/gemini-2.5-pro-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.",
+    "error_traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\rohan\\Desktop\\SkinSage\\Skin-Sage\\backend\\gemini_service.py\", line 909, in generate_ai_product_recommendations\n    response = self.model.generate_content(prompt)\n  File \"C:\\Users\\rohan\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\google\\generativeai\\generative_models.py\", line 331, in generate_content\n    response = self._client.generate_content(\n  File \"C:\\Users\\rohan\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\google\\ai\\generativelanguage_v1beta\\services\\generative_service\\client.py\", line 835, in generate_content\n    response = rpc(\n  File \"C:\\Users\\rohan\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\google\\api_core\\gapic_v1\\method.py\", line 131, in __call__\n    return wrapped_func(*args, **kwargs)\n  File \"C:\\Users\\rohan\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\google\\api_core\\retry\\retry_unary.py\", line 293, in retry_wrapped_func\n    return retry_target(\n  File \"C:\\Users\\rohan\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\google\\api_core\\retry\\retry_unary.py\", line 153, in retry_target\n    _retry_error_helper(\n  File \"C:\\Users\\rohan\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\google\\api_core\\retry\\retry_base.py\", line 212, in _retry_error_helper\n    raise final_exc from source_exc\n  File \"C:\\Users\\rohan\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\google\\api_core\\retry\\retry_unary.py\", line 144, in retry_target\n    result = target()\n  File \"C:\\Users\\rohan\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\google\\api_core\\timeout.py\", line 130, in func_with_timeout\n    return func(*args, **kwargs)\n  File \"C:\\Users\\rohan\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\google\\api_core\\grpc_helpers.py\", line 78, in error_remapped_callable\n    raise exceptions.from_grpc_error(exc) from exc\ngoogle.api_core.exceptions.NotFound: 404 models/gemini-2.5-pro-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.\n",
+    "metadata": {
+      "user_profile": {
+        "skinType": "combination",
+        "ageRange": "18-24",
+        "concerns": [
+          "acne"
+        ],
+        "preferredIngredients": [
+          "niacinamide",
+          "hyaluronic-acid"
+        ],
+        "avoidIngredients": [
+          "fragrance",
+          "alcohol"
+        ],
+        "budget": [
+          0,
+          5000
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2025-08-22T17:16:07.672020",
+    "interaction_type": "product_recommendations_prompt",
+    "prompt": "\n            You are an expert skincare consultant with access to a comprehensive product database. Based on the user profile and product database, recommend the most suitable skincare products.\n\n            \n            User Profile:\n            - Skin Type: combination\n            - Age Range: 18-24\n            - Skin Concerns: acne\n            - Preferred Ingredients: niacinamide, hyaluronic-acid\n            - Ingredients to Avoid: fragrance, alcohol\n            - Budget Range: (0, 5000)\n            \n            \n                \n                Logic-Based Recommendations (for reference):\n                - Novology SPF 50 PA Ultralight Gel Sunscreen with Niacinamide Fights Acne and Sebum Non-Greasy Quick Absorbing Invisible Finish  Designed for Oily Skin 50 g (Novology)\n- Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1 (Minimalist)\n- Orgatre Acne Clear Face Wash with Tea Tree 2 Salicylic...",
+    "response": null,
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "user_profile": {
+        "skinType": "combination",
+        "ageRange": "18-24",
+        "concerns": [
+          "acne"
+        ],
+        "preferredIngredients": [
+          "niacinamide",
+          "hyaluronic-acid"
+        ],
+        "avoidIngredients": [
+          "fragrance",
+          "alcohol"
+        ],
+        "budget": [
+          0,
+          5000
+        ]
+      },
+      "product_database_size": 326,
+      "logic_recommendations_count": 40
+    }
+  },
+  {
+    "timestamp": "2025-08-22T17:16:08.733634",
+    "interaction_type": "product_recommendations_general_error",
+    "prompt": "General error in AI recommendations",
+    "response": null,
+    "error": "404 models/gemini-2.5-pro-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.",
+    "error_traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\rohan\\Desktop\\SkinSage\\Skin-Sage\\backend\\gemini_service.py\", line 909, in generate_ai_product_recommendations\n    response = self.model.generate_content(prompt)\n  File \"C:\\Users\\rohan\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\google\\generativeai\\generative_models.py\", line 331, in generate_content\n    response = self._client.generate_content(\n  File \"C:\\Users\\rohan\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\google\\ai\\generativelanguage_v1beta\\services\\generative_service\\client.py\", line 835, in generate_content\n    response = rpc(\n  File \"C:\\Users\\rohan\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\google\\api_core\\gapic_v1\\method.py\", line 131, in __call__\n    return wrapped_func(*args, **kwargs)\n  File \"C:\\Users\\rohan\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\google\\api_core\\retry\\retry_unary.py\", line 293, in retry_wrapped_func\n    return retry_target(\n  File \"C:\\Users\\rohan\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\google\\api_core\\retry\\retry_unary.py\", line 153, in retry_target\n    _retry_error_helper(\n  File \"C:\\Users\\rohan\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\google\\api_core\\retry\\retry_base.py\", line 212, in _retry_error_helper\n    raise final_exc from source_exc\n  File \"C:\\Users\\rohan\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\google\\api_core\\retry\\retry_unary.py\", line 144, in retry_target\n    result = target()\n  File \"C:\\Users\\rohan\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\google\\api_core\\timeout.py\", line 130, in func_with_timeout\n    return func(*args, **kwargs)\n  File \"C:\\Users\\rohan\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\google\\api_core\\grpc_helpers.py\", line 78, in error_remapped_callable\n    raise exceptions.from_grpc_error(exc) from exc\ngoogle.api_core.exceptions.NotFound: 404 models/gemini-2.5-pro-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.\n",
+    "metadata": {
+      "user_profile": {
+        "skinType": "combination",
+        "ageRange": "18-24",
+        "concerns": [
+          "acne"
+        ],
+        "preferredIngredients": [
+          "niacinamide",
+          "hyaluronic-acid"
+        ],
+        "avoidIngredients": [
+          "fragrance",
+          "alcohol"
+        ],
+        "budget": [
+          0,
+          5000
+        ]
+      }
+    }
+  }
+]

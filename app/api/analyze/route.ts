@@ -245,9 +245,9 @@ export async function POST(request: NextRequest) {
     }
     
     try {
-      // Configure the model - using Gemini 2.5 Pro for enhanced capabilities
+      // Configure the model - using Gemini 2.5 Flash for enhanced capabilities
       const model = genAI.getGenerativeModel({
-        model: "gemini-2.5-pro",
+        model: "gemini-2.5-flash",
         safetySettings: [
           {
             category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,

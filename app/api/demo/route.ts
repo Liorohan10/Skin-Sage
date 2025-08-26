@@ -56,7 +56,7 @@ export async function POST(request: NextRequest) {
     if (!testImageAnalysis) {
       try {
         console.log("🤖 Testing Gemini AI integration...")
-        const model = genAI.getGenerativeModel({ model: "gemini-2.5-pro" })
+        const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" })
         
         const prompt = `You are a dermatologist. Analyze this skin profile: ${sampleProfile.skinType} skin, age ${sampleProfile.ageRange}, concerns: ${sampleProfile.concerns.join(", ")}. Provide a brief analysis in JSON format: {"analysis": "brief skin analysis", "advice": "quick advice"}`
         

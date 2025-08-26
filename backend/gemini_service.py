@@ -24,12 +24,13 @@ class GeminiAIService:
         
         # Try different model names in order of preference
         model_names = [
-            'gemini-2.5-pro',       # Latest Pro model with advanced capabilities
+            'gemini-2.5-flash',      # Preferred Flash model with advanced vision
+            'gemini-2.5-pro',        # Latest Pro model with advanced capabilities (fallback)
             'gemini-2.0-flash-exp',  # Experimental model with advanced vision
-            'gemini-1.5-pro',       # High-quality Pro model with vision
-            'gemini-1.5-flash',     # Fallback to 1.5 flash with vision
-            'gemini-pro-vision',    # Legacy vision model
-            'gemini-pro'            # Text-only fallback
+            'gemini-1.5-pro',        # High-quality Pro model with vision
+            'gemini-1.5-flash',      # Fallback to 1.5 flash with vision
+            'gemini-pro-vision',     # Legacy vision model
+            'gemini-pro'             # Text-only fallback
         ]
         
         self.model = None
@@ -45,8 +46,8 @@ class GeminiAIService:
         if not self.model:
             raise ValueError("Failed to initialize any Gemini model")
 
-    def generate_skin_analysis(self, user_profile: Dict, acne_detections: List = None, image_insights: Dict = None) -> str:
-        """Generate highly detailed and personalized skin analysis using Gemini Pro with comprehensive context."""
+    def generate_skin_analysis(self, user_profile: Dict, acne_detections: List = None, image_insights: Dict = None) -> Dict:
+        """Generate highly detailed and personalized skin analysis using Gemini with structured output."""
         try:
             # Prepare comprehensive context for AI with all available data
             context = f"""
@@ -114,11 +115,22 @@ class GeminiAIService:
             response = self.model.generate_content(prompt)
             # Clean up any asterisks that might appear
             cleaned_text = response.text.replace('*', '').replace('#', '').strip()
-            return cleaned_text
+            # Derive light-weight structured insights from text so UI can present better
+            insights = self._parse_image_analysis(cleaned_text)
+            return {
+                'consultation': cleaned_text,
+                'full_analysis': cleaned_text,
+                'structured_insights': insights
+            }
 
         except Exception as e:
             print(f"Error generating detailed skin analysis: {e}")
-            return self._fallback_skin_analysis(user_profile, acne_detections)
+            fallback_text = self._fallback_skin_analysis(user_profile, acne_detections)
+            return {
+                'consultation': fallback_text,
+                'full_analysis': fallback_text,
+                'structured_insights': {}
+            }
 
     def generate_skincare_routine(self, user_profile: Dict, recommended_products: List[Dict], acne_detected: bool = False, image_insights: Dict = None) -> Dict:
         """Generate highly personalized skincare routine with explicit product integration."""
@@ -812,25 +824,51 @@ class GeminiAIService:
         return analysis
 
     def _fallback_routine(self, user_profile: Dict, products: List[Dict], acne_detected: bool) -> Dict:
-        """Fallback routine generation when AI is unavailable."""
+        """Fallback routine that still leverages recommended products by best-effort matching."""
+        def pick(keywords: List[str]) -> Optional[Dict]:
+            if not products:
+                return None
+            kw = [k.lower() for k in keywords]
+            for p in products:
+                name = str(p.get('name','')).lower()
+                desc = str(p.get('description','')).lower()
+                ingr = str(p.get('ingredients','')).lower()
+                blob = f"{name} {desc} {ingr}"
+                if any(k in blob for k in kw):
+                    return p
+            return products[0] if products else None
+
+        morning_cleanser = pick(['cleanser','face wash','foam','gel cleanser'])
+        morning_toner = pick(['toner','essence','refresher'])
+        morning_serum = pick(['serum','niacinamide','vitamin c','treatment'])
+        morning_moist = pick(['moisturizer','cream','lotion','hydrating'])
+        morning_spf = pick(['sunscreen','spf','sunblock'])
+
+        evening_oil = pick(['oil cleanser','cleansing oil']) or morning_cleanser
+        evening_cleanser = morning_cleanser or pick(['cleanser','face wash'])
+        evening_toner = morning_toner
+        evening_treat = pick(['retinol','treatment','serum','acne','benzoyl','salicylic'])
+        evening_moist = pick(['night','cream','moisturizer']) or morning_moist
+        eye_care = pick(['eye cream','eye gel','under eye'])
+
         return {
             'morning': [
-                {'step': 'Cleanse (60 seconds)', 'instruction': 'Wash your face with lukewarm water, apply a small amount of gentle cleanser to damp skin, and massage in circular motions for 60 seconds. Focus on areas with excess oil. Rinse thoroughly and pat dry with a clean towel.', 'product': None},
-                {'step': 'Tone (30 seconds)', 'instruction': 'Apply toner using a cotton pad or clean hands, gently patting onto skin to balance pH levels and prepare your skin for treatment products. Avoid the delicate eye area.', 'product': None},
-                {'step': 'Treat (Wait 1 minute)', 'instruction': 'Apply 2-3 drops of treatment serum targeting your specific skin concerns. Gently pat into skin using your fingertips and allow to absorb completely before the next step.', 'product': None},
-                {'step': 'Moisturize (Wait 2 minutes)', 'instruction': 'Apply a lightweight moisturizer using upward motions across your face and neck. This creates a protective barrier and locks in hydration from previous steps.', 'product': None},
-                {'step': 'Protect (Apply 15 mins before sun)', 'instruction': 'Apply broad-spectrum sunscreen with at least SPF 30 using the two-finger rule for adequate coverage. Reapply every 2 hours when exposed to sunlight.', 'product': None}
+                {'step': 'Cleanse (60 seconds)', 'instruction': 'Wash your face with lukewarm water, apply a small amount to damp skin, and massage in circular motions for 60 seconds. Focus on areas with excess oil. Rinse thoroughly and pat dry.', 'product': morning_cleanser},
+                {'step': 'Tone (30 seconds)', 'instruction': 'Apply using a cotton pad or clean hands to balance pH and prepare skin for treatment products.', 'product': morning_toner},
+                {'step': 'Treat (Wait 1 minute)', 'instruction': 'Apply 2-3 drops targeting your specific concerns. Gently pat into skin and let it absorb completely before the next step.', 'product': morning_serum},
+                {'step': 'Moisturize (Wait 2 minutes)', 'instruction': 'Apply using upward motions across face and neck to lock in hydration and support barrier function.', 'product': morning_moist},
+                {'step': 'Protect (Apply 15 mins before sun)', 'instruction': 'Apply generously using the two-finger rule. Reapply every 2 hours when exposed to sunlight.', 'product': morning_spf}
             ],
             'evening': [
-                {'step': 'Double Cleanse (60 seconds)', 'instruction': 'Start with an oil cleanser massaged onto dry skin for 30 seconds to dissolve makeup and sunscreen. Rinse, then follow with a water-based cleanser for another 30 seconds to remove remaining impurities.', 'product': None},
-                {'step': 'Tone (30 seconds)', 'instruction': 'Apply toner with gentle patting motions to restore your skin\'s pH balance after cleansing and prepare it for nighttime treatments.', 'product': None},
-                {'step': 'Treat (Wait 1 minute)', 'instruction': 'Apply evening treatment products focusing on skin repair and regeneration. For active ingredients like retinol, use a pea-sized amount and allow 15-20 minutes for full absorption.' if not acne_detected else 'Apply acne treatment products targeting breakouts. Use a small amount on affected areas and allow to dry completely before the next step.', 'product': None},
-                {'step': 'Moisturize (Wait 2 minutes)', 'instruction': 'Apply a richer night moisturizer or cream using gentle upward strokes. Night formulations support your skin\'s natural repair process while you sleep.', 'product': None},
-                {'step': 'Eye Care (Before bed)', 'instruction': 'If using eye cream, gently tap around the orbital bone using your ring finger. This addresses specific concerns like dark circles or fine lines in the delicate eye area.', 'product': None}
+                {'step': 'Double Cleanse (60 seconds)', 'instruction': 'Start with an oil cleanser on dry skin for 30 seconds to dissolve makeup/sunscreen, then follow with a water-based cleanser for another 30 seconds.', 'product': evening_cleanser or evening_oil},
+                {'step': 'Tone (30 seconds)', 'instruction': 'Apply with gentle patting motions to restore pH and prepare for night treatments.', 'product': evening_toner},
+                {'step': 'Treat (Wait 1 minute)', 'instruction': ('Apply evening treatment focusing on repair and regeneration. Use a pea-sized amount and allow 15-20 minutes to absorb.' if not acne_detected else 'Apply acne treatment on affected areas; allow to dry completely before the next step.'), 'product': evening_treat},
+                {'step': 'Moisturize (Wait 2 minutes)', 'instruction': 'Apply a richer night moisturizer in gentle upward strokes to support overnight repair.', 'product': evening_moist},
+                {'step': 'Eye Care (Before bed)', 'instruction': 'Gently tap around the orbital bone using your ring finger to address dark circles or fine lines.', 'product': eye_care}
             ],
             'weekly': [
-                {'step': 'Exfoliate (2-3 times per week)', 'instruction': 'Use a gentle chemical or physical exfoliant to remove dead skin cells and improve skin texture. Apply to clean, dry skin and follow product instructions for timing.', 'product': None},
-                {'step': 'Face Mask (Once per week)', 'instruction': 'Apply a hydrating or treatment mask suited to your skin type. Leave on for the recommended time, then rinse thoroughly with lukewarm water.', 'product': None}
+                {'step': 'Exfoliate (2-3 times/week)', 'instruction': 'Use a gentle exfoliant to remove dead skin cells and improve texture. Apply to clean, dry skin and follow product timing.', 'product': pick(['exfoliate','AHA','BHA','glycolic','salicylic'])},
+                {'step': 'Face Mask (Once/week)', 'instruction': 'Apply a hydrating or clarifying mask suited to your skin; leave on for the recommended time then rinse with lukewarm water.', 'product': pick(['mask','clay','sheet','overnight'])}
             ]
         }
 

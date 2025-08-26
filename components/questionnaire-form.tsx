@@ -18,8 +18,10 @@ import { Alert, AlertDescription } from "@/components/ui/alert"
 import { useResultsStore } from "@/lib/results-store"
 import { resizeImage } from "@/lib/image-utils"
 
-// Set your backend URL here for local development
-const BACKEND_URL = "http://127.0.0.1:8000"
+// Use Next.js proxy API so responses log in the npm dev terminal
+// These proxy routes forward to the Python backend and log Gemini output
+const PROXY_RECOMMEND_URL = "/api/backend/recommend-products"
+const PROXY_ANALYZE_URL = "/api/backend/analyze-skin"
 
 export type FormData = {
   skinType: string
@@ -106,7 +108,7 @@ export function QuestionnaireForm() {
     return true
   }
 
-  // Update to use the Next.js API route with Gemini AI integration
+  // Update to use backend API with Gemini integration
   const handleSubmit = async () => {
     setError(null)
     if (!validateForm()) return
@@ -115,45 +117,129 @@ export function QuestionnaireForm() {
       setIsSubmitting(true)
       setProgress(20)
 
-      // Create FormData for the Next.js API route
-      const submitData = new FormData()
-      submitData.append("skinType", formData.skinType)
-      submitData.append("preferredIngredients", JSON.stringify(formData.preferredIngredients))
-      submitData.append("avoidIngredients", JSON.stringify(formData.avoidIngredients))
-      submitData.append("ageRange", formData.ageRange)
-      submitData.append("budget", formData.budget)
-      submitData.append("skinConcerns", JSON.stringify(formData.skinConcerns))
-      
-      // Add face image if provided for Gemini vision analysis
-      if (formData.faceImage) {
-        submitData.append("faceImage", formData.faceImage)
+      // Prepare payload for product recommendation + routine
+      // Map selected budget to INR ranges
+  const budgetRange = (() => {
+        switch (formData.budget) {
+          case 'budget':
+            return [400, 1700]
+          case 'mid-tier':
+            return [1700, 4200]
+          case 'premium':
+    return [4200, 999999]
+          case 'mixed':
+    // Send a wide-open range; backend will clamp to live max price and sample across tiers
+    return [400, 999999]
+          default:
+            return [0, 5000]
+        }
+      })()
+      const payload = {
+        age_group: formData.ageRange,
+        skin_concerns: formData.skinConcerns,
+        skin_type: formData.skinType,
+  price_range: [budgetRange[0], budgetRange[1]],
+        ingredients: formData.preferredIngredients,
+        avoid_ingredients: formData.avoidIngredients,
+  use_ai_enhancement: true,
+  budget_tier: formData.budget,
       }
 
       setProgress(50)
 
-      // Call the Next.js API route with Gemini AI integration
-      const response = await fetch("/api/analyze", {
+      // Call the backend recommendation endpoint
+  // Call via proxy so logs show in Next.js dev terminal
+  const response = await fetch(PROXY_RECOMMEND_URL, {
         method: "POST",
-        body: submitData,
-      })
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
 
       setProgress(80)
 
       if (!response.ok) {
-        const errorData = await response.json()
-        throw new Error(errorData.error || "Failed to get AI analysis")
+        const errorData = await response.json();
+        throw new Error(errorData.detail || "Failed to get routine from API");
       }
 
-      const result = await response.json()
-      console.log("Gemini AI analysis result:", result) // Debug log
+      const result = await response.json();
+      console.log("API routine result:", result); // Debug log
+      console.log("Result keys:", Object.keys(result)); // Debug log
+      console.log("Recommendations:", result.recommendations); // Debug log
+      console.log("Routine:", result.routine); // Debug log
+      console.log("Skin analysis:", result.skin_analysis); // Debug log
 
-      setProgress(90)
+      // Optionally analyze image if provided
+      let analysis = null
+      if (formData.faceImage) {
+        try {
+          // Client-side debug: log selected file metadata before upload
+          try {
+            console.log('[Client][analyze] selected image:', {
+              name: formData.faceImage?.name,
+              size: formData.faceImage?.size,
+              type: formData.faceImage?.type,
+              preview: formData.faceImagePreview,
+            })
+          } catch (logErr) {
+            console.warn('[Client][analyze] could not read file metadata', logErr)
+          }
 
-      // Store the result (it's already in the correct format from the API)
-      addResult(result)
+          const fd = new FormData()
+          fd.append('file', formData.faceImage)
+          fd.append('skin_type', formData.skinType)
+          fd.append('age_group', formData.ageRange)
+          fd.append('skin_concerns', JSON.stringify(formData.skinConcerns))
+          fd.append('ingredients', JSON.stringify(formData.preferredIngredients))
+          fd.append('avoid_ingredients', JSON.stringify(formData.avoidIngredients))
+          fd.append('price_range', JSON.stringify(payload.price_range))
+          // Log FormData keys for debugging (note: File objects won't stringify fully)
+          try {
+            for (const entry of fd.entries()) {
+              const [k, v] = entry as [string, any]
+              if (v instanceof File) {
+                console.log(`[Client][analyze] FormData append: ${k} => File(name=${v.name}, size=${v.size})`)
+              } else {
+                console.log(`[Client][analyze] FormData append: ${k} => ${String(v).slice(0, 120)}`)
+              }
+            }
+          } catch (logErr) {
+            console.warn('[Client][analyze] could not enumerate FormData entries', logErr)
+          }
+          // Call via proxy so logs show in Next.js dev terminal
+          const analyzeRes = await fetch(PROXY_ANALYZE_URL, { method: 'POST', body: fd })
+          if (analyzeRes.ok) {
+            analysis = await analyzeRes.json()
+          }
+        } catch (e) {
+          console.warn('Image analysis failed:', e)
+        }
+      }
+
+      setProgress(90);
+
+      // Add a unique ID to the result before storing
+      const resultWithId = { 
+        ...result, 
+        // Use a URL-safe numeric ID to avoid issues with colons or special
+        // characters from ISO strings when routing to /results/:id
+        id: String(Date.now()), 
+        analysis,
+        // Ensure required fields exist with fallbacks
+  recommendations: result.recommendations || [],
+  // Map to UI-expected field so ResultsContent can render product cards
+  recommendedProducts: result.recommendations || [],
+        routine: result.routine || { morning: [], evening: [], weekly: [] },
+        skin_analysis: result.skin_analysis || { consultation: "Analysis not available" }
+      };
       
-      setProgress(100)
-      router.push(`/results/${result.id}`)
+      console.log("Final result being stored:", resultWithId); // Debug log
+      addResult(resultWithId);
+      
+      setProgress(100);
+      router.push(`/results/${resultWithId.id}`);
       
     } catch (error) {
       console.error("Error submitting questionnaire:", error)

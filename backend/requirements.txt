@@ -7,3 +7,6 @@ scikit-learn
 supabase
 python-dotenv
 google-generativeai
+pydantic
+aiofiles
+ 

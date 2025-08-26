@@ -70,7 +70,7 @@ const budgetToPriceRange = (budgetStr: string): [number, number] => {
 
 ## 📋 **Backend Logs Showing Success**
 ```
-✅ Gemini AI service initialized with gemini-2.0-flash-exp model
+✅ Gemini AI service initialized with gemini-2.5-flash model
 Loading products from Supabase...
 Loaded 1000 products from Supabase
 Recommendation system built successfully

@@ -5,8 +5,8 @@ import type { ResultsData } from "@/lib/results-store"
 // Import the results cache from the results route
 import { getStoredResult } from "../../results/[id]/route"
 
-export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
-  const id = params.id
+export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
 
   try {
     // Get the results data

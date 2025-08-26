@@ -1,0 +1,143 @@
+[
+  {
+    "timestamp": "2025-08-27T00:11:13.670029",
+    "interaction_type": "product_recommendations_prompt",
+    "prompt": "\n            You are an expert skincare consultant with access to a comprehensive product database. Based on the user profile and product database, recommend the most suitable skincare products.\n\n            \n            User Profile:\n            - Skin Type: combination\n            - Age Range: 18-24\n            - Skin Concerns: acne, hyperpigmentation\n            - Preferred Ingredients: niacinamide, vitamin-c, retinol\n            - Ingredients to Avoid: fragrance, parabens\n            - Budget Range: (4200, 999999)\n            \n            \n                \n                Logic-Based Recommendations (for reference):\n                - Aha glow S Foaming Face Wash 100 ml (Generic)\n- logifeel imf cream for feet pack of 2  50g (SKINSMITH)\n- Taulix Kojic Acid and Turmeric Cleansing Pads for Face Dark Spots  Kojic and Turmeric Cleansing Pads  For Women & Men  Suitable for All Skin Types 50 Pieces Pack of 1 (Taulix)\n- Dermadew Glow Cream - 50 gm (Generic)\n- Plum Yuzu & Alpha Arbutin Fluid...",
+    "response": null,
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "user_profile": {
+        "skinType": "combination",
+        "ageRange": "18-24",
+        "concerns": [
+          "acne",
+          "hyperpigmentation"
+        ],
+        "preferredIngredients": [
+          "niacinamide",
+          "vitamin-c",
+          "retinol"
+        ],
+        "avoidIngredients": [
+          "fragrance",
+          "parabens"
+        ],
+        "budget": [
+          4200,
+          999999
+        ]
+      },
+      "product_database_size": 326,
+      "logic_recommendations_count": 15
+    }
+  },
+  {
+    "timestamp": "2025-08-27T00:11:52.486233",
+    "interaction_type": "product_recommendations_response",
+    "prompt": "Response received",
+    "response": "```json\n[\n  {\n    \"product_name\": \"CeraVe Foaming Cleanser For Normal To Oily Skin 88ml - Dermatologist-Developed Facewash Non-Comedogenic And Fragrance-Free Cleansers For Acne-Prone Skin\",\n    \"brand\": \"CeraVe\",\n    \"reason\": \"This cleanser is highly recommended for combination and acne-prone skin due to its dermatologist-developed, non-comedogenic, and fragrance-free formula. It effectively cleanses without stripping the skin, addressing both oil control and sensitivity. It aligns perfectly with the user's avoidance of fragrance.\",\n    \"category\": \"cleanser\",\n    \"priority\": \"high\",\n    \"price_value\": \"mid-range\"\n  },\n  {\n    \"product_name\": \"Minimalist Anti-Acne Salicylic Acid 2 Face Wash For Oily & Acne Prone Skin With LHA for Pore Cleansing Oil Control & Sebum Regulation Sulfate-Free Formula with Zinc for Gentle Exfoliation Cleanser for Women & Men 100 ml\",\n    \"brand\": \"Minimalist\",\n    \"reason\": \"This face wash contains Salicylic Acid and LHA, ideal for targeting acne, controlling oil, and clearing clogged pores, which are key concerns for the user. Its sulfate-free formula ensures gentle exfoliation, suitable for combination skin. It's also from a brand known for clean formulations.\",\n    \"category\": \"cleanser\",\n    \"priority\": \"high\",\n    \"price_value\": \"mid-range\"\n  },\n  {\n    \"product_name\": \"The Derma Co 1 Kojic Acid Face Wash With Niacinamide & Alpha Arbutin Reduces Dark Spots Pigmentation & Blemishes Cleanses & Brightens Skin Non-Drying Formula For All Skin Types 100 ml\",\n    \"brand\": \"The Derma Co\",\n    \"reason\": \"Featuring Kojic Acid, Niacinamide, and Alpha Arbutin, this face wash is excellent for addressing hyperpigmentation, dark spots, and blemishes. It offers brightening benefits while being non-drying, making it suitable for combination skin. It incorporates a preferred ingredient, Niacinamide.\",\n    \"category\": \"cleanser\",\n    \"priority\": \"medium\",\n    \"price_value\": \"mid-range\"\n  },\n  {\n    \"product_name\": \"Minimalist Oil Control & Anti-Acne 1...",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "response_length": 10457
+    }
+  },
+  {
+    "timestamp": "2025-08-27T00:11:52.494745",
+    "interaction_type": "product_recommendations_parsed",
+    "prompt": "JSON parsing successful",
+    "response": "Parsed 17 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "recommendations_count": 17
+    }
+  },
+  {
+    "timestamp": "2025-08-27T00:11:52.515238",
+    "interaction_type": "product_recommendations_formatted",
+    "prompt": "Recommendations formatted successfully",
+    "response": "Formatted 2 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "formatted_count": 2,
+      "sample_recommendations": [
+        "Sebogel Salicylic Acid & Nicotinamide Gel for Pimples and Oily Skin 30gm",
+        "Dermistry Aging Repair Retinol Collagen SPF 30 Skin Firming Lifting Moisturizer Day Face Cream Reduces Ageing Wrinkles Fine Lines Improves Elasticity Tightening Suits Dry Oily Skin Men Women 50 ML"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-08-27T00:11:52.608458",
+    "interaction_type": "product_recommendations_prompt",
+    "prompt": "\n            You are an expert skincare consultant with access to a comprehensive product database. Based on the user profile and product database, recommend the most suitable skincare products.\n\n            \n            User Profile:\n            - Skin Type: combination\n            - Age Range: 18-24\n            - Skin Concerns: acne, hyperpigmentation\n            - Preferred Ingredients: niacinamide, vitamin-c, retinol\n            - Ingredients to Avoid: fragrance, parabens\n            - Budget Range: (4200, 999999)\n            \n            \n                \n                Logic-Based Recommendations (for reference):\n                - Aha glow S Foaming Face Wash 100 ml (Generic)\n- logifeel imf cream for feet pack of 2  50g (SKINSMITH)\n- Taulix Kojic Acid and Turmeric Cleansing Pads for Face Dark Spots  Kojic and Turmeric Cleansing Pads  For Women & Men  Suitable for All Skin Types 50 Pieces Pack of 1 (Taulix)\n- Dermadew Glow Cream - 50 gm (Generic)\n- Plum Yuzu & Alpha Arbutin Fluid...",
+    "response": null,
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "user_profile": {
+        "skinType": "combination",
+        "ageRange": "18-24",
+        "concerns": [
+          "acne",
+          "hyperpigmentation"
+        ],
+        "preferredIngredients": [
+          "niacinamide",
+          "vitamin-c",
+          "retinol"
+        ],
+        "avoidIngredients": [
+          "fragrance",
+          "parabens"
+        ],
+        "budget": [
+          4200,
+          999999
+        ]
+      },
+      "product_database_size": 326,
+      "logic_recommendations_count": 20
+    }
+  },
+  {
+    "timestamp": "2025-08-27T00:12:37.398482",
+    "interaction_type": "product_recommendations_response",
+    "prompt": "Response received",
+    "response": "```json\n[\n  {\n    \"product_name\": \"The Derma Co Face Wash with 2 Salicylic Acid and 2 Niacinamide  Sali-Cinamide Anti-Acne Face Wash - 80ml\",\n    \"brand\": \"The Derma Co\",\n    \"reason\": \"This cleanser is ideal for combination and acne-prone skin as it combines Salicylic Acid to target active breakouts and Niacinamide, a preferred ingredient, to help reduce inflammation and improve skin texture. It effectively cleanses without being overly stripping.\",\n    \"category\": \"cleanser\",\n    \"priority\": \"high\",\n    \"price_value\": \"budget\"\n  },\n  {\n    \"product_name\": \"Cetaphil Paraben Sulphate-Free Gentle Skin Hydrating Face Wash Cleanser with Niacinamide Vitamin B5 for Dry to Normal Sensitive Skin - 125 ml\",\n    \"brand\": \"Cetaphil\",\n    \"reason\": \"For days when a gentler cleanse is preferred, especially in the morning or when skin is sensitive, this fragrance-free cleanser is excellent. It contains Niacinamide and Vitamin B5 to hydrate and soothe, making it suitable for combination skin without irritation.\",\n    \"category\": \"cleanser\",\n    \"priority\": \"medium\",\n    \"price_value\": \"mid-range\"\n  },\n  {\n    \"product_name\": \"Plum 3 Niacinamide & Rice Water Face Toner  Alcohol-Free Toner for Oily Acne Prone Dry Combination Skin  Pore Tightening & Glowing Skin Fades Blemishes Brightens & Smoothens  Women & Men  150ml\",\n    \"brand\": \"Plum\",\n    \"reason\": \"This alcohol-free toner contains Niacinamide, a preferred ingredient, to help with pore tightening, fading blemishes, and brightening the skin. It's suitable for combination and acne-prone skin, addressing both concerns effectively.\",\n    \"category\": \"toner\",\n    \"priority\": \"high\",\n    \"price_value\": \"mid-range\"\n  },\n  {\n    \"product_name\": \"Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1\",\n    \"brand\": \"Minimalist\",\n    \"reason\": \"This serum directly targets acne and blemishes with 10% Niacinamide (a preferred ingredient) and Zinc. It...",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "response_length": 8645
+    }
+  },
+  {
+    "timestamp": "2025-08-27T00:12:37.410907",
+    "interaction_type": "product_recommendations_parsed",
+    "prompt": "JSON parsing successful",
+    "response": "Parsed 15 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "recommendations_count": 15
+    }
+  },
+  {
+    "timestamp": "2025-08-27T00:12:37.428258",
+    "interaction_type": "product_recommendations_formatted",
+    "prompt": "Recommendations formatted successfully",
+    "response": "Formatted 15 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "formatted_count": 15,
+      "sample_recommendations": [
+        "The Derma Co Face Wash with 2 Salicylic Acid and 2 Niacinamide  Sali-Cinamide Anti-Acne Face Wash - 80ml",
+        "Cetaphil Paraben Sulphate-Free Gentle Skin Hydrating Face Wash Cleanser with Niacinamide Vitamin B5 for Dry to Normal Sensitive Skin - 125 ml",
+        "Plum 3 Niacinamide & Rice Water Face Toner  Alcohol-Free Toner for Oily Acne Prone Dry Combination Skin  Pore Tightening & Glowing Skin Fades Blemishes Brightens & Smoothens  Women & Men  150ml"
+      ]
+    }
+  }
+]

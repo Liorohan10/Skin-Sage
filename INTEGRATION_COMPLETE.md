@@ -47,7 +47,7 @@ Combined results returned to user
 - **Database**: Supabase with 100+ skincare products
 
 #### **3. Gemini AI Integration**
-- **Model**: `gemini-2.0-flash` with vision capabilities
+- **Model**: `gemini-2.5-flash` with vision capabilities
 - **Features**:
   - Image analysis for skin condition assessment
   - Detailed skin analysis based on uploaded photos

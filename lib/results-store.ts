@@ -1,4 +1,5 @@
 import { create } from "zustand"
+import { persist } from "zustand/middleware"
 
 interface ProductIngredient {
   name: string
@@ -16,27 +17,29 @@ export interface Product {
   matchReasons?: string[]
 }
 
-export interface RoutineStep {
-  step: string
-  product?: Product
-  instruction: string
-}
-
-export interface SkincareRoutine {
-  morning: RoutineStep[]
-  evening: RoutineStep[]
-  weekly: RoutineStep[]
-}
-
+// Advanced structure for Skin-Sage (supports both simple and complex data)
 export interface ResultsData {
   id: string
-  skinConditionAnalysis: string
-  recommendedProducts: Product[]
-  morningRoutine?: string  // Backwards compatibility
-  nightRoutine?: string    // Backwards compatibility
-  routine?: SkincareRoutine  // New Supabase format
+  // Legacy/simple format (for compatibility)
+  skinConditionAnalysis?: string
+  recommendedProducts?: Product[]
+  morningRoutine?: string
+  nightRoutine?: string
   skinCareAdvice?: string
-  aiResponse: string
+  aiResponse?: string
+  
+  // Advanced format (new Skin-Sage features)
+  recommendations?: any[]
+  routine?: {
+    morning?: any[]
+    evening?: any[]
+    weekly?: any[]
+  }
+  skin_analysis?: {
+    consultation?: string
+  }
+  analysis?: any
+  
   userProfile?: {
     skinType: string
     preferredIngredients: string[]
@@ -48,7 +51,7 @@ export interface ResultsData {
 }
 
 interface ResultsStore {
-  results: Map<string, ResultsData>
+  results: Record<string, ResultsData>
   addResult: (result: ResultsData) => void
   getResult: (id: string) => ResultsData | undefined
 }
@@ -61,61 +64,64 @@ const defaultResult: ResultsData = {
   recommendedProducts: [
     {
       name: "Gentle Foaming Cleanser",
-      description: "A pH-balanced cleanser that removes impurities without stripping the skin.",
-      price: "$24.99",
-      ingredients: "Glycerin, Amino Acid Surfactants, Panthenol",
-      suitableFor: "Combination skin, sensitive skin",
-      matchReasons: ["Suitable for combination skin", "Contains gentle cleansing agents", "pH-balanced formula"],
+      description: "A gentle, sulfate-free cleanser that removes impurities without stripping the skin.",
+      price: "₹899",
+      ingredients: "Salicylic Acid, Niacinamide, Hyaluronic Acid",
+      suitableFor: "All skin types, especially combination and oily skin",
+      matchReasons: ["Contains Niacinamide for oil control", "Gentle formula for sensitive areas"]
     },
     {
-      name: "Niacinamide 10% Serum",
-      description: "Helps regulate sebum production and minimize the appearance of pores.",
-      price: "$19.99",
-      ingredients: "Niacinamide, Zinc PCA, Glycerin, Panthenol",
-      suitableFor: "Oily and combination skin",
-      matchReasons: ["Contains niacinamide which helps control oil", "Addresses large pores", "Budget-friendly option"],
-    },
-    {
-      name: "Hyaluronic Acid Serum",
-      description: "Provides deep hydration without adding oil to the skin.",
-      price: "$22.99",
-      ingredients: "Sodium Hyaluronate, Glycerin, Panthenol",
-      suitableFor: "All skin types, especially dehydrated skin",
-      matchReasons: [
-        "Provides hydration without oiliness",
-        "Works well for combination skin",
-        "Contains ingredients you prefer",
-      ],
-    },
+      name: "Hydrating Serum",
+      description: "A lightweight serum that provides deep hydration without feeling heavy.",
+      price: "₹1,299",
+      ingredients: "Hyaluronic Acid, Vitamin B5, Ceramides",
+      suitableFor: "Dry to combination skin",
+      matchReasons: ["Hyaluronic Acid for hydration", "Won't clog pores"]
+    }
   ],
-  morningRoutine:
-    "1. Cleanse with Gentle Foaming Cleanser\n2. Apply Niacinamide 10% Serum\n3. Apply Hyaluronic Acid Serum\n4. Apply Moisturizer\n5. Finish with Sunscreen",
-  nightRoutine:
-    "1. Double cleanse\n2. Apply Niacinamide 10% Serum\n3. Apply Hyaluronic Acid Serum\n4. Apply Moisturizer",
-  skinCareAdvice:
-    "Focus on balancing oil production in the T-zone while keeping the cheeks hydrated. Consider using a clay mask once a week on oily areas and a hydrating mask on dry areas.",
-  aiResponse: "Default response for testing",
+  morningRoutine: "1. Gentle Cleanser\n2. Hydrating Serum\n3. Moisturizer\n4. Sunscreen SPF 30+",
+  nightRoutine: "1. Gentle Cleanser\n2. Treatment Serum\n3. Night Moisturizer",
+  skinCareAdvice: "Stay consistent with your routine, introduce new products gradually, and always patch test.",
+  aiResponse: "Based on your profile, focus on maintaining skin balance with gentle, effective products.",
   userProfile: {
     skinType: "Combination",
-    preferredIngredients: ["Hyaluronic Acid", "Niacinamide"],
-    avoidIngredients: ["Fragrance", "Alcohol"],
+    preferredIngredients: ["Niacinamide", "Hyaluronic Acid"],
+    avoidIngredients: ["Alcohol", "Fragrance"],
     ageRange: "25-34",
     budget: "mid-tier",
     concerns: ["Oiliness", "Dryness", "Uneven texture"],
   },
 }
 
-// Create the store
-export const useResultsStore = create<ResultsStore>((set, get) => ({
-  results: new Map([["default_result", defaultResult]]),
-  addResult: (result) =>
-    set((state) => {
-      const newResults = new Map(state.results)
-      newResults.set(result.id, result)
-      return { results: newResults }
+// Create the store with persistence
+export const useResultsStore = create<ResultsStore>()(
+  persist(
+    (set, get) => ({
+      results: { default_result: defaultResult },
+      addResult: (result) => {
+        console.log("Adding result to store:", result);
+        set((state) => ({
+          results: { ...state.results, [result.id]: result }
+        }));
+      },
+      getResult: (id) => {
+        const result = get().results[id] || get().results["default_result"];
+        console.log(`Getting result for ID ${id}:`, result ? "Found" : "Not found");
+        console.log("All stored results:", Object.keys(get().results));
+        return result;
+      },
     }),
-  getResult: (id) => {
-    const state = get()
-    return state.results.get(id) || state.results.get("default_result")
-  },
-}))
+    {
+      name: "skinsage-results-storage",
+      // Use the native sessionStorage interface (strings) so zustand/persist
+      // can handle serialization consistently. Avoid double-json encoding.
+      storage: {
+        // Note: zustand/persist expects StorageValue types. We cast to any to
+        // keep the runtime behavior (raw strings) while satisfying TS.
+        getItem: (name) => sessionStorage.getItem(name) as unknown as any,
+        setItem: (name, value) => sessionStorage.setItem(name, value as unknown as string),
+        removeItem: (name) => sessionStorage.removeItem(name),
+      },
+    }
+  )
+)

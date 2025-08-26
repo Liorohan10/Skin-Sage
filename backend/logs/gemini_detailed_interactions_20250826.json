@@ -1,0 +1,894 @@
+[
+  {
+    "timestamp": "2025-08-26T16:41:21.158891",
+    "interaction_type": "product_recommendations_parsed",
+    "prompt": "JSON parsing successful",
+    "response": "Parsed 17 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "recommendations_count": 17
+    }
+  },
+  {
+    "timestamp": "2025-08-26T16:41:21.177331",
+    "interaction_type": "product_recommendations_formatted",
+    "prompt": "Recommendations formatted successfully",
+    "response": "Formatted 4 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "formatted_count": 4,
+      "sample_recommendations": [
+        "Cetaphil Paraben Sulphate-Free Gentle Skin Hydrating Face Wash Cleanser with Niacinamide Vitamin B5 for Dry to Normal Sensitive Skin - 125 ml",
+        "SUGANDA SKINCARE Centella Green Tea Face wash Gentle & Hydrating Face wash for women - Unscented For All Skin Types Removes Dirt & Makeup With CICA and Panthenol 120 Ml Pack Of 1",
+        "Dermistry Aging Repair Retinol Collagen SPF 30 Skin Firming Lifting Moisturizer Day Face Cream Reduces Ageing Wrinkles Fine Lines Improves Elasticity Tightening Suits Dry Oily Skin Men Women 50 ML"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-08-26T17:43:44.142481",
+    "interaction_type": "product_recommendations_prompt",
+    "prompt": "\n            You are an expert skincare consultant with access to a comprehensive product database. Based on the user profile and product database, recommend the most suitable skincare products.\n\n            \n            User Profile:\n            - Skin Type: combination\n            - Age Range: 18-24\n            - Skin Concerns: acne, hyperpigmentation, sensitivity\n            - Preferred Ingredients: hyaluronic-acid, vitamin-c, retinol\n            - Ingredients to Avoid: fragrance, sulfates, parabens\n            - Budget Range: (0, 5000)\n            \n            \n                \n                Logic-Based Recommendations (for reference):\n                - Dermistry Aging Repair Retinol Collagen SPF 30 Skin Firming Lifting Moisturizer Day Face Cream Reduces Ageing Wrinkles Fine Lines Improves Elasticity Tightening Suits Dry Oily Skin Men Women 50 ML (DERMISTRY)\n- Dermistry 1 Kojic Acid Pigmentation Instant D De Tan Dark Spots Uneven Skin Tone Removal Face Pack Mask for Glowing Light...",
+    "response": null,
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "user_profile": {
+        "skinType": "combination",
+        "ageRange": "18-24",
+        "concerns": [
+          "acne",
+          "hyperpigmentation",
+          "sensitivity"
+        ],
+        "preferredIngredients": [
+          "hyaluronic-acid",
+          "vitamin-c",
+          "retinol"
+        ],
+        "avoidIngredients": [
+          "fragrance",
+          "sulfates",
+          "parabens"
+        ],
+        "budget": [
+          0,
+          5000
+        ]
+      },
+      "product_database_size": 326,
+      "logic_recommendations_count": 30
+    }
+  },
+  {
+    "timestamp": "2025-08-26T17:44:47.700759",
+    "interaction_type": "product_recommendations_response",
+    "prompt": "Response received",
+    "response": "```json\n[\n  {\n    \"product_name\": \"Minimalist Anti-Acne Salicylic Acid 2 Face Wash For Oily & Acne Prone Skin  With LHA for Pore Cleansing Oil Control & Sebum Regulation  Sulfate-Free Formula with Zinc for Gentle Exfoliation  Cleanser for Women & Men  100 ml\",\n    \"brand\": \"Minimalist\",\n    \"reason\": \"This sulfate-free face wash contains 2% Salicylic Acid and LHA, ideal for treating active acne, controlling oil, and gently exfoliating clogged pores without stripping the skin. It directly addresses the user's acne concern and preference to avoid sulfates, making it suitable for combination and sensitive skin.\",\n    \"category\": \"cleanser\",\n    \"priority\": \"high\",\n    \"price_value\": \"budget\"\n  },\n  {\n    \"product_name\": \"CeraVe Foaming Cleanser For Normal To Oily Skin 88ml - Dermatologist-Developed Facewash  Non-Comedogenic And Fragrance-Free Cleansers For Acne-Prone Skin\",\n    \"brand\": \"CeraVe\",\n    \"reason\": \"A dermatologist-developed, non-comedogenic, and fragrance-free cleanser, this is perfect for acne-prone, combination skin. It cleanses effectively without irritation, respecting the user's sensitivity and preference to avoid fragrance while managing oil.\",\n    \"category\": \"cleanser\",\n    \"priority\": \"high\",\n    \"price_value\": \"budget\"\n  },\n  {\n    \"product_name\": \"CeraVe Hydrating Cleanser For Normal To Dry Skin 88ml - Non-Foaming Face Wash with Hyaluronic Acid And Ceramides  Non-Comedogenic Non-Irritating And Fragrance-Free Cleanser\",\n    \"brand\": \"CeraVe\",\n    \"reason\": \"This non-foaming, fragrance-free cleanser with Hyaluronic Acid and Ceramides is excellent for sensitive skin, especially on days when the combination skin might feel drier or irritated. It cleanses gently while supporting the skin barrier, aligning with sensitivity concerns and preferred ingredients.\",\n    \"category\": \"cleanser\",\n    \"priority\": \"medium\",\n    \"price_value\": \"budget\"\n  },\n  {\n    \"product_name\": \"SUGANDA SKINCARE Centella Green Tea Face wash Gentle & Hydrating Face wash for wom...",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "response_length": 12099
+    }
+  },
+  {
+    "timestamp": "2025-08-26T17:44:47.715946",
+    "interaction_type": "product_recommendations_parsed",
+    "prompt": "JSON parsing successful",
+    "response": "Parsed 20 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "recommendations_count": 20
+    }
+  },
+  {
+    "timestamp": "2025-08-26T17:44:47.735627",
+    "interaction_type": "product_recommendations_formatted",
+    "prompt": "Recommendations formatted successfully",
+    "response": "Formatted 20 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "formatted_count": 20,
+      "sample_recommendations": [
+        "Minimalist Anti-Acne Salicylic Acid 2 Face Wash For Oily & Acne Prone Skin  With LHA for Pore Cleansing Oil Control & Sebum Regulation  Sulfate-Free Formula with Zinc for Gentle Exfoliation  Cleanser for Women & Men  100 ml",
+        "CeraVe Foaming Cleanser For Normal To Oily Skin 88ml - Dermatologist-Developed Facewash  Non-Comedogenic And Fragrance-Free Cleansers For Acne-Prone Skin",
+        "CeraVe Hydrating Cleanser For Normal To Dry Skin 88ml - Non-Foaming Face Wash with Hyaluronic Acid And Ceramides  Non-Comedogenic Non-Irritating And Fragrance-Free Cleanser"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-08-26T17:44:47.873941",
+    "interaction_type": "product_recommendations_prompt",
+    "prompt": "\n            You are an expert skincare consultant with access to a comprehensive product database. Based on the user profile and product database, recommend the most suitable skincare products.\n\n            \n            User Profile:\n            - Skin Type: combination\n            - Age Range: 18-24\n            - Skin Concerns: acne, hyperpigmentation, sensitivity\n            - Preferred Ingredients: hyaluronic-acid, vitamin-c, retinol\n            - Ingredients to Avoid: fragrance, sulfates, parabens\n            - Budget Range: (0, 5000)\n            \n            \n                \n                Logic-Based Recommendations (for reference):\n                - Dermistry Aging Repair Retinol Collagen SPF 30 Skin Firming Lifting Moisturizer Day Face Cream Reduces Ageing Wrinkles Fine Lines Improves Elasticity Tightening Suits Dry Oily Skin Men Women 50 ML (DERMISTRY)\n- Dermistry 1 Kojic Acid Pigmentation Instant D De Tan Dark Spots Uneven Skin Tone Removal Face Pack Mask for Glowing Light...",
+    "response": null,
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "user_profile": {
+        "skinType": "combination",
+        "ageRange": "18-24",
+        "concerns": [
+          "acne",
+          "hyperpigmentation",
+          "sensitivity"
+        ],
+        "preferredIngredients": [
+          "hyaluronic-acid",
+          "vitamin-c",
+          "retinol"
+        ],
+        "avoidIngredients": [
+          "fragrance",
+          "sulfates",
+          "parabens"
+        ],
+        "budget": [
+          0,
+          5000
+        ]
+      },
+      "product_database_size": 326,
+      "logic_recommendations_count": 40
+    }
+  },
+  {
+    "timestamp": "2025-08-26T17:45:33.025379",
+    "interaction_type": "product_recommendations_response",
+    "prompt": "Response received",
+    "response": "```json\n[\n  {\n    \"product_name\": \"Minimalist Anti-Acne Salicylic Acid 2 Face Wash For Oily & Acne Prone Skin  With LHA for Pore Cleansing Oil Control & Sebum Regulation  Sulfate-Free Formula with Zinc for Gentle Exfoliation  Cleanser for Women & Men  100 ml\",\n    \"brand\": \"Minimalist\",\n    \"reason\": \"This sulfate-free face wash directly targets acne and oil control with Salicylic Acid and Zinc. It's gentle for sensitive skin while effectively cleansing pores and regulating sebum, ideal for combination and acne-prone skin.\",\n    \"category\": \"cleanser\",\n    \"priority\": \"high\",\n    \"price_value\": \"budget\"\n  },\n  {\n    \"product_name\": \"SUGANDA SKINCARE Centella Green Tea Face wash Gentle & Hydrating Face wash for women - Unscented For All Skin Types Removes Dirt & Makeup With CICA and Panthenol 120 Ml Pack Of 1\",\n    \"brand\": \"SUGANDA SKINCARE\",\n    \"reason\": \"An unscented, gentle cleanser featuring CICA and Panthenol, known for their soothing and repairing properties. This is excellent for sensitive skin, helping to calm inflammation associated with acne without stripping the skin.\",\n    \"category\": \"cleanser\",\n    \"priority\": \"medium\",\n    \"price_value\": \"mid-range\"\n  },\n  {\n    \"product_name\": \"Cetaphil Paraben Sulphate-Free Gentle Skin Hydrating Face Wash Cleanser with Niacinamide Vitamin B5 for Dry to Normal Sensitive Skin - 125 ml\",\n    \"brand\": \"Cetaphil\",\n    \"reason\": \"This cleanser is explicitly paraben and sulfate-free, making it perfect for sensitive skin. With Niacinamide and Vitamin B5, it gently cleanses while helping to maintain the skin barrier and reduce redness, suitable for combination skin.\",\n    \"category\": \"cleanser\",\n    \"priority\": \"medium\",\n    \"price_value\": \"budget\"\n  },\n  {\n    \"product_name\": \"Plum 3 Niacinamide & Rice Water Face Toner  Alcohol-Free Toner for Oily Acne Prone Dry Combination Skin  Pore Tightening & Glowing Skin Fades Blemishes Brightens & Smoothens  Women & Men  150ml\",\n    \"brand\": \"Plum\",\n    \"reason\": \"This alcohol-free ...",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "response_length": 9568
+    }
+  },
+  {
+    "timestamp": "2025-08-26T17:45:33.041793",
+    "interaction_type": "product_recommendations_parsed",
+    "prompt": "JSON parsing successful",
+    "response": "Parsed 17 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "recommendations_count": 17
+    }
+  },
+  {
+    "timestamp": "2025-08-26T17:45:33.061996",
+    "interaction_type": "product_recommendations_formatted",
+    "prompt": "Recommendations formatted successfully",
+    "response": "Formatted 17 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "formatted_count": 17,
+      "sample_recommendations": [
+        "Minimalist Anti-Acne Salicylic Acid 2 Face Wash For Oily & Acne Prone Skin  With LHA for Pore Cleansing Oil Control & Sebum Regulation  Sulfate-Free Formula with Zinc for Gentle Exfoliation  Cleanser for Women & Men  100 ml",
+        "SUGANDA SKINCARE Centella Green Tea Face wash Gentle & Hydrating Face wash for women - Unscented For All Skin Types Removes Dirt & Makeup With CICA and Panthenol 120 Ml Pack Of 1",
+        "Cetaphil Paraben Sulphate-Free Gentle Skin Hydrating Face Wash Cleanser with Niacinamide Vitamin B5 for Dry to Normal Sensitive Skin - 125 ml"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-08-26T18:34:41.113994",
+    "interaction_type": "product_recommendations_prompt",
+    "prompt": "\n            You are an expert skincare consultant with access to a comprehensive product database. Based on the user profile and product database, recommend the most suitable skincare products.\n\n            \n            User Profile:\n            - Skin Type: combination\n            - Age Range: 25-34\n            - Skin Concerns: acne, hyperpigmentation, sensitivity\n            - Preferred Ingredients: hyaluronic-acid, retinol, peptides\n            - Ingredients to Avoid: alcohol, parabens, sulfates\n            - Budget Range: (1700, 4200)\n            \n            \n                \n                Logic-Based Recommendations (for reference):\n                - ORIMII No Retinol Face Serum with 1 BakuchiolAnti Ageing Bakuchi Oil Serum to Reduce Fine LinesWrinkles&Pigmentation Boosts CollagenNatural Alternate to RetinolPregnancy&Nursing Safe 30ml (ORIMII)\n- Dermistry Aging Repair Retinol Collagen SPF 30 Skin Firming Lifting Moisturizer Day Face Cream Reduces Ageing Wrinkles Fine Lines Imp...",
+    "response": null,
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "user_profile": {
+        "skinType": "combination",
+        "ageRange": "25-34",
+        "concerns": [
+          "acne",
+          "hyperpigmentation",
+          "sensitivity"
+        ],
+        "preferredIngredients": [
+          "hyaluronic-acid",
+          "retinol",
+          "peptides"
+        ],
+        "avoidIngredients": [
+          "alcohol",
+          "parabens",
+          "sulfates"
+        ],
+        "budget": [
+          1700,
+          4200
+        ]
+      },
+      "product_database_size": 326,
+      "logic_recommendations_count": 30
+    }
+  },
+  {
+    "timestamp": "2025-08-26T18:35:42.929458",
+    "interaction_type": "product_recommendations_response",
+    "prompt": "Response received",
+    "response": "```json\n[\n  {\n    \"product_name\": \"Minimalist Anti-Acne Salicylic Acid 2 Face Wash For Oily & Acne Prone Skin  With LHA for Pore Cleansing Oil Control & Sebum Regulation  Sulfate-Free Formula with Zinc for Gentle Exfoliation  Cleanser for Women & Men  100 ml\",\n    \"brand\": \"Minimalist\",\n    \"reason\": \"This sulfate-free face wash targets acne, clears clogged pores, and controls excess oil with Salicylic Acid and Zinc. Its gentle formula is ideal for combination and acne-prone skin, addressing breakouts effectively without harshness.\",\n    \"category\": \"Cleanser\",\n    \"priority\": \"high\",\n    \"price_value\": \"budget\"\n  },\n  {\n    \"product_name\": \"Cetaphil Paraben Sulphate-Free Gentle Skin Hydrating Face Wash Cleanser with Niacinamide Vitamin B5 for Dry to Normal Sensitive Skin - 125 ml\",\n    \"brand\": \"Cetaphil\",\n    \"reason\": \"This paraben and sulfate-free cleanser is exceptionally gentle, making it perfect for sensitive skin. It hydrates and soothes with Niacinamide and Vitamin B5, ensuring a non-irritating cleanse for combination skin with sensitivity.\",\n    \"category\": \"Cleanser\",\n    \"priority\": \"medium\",\n    \"price_value\": \"budget\"\n  },\n  {\n    \"product_name\": \"Plum 3 Niacinamide & Rice Water Face Toner  Alcohol-Free Toner for Oily Acne Prone Dry Combination Skin  Pore Tightening & Glowing Skin Fades Blemishes Brightens & Smoothens  Women & Men  150ml\",\n    \"brand\": \"Plum\",\n    \"reason\": \"An alcohol-free toner formulated with Niacinamide, a preferred ingredient, to help fade blemishes, tighten pores, and brighten skin tone. It's suitable for combination and acne-prone skin, addressing hyperpigmentation while being gentle.\",\n    \"category\": \"Toner\",\n    \"priority\": \"high\",\n    \"price_value\": \"budget\"\n  },\n  {\n    \"product_name\": \"The Derma Co 2 Kojic Acid Face Serum I With 1 Alpha Arbutin & Niacinamide  Reduces Dark Spots Pigmentation & Blemishes  For All Skin types  30 ml\",\n    \"brand\": \"The Derma Co\",\n    \"reason\": \"This serum is a powerful treatment for hyperpigme...",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "response_length": 6716
+    }
+  },
+  {
+    "timestamp": "2025-08-26T18:35:42.943645",
+    "interaction_type": "product_recommendations_parsed",
+    "prompt": "JSON parsing successful",
+    "response": "Parsed 12 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "recommendations_count": 12
+    }
+  },
+  {
+    "timestamp": "2025-08-26T18:35:42.956181",
+    "interaction_type": "product_recommendations_formatted",
+    "prompt": "Recommendations formatted successfully",
+    "response": "Formatted 12 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "formatted_count": 12,
+      "sample_recommendations": [
+        "Minimalist Anti-Acne Salicylic Acid 2 Face Wash For Oily & Acne Prone Skin  With LHA for Pore Cleansing Oil Control & Sebum Regulation  Sulfate-Free Formula with Zinc for Gentle Exfoliation  Cleanser for Women & Men  100 ml",
+        "Cetaphil Paraben Sulphate-Free Gentle Skin Hydrating Face Wash Cleanser with Niacinamide Vitamin B5 for Dry to Normal Sensitive Skin - 125 ml",
+        "Plum 3 Niacinamide & Rice Water Face Toner  Alcohol-Free Toner for Oily Acne Prone Dry Combination Skin  Pore Tightening & Glowing Skin Fades Blemishes Brightens & Smoothens  Women & Men  150ml"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-08-26T18:35:43.100090",
+    "interaction_type": "product_recommendations_prompt",
+    "prompt": "\n            You are an expert skincare consultant with access to a comprehensive product database. Based on the user profile and product database, recommend the most suitable skincare products.\n\n            \n            User Profile:\n            - Skin Type: combination\n            - Age Range: 25-34\n            - Skin Concerns: acne, hyperpigmentation, sensitivity\n            - Preferred Ingredients: hyaluronic-acid, retinol, peptides\n            - Ingredients to Avoid: alcohol, parabens, sulfates\n            - Budget Range: (1700, 4200)\n            \n            \n                \n                Logic-Based Recommendations (for reference):\n                - ORIMII No Retinol Face Serum with 1 BakuchiolAnti Ageing Bakuchi Oil Serum to Reduce Fine LinesWrinkles&Pigmentation Boosts CollagenNatural Alternate to RetinolPregnancy&Nursing Safe 30ml (ORIMII)\n- Dermistry Aging Repair Retinol Collagen SPF 30 Skin Firming Lifting Moisturizer Day Face Cream Reduces Ageing Wrinkles Fine Lines Imp...",
+    "response": null,
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "user_profile": {
+        "skinType": "combination",
+        "ageRange": "25-34",
+        "concerns": [
+          "acne",
+          "hyperpigmentation",
+          "sensitivity"
+        ],
+        "preferredIngredients": [
+          "hyaluronic-acid",
+          "retinol",
+          "peptides"
+        ],
+        "avoidIngredients": [
+          "alcohol",
+          "parabens",
+          "sulfates"
+        ],
+        "budget": [
+          1700,
+          4200
+        ]
+      },
+      "product_database_size": 326,
+      "logic_recommendations_count": 40
+    }
+  },
+  {
+    "timestamp": "2025-08-26T18:36:36.549900",
+    "interaction_type": "product_recommendations_response",
+    "prompt": "Response received",
+    "response": "```json\n[\n  {\n    \"product_name\": \"Minimalist Anti-Acne Salicylic Acid 2 Face Wash For Oily & Acne Prone Skin  With LHA for Pore Cleansing Oil Control & Sebum Regulation  Sulfate-Free Formula with Zinc for Gentle Exfoliation  Cleanser for Women & Men  100 ml\",\n    \"brand\": \"Minimalist\",\n    \"reason\": \"This sulfate-free cleanser effectively targets acne and controls oil, which is ideal for combination and acne-prone skin. It contains salicylic acid and LHA for gentle exfoliation and pore cleansing, while zinc helps with sebum regulation.\",\n    \"category\": \"Cleanser\",\n    \"priority\": \"high\",\n    \"price_value\": \"mid-range\"\n  },\n  {\n    \"product_name\": \"DOT & KEY Vitamin C  E Super Bright Gel Face Wash For Glowing And Brightening Skin  All Skin TypesWith Triple Vitamin C Face Wash For Women & Men100 Ml\",\n    \"brand\": \"DOT & KEY\",\n    \"reason\": \"This gentle gel face wash is suitable for combination and sensitive skin, offering brightening benefits with Vitamin C and E. It helps cleanse without over-drying, supporting overall skin radiance.\",\n    \"category\": \"Cleanser\",\n    \"priority\": \"high\",\n    \"price_value\": \"budget\"\n  },\n  {\n    \"product_name\": \"Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1\",\n    \"brand\": \"Minimalist\",\n    \"reason\": \"An excellent serum for combination skin with acne and hyperpigmentation. Niacinamide, a preferred ingredient, helps reduce blemishes, minimize pores, and regulate oil, while zinc offers additional anti-acne benefits.\",\n    \"category\": \"Serum\",\n    \"priority\": \"high\",\n    \"price_value\": \"mid-range\"\n  },\n  {\n    \"product_name\": \"The Derma Co 2 Kojic Acid Face Serum I With 1 Alpha Arbutin & Niacinamide  Reduces Dark Spots Pigmentation & Blemishes  For All Skin types  30 ml\",\n    \"brand\": \"The Derma Co\",\n    \"reason\": \"This serum is highly effective for addressing hyperpigmentation, dark spots, and blemishes, which are key concerns. Kojic Acid, ...",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "response_length": 7223
+    }
+  },
+  {
+    "timestamp": "2025-08-26T18:36:36.565161",
+    "interaction_type": "product_recommendations_parsed",
+    "prompt": "JSON parsing successful",
+    "response": "Parsed 13 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "recommendations_count": 13
+    }
+  },
+  {
+    "timestamp": "2025-08-26T18:36:36.609312",
+    "interaction_type": "product_recommendations_formatted",
+    "prompt": "Recommendations formatted successfully",
+    "response": "Formatted 13 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "formatted_count": 13,
+      "sample_recommendations": [
+        "Minimalist Anti-Acne Salicylic Acid 2 Face Wash For Oily & Acne Prone Skin  With LHA for Pore Cleansing Oil Control & Sebum Regulation  Sulfate-Free Formula with Zinc for Gentle Exfoliation  Cleanser for Women & Men  100 ml",
+        "DOT & KEY Vitamin C  E Super Bright Gel Face Wash For Glowing And Brightening Skin  All Skin TypesWith Triple Vitamin C Face Wash For Women & Men100 Ml",
+        "Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc  Skin ClarifyingBlemishes & Pore Care for All Skin Types  30ml Pack of 1"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-08-26T18:41:28.753833",
+    "interaction_type": "product_recommendations_prompt",
+    "prompt": "\n            You are an expert skincare consultant with access to a comprehensive product database. Based on the user profile and product database, recommend the most suitable skincare products.\n\n            \n            User Profile:\n            - Skin Type: sensitive\n            - Age Range: 35-44\n            - Skin Concerns: acne, hyperpigmentation\n            - Preferred Ingredients: niacinamide, retinol, vitamin-c\n            - Ingredients to Avoid: parabens, fragrance\n            - Budget Range: (4200, 200000)\n            \n            \n                \n                Logic-Based Recommendations (for reference):\n                - AARCHITA Herbal Night Cream With Avocado Provitamin B5 For Overnight Hydration Skin Rejuvenation Sulphate-Free 30 Ml (AARCHITA)\n- Novology SPF 50 PA Ultralight Gel Sunscreen with Niacinamide Fights Acne and Sebum Non-Greasy Quick Absorbing Invisible Finish  Designed for Oily Skin 50 g (Novology)\n- Dermistry Aging Repair Retinol Collagen SPF 30 Skin Firmi...",
+    "response": null,
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "user_profile": {
+        "skinType": "sensitive",
+        "ageRange": "35-44",
+        "concerns": [
+          "acne",
+          "hyperpigmentation"
+        ],
+        "preferredIngredients": [
+          "niacinamide",
+          "retinol",
+          "vitamin-c"
+        ],
+        "avoidIngredients": [
+          "parabens",
+          "fragrance"
+        ],
+        "budget": [
+          4200,
+          200000
+        ]
+      },
+      "product_database_size": 326,
+      "logic_recommendations_count": 30
+    }
+  },
+  {
+    "timestamp": "2025-08-26T18:42:07.530674",
+    "interaction_type": "product_recommendations_response",
+    "prompt": "Response received",
+    "response": "```json\n[\n  {\n    \"product_name\": \"Cetaphil Paraben Sulphate-Free Gentle Skin Hydrating Face Wash Cleanser with Niacinamide Vitamin B5 for Dry to Normal Sensitive Skin - 250 ml\",\n    \"brand\": \"Cetaphil\",\n    \"reason\": \"This cleanser is explicitly 'Paraben Sulphate-Free' and contains Niacinamide, aligning perfectly with the user's preferences and sensitive skin type. It's gentle, hydrating, and ideal for daily use without irritation.\",\n    \"category\": \"cleanser\",\n    \"priority\": \"high\",\n    \"price_value\": \"mid-range\"\n  },\n  {\n    \"product_name\": \"DERMATOUCH Bright & Even Tone Face Wash with Niacinamide Vitamin E and Kojic Acid Daily Gentle Face Wash For Tan Pigmentation Uneven Tone - 70G\",\n    \"brand\": \"DERMATOUCH\",\n    \"reason\": \"Featuring Niacinamide and Kojic Acid, this gentle face wash targets hyperpigmentation and uneven tone. It offers brightening benefits while being suitable for sensitive skin due to its gentle formulation.\",\n    \"category\": \"cleanser\",\n    \"priority\": \"medium\",\n    \"price_value\": \"budget\"\n  },\n  {\n    \"product_name\": \"The Derma Co Face Wash with 2 Salicylic Acid and 2 Niacinamide Sali-Cinamide Anti-Acne Face Wash - 80ml\",\n    \"brand\": \"The Derma Co\",\n    \"reason\": \"This face wash combines Salicylic Acid for acne treatment and Niacinamide for reducing blemishes and pigmentation. As a wash-off product, it delivers active ingredients effectively while minimizing prolonged contact for sensitive skin.\",\n    \"category\": \"cleanser\",\n    \"priority\": \"medium\",\n    \"price_value\": \"budget\"\n  },\n  {\n    \"product_name\": \"Minimalist 10 Vitamin C Face Serum Formulated & Tested For Sensitive Skin with Ethyl Ascorbic Acid & PHA All Skin Types Brightening & Hydrating Formula for Unisex 10ml\",\n    \"brand\": \"Minimalist\",\n    \"reason\": \"This serum is a perfect match, as it's 'Formulated & Tested For Sensitive Skin' and contains Vitamin C, a key preferred ingredient for hyperpigmentation and brightening. It's gentle yet effective for achieving an even skin tone.\"...",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "response_length": 9886
+    }
+  },
+  {
+    "timestamp": "2025-08-26T18:42:07.543558",
+    "interaction_type": "product_recommendations_parsed",
+    "prompt": "JSON parsing successful",
+    "response": "Parsed 18 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "recommendations_count": 18
+    }
+  },
+  {
+    "timestamp": "2025-08-26T18:42:07.556948",
+    "interaction_type": "product_recommendations_formatted",
+    "prompt": "Recommendations formatted successfully",
+    "response": "Formatted 2 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "formatted_count": 2,
+      "sample_recommendations": [
+        "Cetaphil Paraben Sulphate-Free Gentle Skin Hydrating Face Wash Cleanser with Niacinamide Vitamin B5 for Dry to Normal Sensitive Skin - 250 ml",
+        "Dermistry Aging Repair Retinol Collagen SPF 30 Skin Firming Lifting Moisturizer Day Face Cream Reduces Ageing Wrinkles Fine Lines Improves Elasticity Tightening Suits Dry Oily Skin Men Women 50 ML"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-08-26T18:42:07.668623",
+    "interaction_type": "product_recommendations_prompt",
+    "prompt": "\n            You are an expert skincare consultant with access to a comprehensive product database. Based on the user profile and product database, recommend the most suitable skincare products.\n\n            \n            User Profile:\n            - Skin Type: sensitive\n            - Age Range: 35-44\n            - Skin Concerns: acne, hyperpigmentation\n            - Preferred Ingredients: niacinamide, retinol, vitamin-c\n            - Ingredients to Avoid: parabens, fragrance\n            - Budget Range: (4200, 200000)\n            \n            \n                \n                Logic-Based Recommendations (for reference):\n                - AARCHITA Herbal Night Cream With Avocado Provitamin B5 For Overnight Hydration Skin Rejuvenation Sulphate-Free 30 Ml (AARCHITA)\n- Novology SPF 50 PA Ultralight Gel Sunscreen with Niacinamide Fights Acne and Sebum Non-Greasy Quick Absorbing Invisible Finish  Designed for Oily Skin 50 g (Novology)\n- Dermistry Aging Repair Retinol Collagen SPF 30 Skin Firmi...",
+    "response": null,
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "user_profile": {
+        "skinType": "sensitive",
+        "ageRange": "35-44",
+        "concerns": [
+          "acne",
+          "hyperpigmentation"
+        ],
+        "preferredIngredients": [
+          "niacinamide",
+          "retinol",
+          "vitamin-c"
+        ],
+        "avoidIngredients": [
+          "parabens",
+          "fragrance"
+        ],
+        "budget": [
+          4200,
+          200000
+        ]
+      },
+      "product_database_size": 326,
+      "logic_recommendations_count": 40
+    }
+  },
+  {
+    "timestamp": "2025-08-26T18:42:43.997928",
+    "interaction_type": "product_recommendations_response",
+    "prompt": "Response received",
+    "response": "```json\n[\n  {\n    \"product_name\": \"Cetaphil Paraben Sulphate-Free Gentle Skin Hydrating Face Wash Cleanser with Niacinamide Vitamin B5 for Dry to Normal Sensitive Skin - 250 ml\",\n    \"brand\": \"Cetaphil\",\n    \"reason\": \"This cleanser is ideal for sensitive skin, being paraben and sulphate-free. It contains Niacinamide and Vitamin B5 to gently cleanse while supporting the skin barrier and addressing initial hyperpigmentation concerns without irritation.\",\n    \"category\": \"cleanser\",\n    \"priority\": \"high\",\n    \"price_value\": \"mid-range\"\n  },\n  {\n    \"product_name\": \"The Derma Co Face Wash with 2 Salicylic Acid and 2 Niacinamide Sali-Cinamide Anti-Acne Face Wash - 80ml\",\n    \"brand\": \"The Derma Co\",\n    \"reason\": \"For targeted acne treatment, this face wash combines salicylic acid for exfoliation and pore clearing, with niacinamide to reduce inflammation and hyperpigmentation. It's an effective choice for combating active breakouts and marks.\",\n    \"category\": \"cleanser\",\n    \"priority\": \"high\",\n    \"price_value\": \"budget\"\n  },\n  {\n    \"product_name\": \"Minimalist 10 Vitamin C Face Serum Formulated & Tested For Sensitive Skin with Ethyl Ascorbic Acid & PHA All Skin Types Brightening & Hydrating Formula for Unisex 10ml\",\n    \"brand\": \"Minimalist\",\n    \"reason\": \"This Vitamin C serum is specifically formulated for sensitive skin, making it an excellent choice for brightening and reducing hyperpigmentation without causing irritation. Vitamin C is a preferred ingredient for its antioxidant and brightening benefits.\",\n    \"category\": \"serum\",\n    \"priority\": \"high\",\n    \"price_value\": \"budget\"\n  },\n  {\n    \"product_name\": \"The Derma Co 2 Kojic Acid Face Serum I With 1 Alpha Arbutin & Niacinamide Reduces Dark Spots Pigmentation & Blemishes For All Skin types 30 ml\",\n    \"brand\": \"The Derma Co\",\n    \"reason\": \"This powerful serum targets hyperpigmentation and dark spots with Kojic Acid, Alpha Arbutin, and Niacinamide. These ingredients work synergistically to reduce blemishes ...",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "response_length": 9421
+    }
+  },
+  {
+    "timestamp": "2025-08-26T18:42:44.012328",
+    "interaction_type": "product_recommendations_parsed",
+    "prompt": "JSON parsing successful",
+    "response": "Parsed 17 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "recommendations_count": 17
+    }
+  },
+  {
+    "timestamp": "2025-08-26T18:42:44.042790",
+    "interaction_type": "product_recommendations_formatted",
+    "prompt": "Recommendations formatted successfully",
+    "response": "Formatted 3 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "formatted_count": 3,
+      "sample_recommendations": [
+        "Cetaphil Paraben Sulphate-Free Gentle Skin Hydrating Face Wash Cleanser with Niacinamide Vitamin B5 for Dry to Normal Sensitive Skin - 250 ml",
+        "Dermistry Aging Repair Retinol Collagen SPF 30 Skin Firming Lifting Moisturizer Day Face Cream Reduces Ageing Wrinkles Fine Lines Improves Elasticity Tightening Suits Dry Oily Skin Men Women 50 ML",
+        "Sebogel Salicylic Acid & Nicotinamide Gel for Pimples and Oily Skin 30gm"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-08-26T19:19:14.106706",
+    "interaction_type": "product_recommendations_prompt",
+    "prompt": "\n            You are an expert skincare consultant with access to a comprehensive product database. Based on the user profile and product database, recommend the most suitable skincare products.\n\n            \n            User Profile:\n            - Skin Type: combination\n            - Age Range: 25-34\n            - Skin Concerns: acne, hyperpigmentation, sensitivity\n            - Preferred Ingredients: hyaluronic-acid, vitamin-c, retinol\n            - Ingredients to Avoid: alcohol, sulfates, parabens\n            - Budget Range: (1700, 4200)\n            \n            \n                \n                Logic-Based Recommendations (for reference):\n                - Medicube Zero 1DAY Exosome Shot 2000ppm Needle Serum Pores Firmness Sensitive SkinUnboxJapan Exclusive ()\n- Forest Essentials Mini Delights Gift Box  6-Piece Gift Set for Face Hair & Body  Ayurvedic Skincare Gifting for Women & Men  Ideal for a Birthday or Anniversary (Forest Essentials)\n- Bioderma Sebium Hydra Cleanser with Glyc...",
+    "response": null,
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "user_profile": {
+        "skinType": "combination",
+        "ageRange": "25-34",
+        "concerns": [
+          "acne",
+          "hyperpigmentation",
+          "sensitivity"
+        ],
+        "preferredIngredients": [
+          "hyaluronic-acid",
+          "vitamin-c",
+          "retinol"
+        ],
+        "avoidIngredients": [
+          "alcohol",
+          "sulfates",
+          "parabens"
+        ],
+        "budget": [
+          1700,
+          4200
+        ]
+      },
+      "product_database_size": 326,
+      "logic_recommendations_count": 10
+    }
+  },
+  {
+    "timestamp": "2025-08-26T19:20:19.017318",
+    "interaction_type": "product_recommendations_response",
+    "prompt": "Response received",
+    "response": "```json\n[\n  {\n    \"product_name\": \"Minimalist Anti-Acne Salicylic Acid 2 Face Wash For Oily & Acne Prone Skin\",\n    \"brand\": \"Minimalist\",\n    \"reason\": \"This sulfate-free cleanser effectively targets acne and oil control, which are key concerns for combination and acne-prone skin. Salicylic acid helps to clear pores and reduce breakouts.\",\n    \"category\": \"cleanser\",\n    \"priority\": \"high\",\n    \"price_value\": \"budget\"\n  },\n  {\n    \"product_name\": \"DERMATOUCH Bright & Even Tone Face Wash with Niacinamide Vitamin E and Kojic Acid\",\n    \"brand\": \"DERMATOUCH\",\n    \"reason\": \"This gentle face wash contains Niacinamide and Kojic Acid, excellent ingredients for addressing hyperpigmentation and uneven skin tone. It's a good option for daily cleansing, especially for sensitive skin.\",\n    \"category\": \"cleanser\",\n    \"priority\": \"medium\",\n    \"price_value\": \"budget\"\n  },\n  {\n    \"product_name\": \"DOT & KEY Vitamin C & E Super Bright Gel Face Wash For Glowing And Brightening Skin\",\n    \"brand\": \"DOT & KEY\",\n    \"reason\": \"Enriched with Vitamin C, this gel face wash helps brighten the skin and combat hyperpigmentation. Its gel formula is suitable for combination and sensitive skin types.\",\n    \"category\": \"cleanser\",\n    \"priority\": \"medium\",\n    \"price_value\": \"budget\"\n  },\n  {\n    \"product_name\": \"Plum 3 Niacinamide & Rice Water Face Toner\",\n    \"brand\": \"Plum\",\n    \"reason\": \"This alcohol-free toner is ideal for sensitive skin and contains Niacinamide, which helps with pore tightening, fading blemishes, and brightening the skin, directly addressing acne and hyperpigmentation concerns.\",\n    \"category\": \"toner\",\n    \"priority\": \"high\",\n    \"price_value\": \"mid-range\"\n  },\n  {\n    \"product_name\": \"Dabur Gulabari Premium Rose WaterFace Toner - 400ml\",\n    \"brand\": \"Dabur\",\n    \"reason\": \"An affordable, alcohol-free, and paraben-free toner that cleanses, hydrates, and balances the skin's pH. Rose water is soothing, making it suitable for sensitive, combination skin.\",\n    \"catego...",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "response_length": 5778
+    }
+  },
+  {
+    "timestamp": "2025-08-26T19:20:19.030443",
+    "interaction_type": "product_recommendations_parsed",
+    "prompt": "JSON parsing successful",
+    "response": "Parsed 14 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "recommendations_count": 14
+    }
+  },
+  {
+    "timestamp": "2025-08-26T19:20:19.050537",
+    "interaction_type": "product_recommendations_formatted",
+    "prompt": "Recommendations formatted successfully",
+    "response": "Formatted 13 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "formatted_count": 13,
+      "sample_recommendations": [
+        "Minimalist Anti-Acne Salicylic Acid 2 Face Wash For Oily & Acne Prone Skin  With LHA for Pore Cleansing Oil Control & Sebum Regulation  Sulfate-Free Formula with Zinc for Gentle Exfoliation  Cleanser for Women & Men  100 ml",
+        "DERMATOUCH Bright & Even Tone Face Wash with Niacinamide Vitamin E and Kojic Acid  Daily Gentle Face Wash For Tan Pigmentation Uneven Tone - 70G",
+        "Plum 3 Niacinamide & Rice Water Face Toner  Alcohol-Free Toner for Oily Acne Prone Dry Combination Skin  Pore Tightening & Glowing Skin Fades Blemishes Brightens & Smoothens  Women & Men  150ml"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-08-26T19:20:19.165101",
+    "interaction_type": "product_recommendations_prompt",
+    "prompt": "\n            You are an expert skincare consultant with access to a comprehensive product database. Based on the user profile and product database, recommend the most suitable skincare products.\n\n            \n            User Profile:\n            - Skin Type: combination\n            - Age Range: 25-34\n            - Skin Concerns: acne, hyperpigmentation, sensitivity\n            - Preferred Ingredients: hyaluronic-acid, vitamin-c, retinol\n            - Ingredients to Avoid: alcohol, sulfates, parabens\n            - Budget Range: (1700, 4200)\n            \n            \n                \n                Logic-Based Recommendations (for reference):\n                - Medicube Zero 1DAY Exosome Shot 2000ppm Needle Serum Pores Firmness Sensitive SkinUnboxJapan Exclusive ()\n- Forest Essentials Mini Delights Gift Box  6-Piece Gift Set for Face Hair & Body  Ayurvedic Skincare Gifting for Women & Men  Ideal for a Birthday or Anniversary (Forest Essentials)\n- Bioderma Sebium Hydra Cleanser with Glyc...",
+    "response": null,
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "user_profile": {
+        "skinType": "combination",
+        "ageRange": "25-34",
+        "concerns": [
+          "acne",
+          "hyperpigmentation",
+          "sensitivity"
+        ],
+        "preferredIngredients": [
+          "hyaluronic-acid",
+          "vitamin-c",
+          "retinol"
+        ],
+        "avoidIngredients": [
+          "alcohol",
+          "sulfates",
+          "parabens"
+        ],
+        "budget": [
+          1700,
+          4200
+        ]
+      },
+      "product_database_size": 326,
+      "logic_recommendations_count": 10
+    }
+  },
+  {
+    "timestamp": "2025-08-26T19:21:03.326260",
+    "interaction_type": "product_recommendations_response",
+    "prompt": "Response received",
+    "response": "```json\n[\n  {\n    \"product_name\": \"Minimalist Anti-Acne Salicylic Acid 2% Face Wash For Oily & Acne Prone Skin  With LHA for Pore Cleansing Oil Control & Sebum Regulation  Sulfate-Free Formula with Zinc for Gentle Exfoliation  Cleanser for Women & Men  100 ml\",\n    \"brand\": \"Minimalist\",\n    \"reason\": \"This sulfate-free cleanser effectively targets acne and controls oil, which is ideal for combination and acne-prone skin. Its gentle exfoliating action helps clear clogged pores without irritating sensitive skin.\",\n    \"category\": \"cleanser\",\n    \"priority\": \"high\",\n    \"price_value\": \"budget\"\n  },\n  {\n    \"product_name\": \"Cetaphil Paraben Sulphate-Free Gentle Skin Hydrating Face Wash Cleanser with Niacinamide Vitamin B5 for Dry to Normal Sensitive Skin - 125 ml\",\n    \"brand\": \"Cetaphil\",\n    \"reason\": \"Formulated to be paraben and sulfate-free, this gentle cleanser is perfect for sensitive skin. It contains Niacinamide and Vitamin B5 to hydrate and soothe, making it a great option for combination skin.\",\n    \"category\": \"cleanser\",\n    \"priority\": \"high\",\n    \"price_value\": \"budget\"\n  },\n  {\n    \"product_name\": \"The Derma Co 1 Kojic Acid Face Wash  With Niacinamide & Alpha Arbutin  Reduces Dark Spots Pigmentation & Blemishes  Cleanses & Brightens Skin  Non-Drying Formula  For All Skin Types  100 ml\",\n    \"brand\": \"The Derma Co\",\n    \"reason\": \"This face wash helps reduce dark spots, pigmentation, and blemishes, directly addressing the user's hyperpigmentation concern. It contains Kojic Acid, Niacinamide, and Alpha Arbutin for brightening, suitable for all skin types.\",\n    \"category\": \"cleanser\",\n    \"priority\": \"medium\",\n    \"price_value\": \"budget\"\n  },\n  {\n    \"product_name\": \"Plum 3 Niacinamide & Rice Water Face Toner  Alcohol-Free Toner for Oily Acne Prone Dry Combination Skin  Pore Tightening & Glowing Skin Fades Blemishes Brightens & Smoothens  Women & Men  150ml\",\n    \"brand\": \"Plum\",\n    \"reason\": \"An alcohol-free toner with Niacinamide is excellent for combi...",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "response_length": 10173
+    }
+  },
+  {
+    "timestamp": "2025-08-26T19:21:03.338010",
+    "interaction_type": "product_recommendations_parsed",
+    "prompt": "JSON parsing successful",
+    "response": "Parsed 18 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "recommendations_count": 18
+    }
+  },
+  {
+    "timestamp": "2025-08-26T19:21:03.357647",
+    "interaction_type": "product_recommendations_formatted",
+    "prompt": "Recommendations formatted successfully",
+    "response": "Formatted 17 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "formatted_count": 17,
+      "sample_recommendations": [
+        "Cetaphil Paraben Sulphate-Free Gentle Skin Hydrating Face Wash Cleanser with Niacinamide Vitamin B5 for Dry to Normal Sensitive Skin - 125 ml",
+        "The Derma Co 1 Kojic Acid Face Wash  With Niacinamide & Alpha Arbutin  Reduces Dark Spots Pigmentation & Blemishes  Cleanses & Brightens Skin  Non-Drying Formula  For All Skin Types  100 ml",
+        "Plum 3 Niacinamide & Rice Water Face Toner  Alcohol-Free Toner for Oily Acne Prone Dry Combination Skin  Pore Tightening & Glowing Skin Fades Blemishes Brightens & Smoothens  Women & Men  150ml"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-08-26T22:49:53.413060",
+    "interaction_type": "product_recommendations_prompt",
+    "prompt": "\n            You are an expert skincare consultant with access to a comprehensive product database. Based on the user profile and product database, recommend the most suitable skincare products.\n\n            \n            User Profile:\n            - Skin Type: combination\n            - Age Range: 25-34\n            - Skin Concerns: acne, hyperpigmentation\n            - Preferred Ingredients: niacinamide, retinol, vitamin-c\n            - Ingredients to Avoid: fragrance, sulfates\n            - Budget Range: (4200, 200000)\n            \n            \n                \n                Logic-Based Recommendations (for reference):\n                - Aha glow S Foaming Face Wash 100 ml (Generic)\n- logifeel imf cream for feet pack of 2  50g (SKINSMITH)\n- Taulix Kojic Acid and Turmeric Cleansing Pads for Face Dark Spots  Kojic and Turmeric Cleansing Pads  For Women & Men  Suitable for All Skin Types 50 Pieces Pack of 1 (Taulix)\n- Dermadew Glow Cream - 50 gm (Generic)\n- Plum Yuzu & Alpha Arbutin Fluid...",
+    "response": null,
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "user_profile": {
+        "skinType": "combination",
+        "ageRange": "25-34",
+        "concerns": [
+          "acne",
+          "hyperpigmentation"
+        ],
+        "preferredIngredients": [
+          "niacinamide",
+          "retinol",
+          "vitamin-c"
+        ],
+        "avoidIngredients": [
+          "fragrance",
+          "sulfates"
+        ],
+        "budget": [
+          4200,
+          200000
+        ]
+      },
+      "product_database_size": 326,
+      "logic_recommendations_count": 15
+    }
+  },
+  {
+    "timestamp": "2025-08-26T22:50:27.157148",
+    "interaction_type": "product_recommendations_response",
+    "prompt": "Response received",
+    "response": "```json\n[\n  {\n    \"product_name\": \"Minimalist Anti-Acne Salicylic Acid 2 Face Wash For Oily & Acne Prone Skin  With LHA for Pore Cleansing Oil Control & Sebum Regulation  Sulfate-Free Formula with Zinc for Gentle Exfoliation  Cleanser for Women & Men  100 ml\",\n    \"brand\": \"Minimalist\",\n    \"reason\": \"This cleanser is ideal for acne-prone combination skin as it contains salicylic acid for exfoliation and oil control. It's explicitly sulfate-free, aligning with the user's preference.\",\n    \"category\": \"cleanser\",\n    \"priority\": \"high\",\n    \"price_value\": \"budget\"\n  },\n  {\n    \"product_name\": \"CeraVe Foaming Cleanser For Normal To Oily Skin 88ml - Dermatologist-Developed Facewash  Non-Comedogenic And Fragrance-Free Cleansers For Acne-Prone Skin\",\n    \"brand\": \"CeraVe\",\n    \"reason\": \"A dermatologist-developed, fragrance-free, and non-comedogenic foaming cleanser is excellent for controlling oil and managing acne on combination skin, perfectly matching the user's needs and avoidance list.\",\n    \"category\": \"cleanser\",\n    \"priority\": \"high\",\n    \"price_value\": \"mid-range\"\n  },\n  {\n    \"product_name\": \"The Derma Co 1 Kojic Acid Face Wash  With Niacinamide & Alpha Arbutin  Reduces Dark Spots Pigmentation & Blemishes  Cleanses & Brightens Skin  Non-Drying Formula  For All Skin Types  100 ml\",\n    \"brand\": \"The Derma Co\",\n    \"reason\": \"This face wash is great for hyperpigmentation due to Kojic Acid, Niacinamide, and Alpha Arbutin. Its non-drying formula is suitable for combination skin and helps brighten the complexion.\",\n    \"category\": \"cleanser\",\n    \"priority\": \"medium\",\n    \"price_value\": \"budget\"\n  },\n  {\n    \"product_name\": \"Plum 3 Niacinamide & Rice Water Face Toner  Alcohol-Free Toner for Oily Acne Prone Dry Combination Skin  Pore Tightening & Glowing Skin Fades Blemishes Brightens & Smoothens  Women & Men  150ml\",\n    \"brand\": \"Plum\",\n    \"reason\": \"This toner features niacinamide, a preferred ingredient, to help with pore tightening, brightening, and fading bl...",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "response_length": 8715
+    }
+  },
+  {
+    "timestamp": "2025-08-26T22:50:27.168452",
+    "interaction_type": "product_recommendations_parsed",
+    "prompt": "JSON parsing successful",
+    "response": "Parsed 16 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "recommendations_count": 16
+    }
+  },
+  {
+    "timestamp": "2025-08-26T22:50:27.179438",
+    "interaction_type": "product_recommendations_formatted",
+    "prompt": "Recommendations formatted successfully",
+    "response": "Formatted 16 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "formatted_count": 16,
+      "sample_recommendations": [
+        "Minimalist Anti-Acne Salicylic Acid 2 Face Wash For Oily & Acne Prone Skin  With LHA for Pore Cleansing Oil Control & Sebum Regulation  Sulfate-Free Formula with Zinc for Gentle Exfoliation  Cleanser for Women & Men  100 ml",
+        "CeraVe Foaming Cleanser For Normal To Oily Skin 88ml - Dermatologist-Developed Facewash  Non-Comedogenic And Fragrance-Free Cleansers For Acne-Prone Skin",
+        "The Derma Co 1 Kojic Acid Face Wash  With Niacinamide & Alpha Arbutin  Reduces Dark Spots Pigmentation & Blemishes  Cleanses & Brightens Skin  Non-Drying Formula  For All Skin Types  100 ml"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-08-26T22:50:27.273585",
+    "interaction_type": "product_recommendations_prompt",
+    "prompt": "\n            You are an expert skincare consultant with access to a comprehensive product database. Based on the user profile and product database, recommend the most suitable skincare products.\n\n            \n            User Profile:\n            - Skin Type: combination\n            - Age Range: 25-34\n            - Skin Concerns: acne, hyperpigmentation\n            - Preferred Ingredients: niacinamide, retinol, vitamin-c\n            - Ingredients to Avoid: fragrance, sulfates\n            - Budget Range: (4200, 200000)\n            \n            \n                \n                Logic-Based Recommendations (for reference):\n                - Aha glow S Foaming Face Wash 100 ml (Generic)\n- logifeel imf cream for feet pack of 2  50g (SKINSMITH)\n- Taulix Kojic Acid and Turmeric Cleansing Pads for Face Dark Spots  Kojic and Turmeric Cleansing Pads  For Women & Men  Suitable for All Skin Types 50 Pieces Pack of 1 (Taulix)\n- Dermadew Glow Cream - 50 gm (Generic)\n- Plum Yuzu & Alpha Arbutin Fluid...",
+    "response": null,
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "user_profile": {
+        "skinType": "combination",
+        "ageRange": "25-34",
+        "concerns": [
+          "acne",
+          "hyperpigmentation"
+        ],
+        "preferredIngredients": [
+          "niacinamide",
+          "retinol",
+          "vitamin-c"
+        ],
+        "avoidIngredients": [
+          "fragrance",
+          "sulfates"
+        ],
+        "budget": [
+          4200,
+          200000
+        ]
+      },
+      "product_database_size": 326,
+      "logic_recommendations_count": 20
+    }
+  },
+  {
+    "timestamp": "2025-08-26T22:51:30.189962",
+    "interaction_type": "product_recommendations_response",
+    "prompt": "Response received",
+    "response": "```json\n[\n  {\n    \"product_name\": \"The Derma Co 1 Kojic Acid Face Wash  With Niacinamide & Alpha Arbutin  Reduces Dark Spots Pigmentation & Blemishes  Cleanses & Brightens Skin  Non-Drying Formula  For All Skin Types  100 ml\",\n    \"brand\": \"The Derma Co\",\n    \"reason\": \"This face wash is excellent for addressing hyperpigmentation and blemishes, thanks to its blend of Kojic Acid, Alpha Arbutin, and Niacinamide. It's formulated to be non-drying, making it suitable for combination skin.\",\n    \"category\": \"cleanser\",\n    \"priority\": \"high\",\n    \"price_value\": \"budget\"\n  },\n  {\n    \"product_name\": \"Minimalist Anti-Acne Salicylic Acid 2 Face Wash For Oily & Acne Prone Skin  With LHA for Pore Cleansing Oil Control & Sebum Regulation  Sulfate-Free Formula with Zinc for Gentle Exfoliation  Cleanser for Women & Men  100 ml\",\n    \"brand\": \"Minimalist\",\n    \"reason\": \"This sulfate-free cleanser effectively targets acne and controls oil with Salicylic Acid and Zinc, ideal for combination and acne-prone skin. It helps in deep pore cleansing and sebum regulation without harshness.\",\n    \"category\": \"cleanser\",\n    \"priority\": \"high\",\n    \"price_value\": \"budget\"\n  },\n  {\n    \"product_name\": \"CeraVe Foaming Cleanser For Normal To Oily Skin 88ml - Dermatologist-Developed Facewash  Non-Comedogenic And Fragrance-Free Cleansers For Acne-Prone Skin\",\n    \"brand\": \"CeraVe\",\n    \"reason\": \"As a fragrance-free and non-comedogenic option, this cleanser is dermatologist-developed and highly suitable for normal to oily and acne-prone skin. It cleanses effectively without stripping the skin's natural barrier.\",\n    \"category\": \"cleanser\",\n    \"priority\": \"medium\",\n    \"price_value\": \"mid-range\"\n  },\n  {\n    \"product_name\": \"Plum 3 Niacinamide & Rice Water Face Toner  Alcohol-Free Toner for Oily Acne Prone Dry Combination Skin  Pore Tightening & Glowing Skin Fades Blemishes Brightens & Smoothens  Women & Men  150ml\",\n    \"brand\": \"Plum\",\n    \"reason\": \"This alcohol-free toner with Niacinamide is...",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "response_length": 8899
+    }
+  },
+  {
+    "timestamp": "2025-08-26T22:51:30.203283",
+    "interaction_type": "product_recommendations_parsed",
+    "prompt": "JSON parsing successful",
+    "response": "Parsed 15 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "recommendations_count": 15
+    }
+  },
+  {
+    "timestamp": "2025-08-26T22:51:30.220692",
+    "interaction_type": "product_recommendations_formatted",
+    "prompt": "Recommendations formatted successfully",
+    "response": "Formatted 15 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "formatted_count": 15,
+      "sample_recommendations": [
+        "The Derma Co 1 Kojic Acid Face Wash  With Niacinamide & Alpha Arbutin  Reduces Dark Spots Pigmentation & Blemishes  Cleanses & Brightens Skin  Non-Drying Formula  For All Skin Types  100 ml",
+        "Minimalist Anti-Acne Salicylic Acid 2 Face Wash For Oily & Acne Prone Skin  With LHA for Pore Cleansing Oil Control & Sebum Regulation  Sulfate-Free Formula with Zinc for Gentle Exfoliation  Cleanser for Women & Men  100 ml",
+        "CeraVe Foaming Cleanser For Normal To Oily Skin 88ml - Dermatologist-Developed Facewash  Non-Comedogenic And Fragrance-Free Cleansers For Acne-Prone Skin"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-08-26T23:05:48.922590",
+    "interaction_type": "product_recommendations_prompt",
+    "prompt": "\n            You are an expert skincare consultant with access to a comprehensive product database. Based on the user profile and product database, recommend the most suitable skincare products.\n\n            \n            User Profile:\n            - Skin Type: sensitive\n            - Age Range: 18-24\n            - Skin Concerns: acne, hyperpigmentation\n            - Preferred Ingredients: niacinamide, hyaluronic-acid, retinol\n            - Ingredients to Avoid: fragrance, alcohol, silicones\n            - Budget Range: (400, 200000)\n            \n            \n                \n                Logic-Based Recommendations (for reference):\n                - Asaya Korean Pigmentation Serum  Hyperpigmentation & Dark Spot Remover  Tranexamic Acid Niacinamide & Arbutin  Reduces Melasma Acne Marks & Discoloration  Brightens & Evens Skin Tone  Berry Extracts for Antioxidant Protection  Lightweight & Fast Absorbing  Oily Dry Skin  Men & Women  30ml (ASAYA)\n- Novology SPF 50 PA Ultralight Gel Sunscre...",
+    "response": null,
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "user_profile": {
+        "skinType": "sensitive",
+        "ageRange": "18-24",
+        "concerns": [
+          "acne",
+          "hyperpigmentation"
+        ],
+        "preferredIngredients": [
+          "niacinamide",
+          "hyaluronic-acid",
+          "retinol"
+        ],
+        "avoidIngredients": [
+          "fragrance",
+          "alcohol",
+          "silicones"
+        ],
+        "budget": [
+          400,
+          200000
+        ]
+      },
+      "product_database_size": 326,
+      "logic_recommendations_count": 30
+    }
+  },
+  {
+    "timestamp": "2025-08-26T23:06:25.798393",
+    "interaction_type": "product_recommendations_response",
+    "prompt": "Response received",
+    "response": "```json\n[\n  {\n    \"product_name\": \"CeraVe Hydrating Cleanser For Normal To Dry Skin 88ml - Non-Foaming Face Wash with Hyaluronic Acid And Ceramides Non-Comedogenic Non-Irritating And Fragrance-Free Cleanser\",\n    \"brand\": \"CeraVe\",\n    \"reason\": \"This cleanser is explicitly 'fragrance-free', 'non-irritating', and contains 'Hyaluronic Acid' and 'Ceramides', making it ideal for sensitive skin and supporting the skin barrier. It's gentle enough for daily use without stripping.\",\n    \"category\": \"cleanser\",\n    \"priority\": \"high\",\n    \"price_value\": \"mid-range\"\n  },\n  {\n    \"product_name\": \"Cetaphil Paraben Sulphate-Free Gentle Skin Hydrating Face Wash Cleanser with Niacinamide Vitamin B5 for Dry to Normal Sensitive Skin - 250 ml\",\n    \"brand\": \"Cetaphil\",\n    \"reason\": \"Specifically formulated for 'sensitive skin' and 'paraben/sulphate-free', this cleanser contains 'Niacinamide' and 'Vitamin B5', which are excellent for calming sensitive skin and gently addressing hyperpigmentation.\",\n    \"category\": \"cleanser\",\n    \"priority\": \"high\",\n    \"price_value\": \"mid-range\"\n  },\n  {\n    \"product_name\": \"The Derma Co 1 Kojic Acid Face Wash With Niacinamide & Alpha Arbutin Reduces Dark Spots Pigmentation & Blemishes Cleanses & Brightens Skin Non-Drying Formula For All Skin Types 100 ml\",\n    \"brand\": \"The Derma Co\",\n    \"reason\": \"This face wash combines 'Niacinamide', 'Kojic Acid', and 'Alpha Arbutin', targeting hyperpigmentation and blemishes. Its 'non-drying' formula is crucial for sensitive skin while effectively cleansing.\",\n    \"category\": \"cleanser\",\n    \"priority\": \"medium\",\n    \"price_value\": \"budget\"\n  },\n  {\n    \"product_name\": \"Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc Skin ClarifyingBlemishes & Pore Care for All Skin Types 30ml Pack of 1\",\n    \"brand\": \"Minimalist\",\n    \"reason\": \"Containing a high concentration of 'Niacinamide' and 'Zinc', this serum is excellent for addressing acne, reducing blemishes, and controlling oil, while also b...",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "response_length": 10290
+    }
+  },
+  {
+    "timestamp": "2025-08-26T23:06:25.822708",
+    "interaction_type": "product_recommendations_parsed",
+    "prompt": "JSON parsing successful",
+    "response": "Parsed 19 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "recommendations_count": 19
+    }
+  },
+  {
+    "timestamp": "2025-08-26T23:06:25.852713",
+    "interaction_type": "product_recommendations_formatted",
+    "prompt": "Recommendations formatted successfully",
+    "response": "Formatted 3 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "formatted_count": 3,
+      "sample_recommendations": [
+        "Cetaphil Paraben Sulphate-Free Gentle Skin Hydrating Face Wash Cleanser with Niacinamide Vitamin B5 for Dry to Normal Sensitive Skin - 250 ml",
+        "Vilvah Store Milk Drops Brightening Serum Formulated With Rice Milk Extract Marine Algae Extract Alpha Arbutin Fades Scars Brightens Skin & Even Skin Tone For All Skin Type 20ml",
+        "Sebogel Salicylic Acid & Nicotinamide Gel for Pimples and Oily Skin 30gm"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-08-26T23:06:26.012096",
+    "interaction_type": "product_recommendations_prompt",
+    "prompt": "\n            You are an expert skincare consultant with access to a comprehensive product database. Based on the user profile and product database, recommend the most suitable skincare products.\n\n            \n            User Profile:\n            - Skin Type: sensitive\n            - Age Range: 18-24\n            - Skin Concerns: acne, hyperpigmentation\n            - Preferred Ingredients: niacinamide, hyaluronic-acid, retinol\n            - Ingredients to Avoid: fragrance, alcohol, silicones\n            - Budget Range: (400, 200000)\n            \n            \n                \n                Logic-Based Recommendations (for reference):\n                - Asaya Korean Pigmentation Serum  Hyperpigmentation & Dark Spot Remover  Tranexamic Acid Niacinamide & Arbutin  Reduces Melasma Acne Marks & Discoloration  Brightens & Evens Skin Tone  Berry Extracts for Antioxidant Protection  Lightweight & Fast Absorbing  Oily Dry Skin  Men & Women  30ml (ASAYA)\n- Novology SPF 50 PA Ultralight Gel Sunscre...",
+    "response": null,
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "user_profile": {
+        "skinType": "sensitive",
+        "ageRange": "18-24",
+        "concerns": [
+          "acne",
+          "hyperpigmentation"
+        ],
+        "preferredIngredients": [
+          "niacinamide",
+          "hyaluronic-acid",
+          "retinol"
+        ],
+        "avoidIngredients": [
+          "fragrance",
+          "alcohol",
+          "silicones"
+        ],
+        "budget": [
+          400,
+          200000
+        ]
+      },
+      "product_database_size": 326,
+      "logic_recommendations_count": 40
+    }
+  },
+  {
+    "timestamp": "2025-08-26T23:07:16.563189",
+    "interaction_type": "product_recommendations_response",
+    "prompt": "Response received",
+    "response": "Here are the skincare product recommendations tailored to your sensitive skin, acne, and hyperpigmentation concerns, while adhering to your preferred and avoided ingredients:\n\n[\n  {\n    \"product_name\": \"CeraVe Hydrating Cleanser For Normal To Dry Skin 88ml - Non-Foaming Face Wash with Hyaluronic Acid And Ceramides Non-Comedogenic Non-Irritating And Fragrance-Free Cleanser\",\n    \"brand\": \"CeraVe\",\n    \"reason\": \"This gentle, fragrance-free cleanser is perfect for sensitive skin. It contains hyaluronic acid and ceramides to hydrate and support your skin barrier without irritation, making it ideal for daily use.\",\n    \"category\": \"cleanser\",\n    \"priority\": \"high\",\n    \"price_value\": \"budget\"\n  },\n  {\n    \"product_name\": \"Cetaphil Paraben Sulphate-Free Gentle Skin Hydrating Face Wash Cleanser with Niacinamide Vitamin B5 for Dry to Normal Sensitive Skin - 125 ml\",\n    \"brand\": \"Cetaphil\",\n    \"reason\": \"Formulated specifically for sensitive skin, this cleanser is free from parabens and sulfates. It features niacinamide and vitamin B5, which help soothe skin and support barrier health while gently cleansing.\",\n    \"category\": \"cleanser\",\n    \"priority\": \"high\",\n    \"price_value\": \"budget\"\n  },\n  {\n    \"product_name\": \"The Derma Co 1 Kojic Acid Face Wash With Niacinamide & Alpha Arbutin Reduces Dark Spots Pigmentation & Blemishes Cleanses & Brightens Skin Non-Drying Formula For All Skin Types 100 ml\",\n    \"brand\": \"The Derma Co\",\n    \"reason\": \"This non-drying face wash targets hyperpigmentation and dark spots with kojic acid, alpha arbutin, and niacinamide. It effectively brightens and evens skin tone, suitable for sensitive skin looking to address discoloration.\",\n    \"category\": \"cleanser\",\n    \"priority\": \"medium\",\n    \"price_value\": \"budget\"\n  },\n  {\n    \"product_name\": \"Minimalist Oil Control & Anti-Acne 10 Niacinamide Face Serum with Zinc Skin ClarifyingBlemishes & Pore Care for All Skin Types 30ml Pack of 1\",\n    \"brand\": \"Minimalist\",\n    \"reason\": \"An excellent ...",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "response_length": 8229
+    }
+  },
+  {
+    "timestamp": "2025-08-26T23:07:16.599204",
+    "interaction_type": "product_recommendations_parsed",
+    "prompt": "JSON parsing successful",
+    "response": "Parsed 15 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "recommendations_count": 15
+    }
+  },
+  {
+    "timestamp": "2025-08-26T23:07:16.644216",
+    "interaction_type": "product_recommendations_formatted",
+    "prompt": "Recommendations formatted successfully",
+    "response": "Formatted 3 recommendations",
+    "error": null,
+    "error_traceback": null,
+    "metadata": {
+      "formatted_count": 3,
+      "sample_recommendations": [
+        "Cetaphil Paraben Sulphate-Free Gentle Skin Hydrating Face Wash Cleanser with Niacinamide Vitamin B5 for Dry to Normal Sensitive Skin - 125 ml",
+        "Dot & Key Blueberry Hydrate Barrier Repair Sunscreen Spf 50PaFor Dry&Sensitive SkinNon - Greasy FinishNo White CastUv & Blue Light ProtectionBroad SpectrumFor Women&Men50G 1 Count",
+        "Sebogel Salicylic Acid & Nicotinamide Gel for Pimples and Oily Skin 30gm"
+      ]
+    }
+  }
+]

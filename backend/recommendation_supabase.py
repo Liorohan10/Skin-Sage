@@ -205,6 +205,11 @@ class ProductRecommenderSupabase:
             
         # Calculate recommendation scores
         scores = []
+        # User range for price centering
+        pr = preferences.get('price_range') or (0, 0)
+        user_min, user_max = pr if isinstance(pr, (list, tuple)) and len(pr) == 2 else (0, 0)
+        user_mid = (user_min + user_max) / 2.0 if user_max > user_min else None
+        user_half = max((user_max - user_min) / 2.0, 1.0) if user_max > user_min else None
         for idx, product in df.iterrows():
             score = 0
             
@@ -212,13 +217,10 @@ class ProductRecommenderSupabase:
             if pd.notna(product['rating']):
                 score += (product['rating'] / 5.0) * 0.4
             
-            # Price score (20% weight) - inverse of price within range
-            if pd.notna(product['price']):
-                max_price = df['price'].max()
-                min_price = df['price'].min()
-                if max_price > min_price:
-                    price_score = 1 - ((product['price'] - min_price) / (max_price - min_price))
-                    score += price_score * 0.2
+            # Price score (20% weight) - center around user's mid range
+            if pd.notna(product['price']) and user_mid is not None:
+                rel = max(0.0, 1.0 - abs(product['price'] - user_mid) / user_half)
+                score += rel * 0.2
             
             # Filter score (40% weight) - from intelligent filtering
             if 'total_filter_score' in product:
@@ -415,23 +417,58 @@ class ProductRecommenderSupabase:
                 filtered_df.loc[compatible_match & ~exact_match, 'skin_type_score'] = 2
                 filtered_df.loc[~compatible_match, 'skin_type_score'] = 1
 
-        # Price Range Filtering (keep this as hard filter)
+        # Price Range Filtering (hard filter with controlled expansion)
         price_range = preferences.get('price_range')
         if price_range:
             min_price, max_price = price_range
             print(f"Filtering by price range: {min_price} - {max_price}")
             # Keep products within 150% of max price to account for currency differences
-            extended_max = max_price * 1.5
-            in_price_range = (filtered_df['price'] >= min_price) & (filtered_df['price'] <= extended_max) & (filtered_df['price'].notna())
+            # First, try strict in-range
+            in_price_range = (filtered_df['price'] >= min_price) & (filtered_df['price'] <= max_price) & (filtered_df['price'].notna())
             before_count = len(filtered_df)
             filtered_df = filtered_df[in_price_range]
             print(f"After price filter: {len(filtered_df)} products (was {before_count})")
             
-            # If too few products after price filter, expand the range
+            # If too few products after price filter, expand the range in a bounded way
             if len(filtered_df) < 10:
                 print("Too few products after price filter, expanding range...")
-                filtered_df = df[df['price'].notna()].copy()
-                print(f"Expanded to all priced products: {len(filtered_df)} products")
+                # Expand by +/- 15% around preferred range
+                expand_min = max(0, int(min_price * 0.85))
+                expand_max = int(max_price * 1.25)
+                expanded = df[(df['price'].notna()) & (df['price'] >= expand_min) & (df['price'] <= expand_max)].copy()
+                filtered_df = expanded
+                for col in ['skin_type_score', 'price_score', 'concern_score', 'ingredient_score']:
+                    if col not in filtered_df.columns:
+                        filtered_df[col] = 0
+                # Re-apply skin type scoring since we rebuilt filtered_df
+                if skin_type and skin_type != "Any":
+                    skin_type_lower = skin_type.lower()
+                    skin_keywords = {
+                        'dry': ['dry', 'all', 'normal', 'sensitive'],
+                        'oily': ['oily', 'all', 'combination', 'normal'],
+                        'sensitive': ['sensitive', 'all', 'normal', 'dry'],
+                        'normal': ['normal', 'all', 'sensitive'],
+                        'combination': ['combination', 'all', 'oily', 'normal']
+                    }
+                    if skin_type_lower in skin_keywords:
+                        pattern = '|'.join(skin_keywords[skin_type_lower])
+                        exact_match = filtered_df['skin_type'].str.contains(skin_type_lower, case=False, na=False)
+                        compatible_match = filtered_df['skin_type'].str.contains(pattern, case=False, na=True)
+                        filtered_df.loc[exact_match, 'skin_type_score'] = 3
+                        filtered_df.loc[compatible_match & ~exact_match, 'skin_type_score'] = 2
+                        filtered_df.loc[~compatible_match, 'skin_type_score'] = 1
+                print(f"Expanded to bounded range {expand_min}-{expand_max}: {len(filtered_df)} products")
+
+            # Compute a normalized price_score relative to the user's preferred range for use in filter scoring
+            if len(filtered_df) > 0:
+                pref_mid = (min_price + max_price) / 2.0
+                pref_half = max((max_price - min_price) / 2.0, 1.0)
+                def _price_score_row(p: float) -> float:
+                    if pd.isna(p):
+                        return 0.0
+                    rel = max(0.0, 1.0 - abs(p - pref_mid) / pref_half)  # 0..1 (1 if at mid)
+                    return round(rel * 3.0, 3)  # scale to 0..3 similar to other scores
+                filtered_df['price_score'] = filtered_df['price'].apply(_price_score_row)
 
         # Skin Concerns Scoring (not filtering)
         skin_concerns = preferences.get('skin_concerns', [])
@@ -497,7 +534,8 @@ class ProductRecommenderSupabase:
         filtered_df['total_filter_score'] = (
             filtered_df['skin_type_score'] + 
             filtered_df['concern_score'] + 
-            filtered_df['ingredient_score']
+            filtered_df['ingredient_score'] +
+            filtered_df.get('price_score', 0)
         )
         
         # Sort by total score and keep reasonable number of products
