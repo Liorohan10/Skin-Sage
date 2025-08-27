@@ -120,16 +120,16 @@ const result = await model.generateContent({
 
 #### **Next.js (.env.local)**
 ```bash
-NEXT_PUBLIC_SUPABASE_URL=https://wdkthvyucvbyrtzdediz.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIs...
-GOOGLE_API_KEY=AIzaSyCmf2hYWYn0q4frv1J_55dXvmt3edDrNS4
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+GOOGLE_API_KEY=
 ```
 
 #### **Python Backend (backend/.env)**
 ```bash
-SUPABASE_URL=https://wdkthvyucvbyrtzdediz.supabase.co
-SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIs...
-GEMINI_API_KEY=AIzaSyCmf2hYWYn0q4frv1J_55dXvmt3edDrNS4
+SUPABASE_URL=
+SUPABASE_ANON_KEY=
+GEMINI_API_KEY=
 ```
 
 ### **Testing URLs**
